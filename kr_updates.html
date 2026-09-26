@@ -1,0 +1,537 @@
+<!DOCTYPE html><html lang='ja'><head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<meta name='robots' content='noindex,nofollow,noarchive'>
+<title>韓国の先行アップデート — リネージュ2 情報収集レポート（非公式）</title>
+<link rel='icon' type='image/png' href='favicon.png'><link rel='apple-touch-icon' href='apple-touch-icon.png'>
+<link rel='preconnect' href='https://fonts.googleapis.com'><link href='https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap' rel='stylesheet'>
+<style>
+:root{
+  --ink:rgba(0,0,0,.87);--muted:#6b6f76;--line:#e5e5e5;--soft:#f3f4f6;
+  --accent:#25b4c8;--link:#1a56b5;
+  --all:#2a2a2a;--eva:rgba(6,172,210,.85);--crow:rgba(255,121,130,.9);--aden:rgba(166,17,195,.8);--unk:#9aa0a6;
+  --gacha:#d6333e;--craft:#1a56b5;--event:#6b6f76;--new:#e60012}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);
+     font-family:"Noto Sans JP",system-ui,-apple-system,"Segoe UI","Hiragino Sans",sans-serif;
+     font-size:15px;line-height:1.7}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+/* ヘッダー（公式の黒い帯に寄せる。ロゴ・画像は使わない） */
+.top{background:#141414;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pnav{margin-left:auto;display:flex;gap:4px}
+.pnav a{color:#c7cbd1;font-size:.82rem;padding:2px 10px;border-radius:3px;white-space:nowrap}
+.pnav a.on{background:#3a3d42;color:#fff}
+.pnav a:hover{text-decoration:none;color:#fff}
+.top .name{font-size:1.05rem;font-weight:500;letter-spacing:.06em}
+.top .unofficial{font-size:.68rem;border:1px solid #777;color:#ccc;padding:0 6px;border-radius:3px;white-space:nowrap}
+.sub{position:sticky;top:0;z-index:5;background:linear-gradient(#2b2e33,#1f2226);color:#fff}
+.sub .row1{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 12px;
+           padding:10px 16px 2px;font-size:.78rem;color:#c7cbd1}
+.sub .row1 b{color:#fff;font-size:1rem;font-weight:500}
+.tabs{display:flex;gap:2px;overflow-x:auto;padding:0 8px}
+.tabs a{color:#e8e8e8;padding:8px 10px 9px;font-size:.9rem;white-space:nowrap;
+        border-bottom:3px solid transparent;text-decoration:none}
+.tabs a.on{color:#9fe3ee;border-bottom-color:#9fe3ee}
+.tabs a span{font-size:.72rem;color:#aab0b8;margin-left:4px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px 10px}
+.lead{font-size:.88rem;color:var(--muted);margin:14px 0 4px}
+details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
+.guide{background:var(--soft);border-radius:6px;padding:4px 14px;margin:8px 0}
+.guide ul{font-size:.84rem;margin:4px 0 8px;padding-left:20px}
+.guide li{margin:3px 0}
+.newbox{border:1px solid #f3c5c8;background:#fff6f6;border-radius:6px;padding:10px 14px;margin:12px 0}
+.newbox b{color:var(--new)}
+.newbox ul{margin:6px 0 0;padding-left:20px;font-size:.88rem}
+.note{color:var(--muted);font-size:.85rem}
+/* 地域の見出し（公式の「薄いグレーの帯＋水色の左線」に寄せる） */
+.region{margin:24px 0 10px;background:var(--soft);border-left:6px solid var(--accent);padding:8px 12px;
+        font-size:1.1rem;font-weight:700;display:flex;justify-content:space-between;align-items:baseline;
+        scroll-margin-top:96px}
+.region small{font-size:.8rem;font-weight:400;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px;align-items:start}
+.fold{margin:10px 0 0}
+.fold>summary{font-size:.85rem}
+.fold .grid{margin-top:8px}
+.empty{color:var(--muted);font-size:.85rem;padding:4px 0}
+/* カード */
+.card{border:1px solid var(--line);border-radius:6px;padding:12px 14px;background:#fff;min-width:0}
+.card.ended{background:#fafafa}
+.card.ended .title{color:var(--muted)}
+.tags{display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+.srv{font-size:.72rem;font-weight:400;color:#fff;padding:0 5px;border-radius:4px;line-height:1.6;white-space:nowrap}
+.srv.all{background:var(--all)}.srv.eva{background:var(--eva)}.srv.crow{background:var(--crow)}
+.srv.aden{background:var(--aden)}.srv.unk{background:var(--unk)}
+.kind{font-size:.72rem;font-weight:700;padding:0 6px;border-radius:4px;border:1px solid;line-height:1.5;
+      background:#fff;white-space:nowrap}
+.kind.g{color:var(--gacha);border-color:var(--gacha)}.kind.c{color:var(--craft);border-color:var(--craft)}
+.kind.e{color:var(--event);border-color:#c5c8cd}
+.newmark{color:var(--new);font-size:.72rem;font-weight:700;margin-left:2px}
+.title{display:block;font-size:1.02rem;font-weight:500;color:var(--ink);line-height:1.5;word-break:break-word}
+.orig{font-size:.74rem;color:var(--muted);margin-top:1px;word-break:break-word}
+.meta{font-size:.78rem;color:var(--muted);margin-top:4px;display:flex;gap:4px 10px;flex-wrap:wrap}
+.period{color:var(--ink)}
+.left{font-weight:700;color:#b3261e}
+.left.soon{background:#b3261e;color:#fff;padding:0 5px;border-radius:3px}
+.left.done{color:var(--muted);font-weight:400}
+/* 期待値（公式の確率表に寄せる：黒い見出し行） */
+.ev{margin-top:10px;font-size:.8rem}
+.ev .ev-note{font-size:.72rem;color:var(--muted);margin-bottom:3px}
+.ev .ev-head{font-weight:700;margin-bottom:4px}
+.ev table{width:100%;border-collapse:collapse}
+.ev th{background:#111;color:#fff;font-weight:500;padding:4px 6px;text-align:left;font-size:.74rem;white-space:nowrap}
+.ev td{border:1px solid #d9d9d9;padding:4px 6px;vertical-align:top;word-break:break-word}
+.ev td.p{white-space:nowrap;font-weight:700;color:var(--gacha);font-variant-numeric:tabular-nums}
+.ev td.n{font-variant-numeric:tabular-nums}
+.ev td img.ico{width:26px;height:26px;vertical-align:middle;margin:0 6px 2px 0;border-radius:3px}
+/* 地域間の照合（詳しい人向け） */
+.match table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.85rem}
+.match th{background:#111;color:#fff;font-weight:500;padding:5px 8px;text-align:left}
+.match td{border-bottom:1px solid var(--line);padding:5px 8px}
+.match h3{font-size:.95rem;margin:14px 0 4px}
+.num{text-align:right;white-space:nowrap}
+.foot{background:#2b2b2b;color:#bbb;font-size:.78rem;padding:18px 16px;margin-top:30px;line-height:1.8}
+.foot b{color:#fff}
+.foot a{color:#9fe3ee}
+
+.kx-lead{font-size:.88rem;color:var(--muted);margin:14px 0 6px}
+.kx-h{margin:26px 0 10px;background:var(--soft);border-left:6px solid var(--accent);padding:8px 12px;
+      font-size:1.1rem;font-weight:700}
+.kx-cat{border:1px solid var(--line);border-radius:6px;margin:8px 0;background:#fff}
+.kx-cat>summary{padding:8px 12px;font-size:.95rem;color:var(--ink);font-weight:500}
+.kx-cat>summary span{color:var(--muted);font-size:.8rem;font-weight:400;margin-left:6px}
+.kx-cat ul{margin:0;padding:0 12px 10px 30px;font-size:.88rem}
+.kx-cat li{margin:3px 0}
+.kx-d{color:var(--muted);font-size:.78rem;margin-right:6px;white-space:nowrap}
+.kx-week{border:1px solid var(--line);border-radius:6px;padding:10px 14px;margin:10px 0;background:#fff}
+.kx-week a.t{font-weight:500;font-size:1rem}
+.kx-week .pv{font-size:.72rem;font-weight:700;color:#1a56b5;border:1px solid #1a56b5;border-radius:4px;
+             padding:0 5px;margin-left:6px}
+.kx-week ul{margin:6px 0 0;padding-left:20px;font-size:.84rem;color:var(--muted)}
+.kx-week li a{color:var(--muted)}
+</style></head><body>
+<div class='top'><span class='name'>リネージュ2 情報収集レポート</span><span class='unofficial'>非公式</span><nav class='pnav'><a href='./'>ガチャ・イベント</a><a href='kr_updates.html' class=on>韓国の先行アップデート</a></nav></div>
+<div class='sub'><div class='row1'><b>韓国の先行アップデート（エヴァ・クロウ）</b><span>17週分／6月4日以降</span></div><nav class='tabs'><a href='#cat'>項目別</a><a href='#week'>週ごと</a></nav></div>
+<div class='wrap'>
+<p class='kx-lead'>リネージュ2は韓国が本国で、韓国では毎週水曜にアップデートがあります。日本など他の地域では4か月あまりごとの大型アップデートで、それまでの韓国の更新がまとめて入ります。ここには韓国の週ごとのアップデート案内のうち、<strong>全サーバー共通</strong>と<strong>エヴァ・クロウ向け</strong>の項目を機械翻訳して載せています（本サーバー＝日本のアデン相当だけの項目は省いています）。日本に来るかどうか・いつ来るかは未定です。</p>
+<div class='kx-h' id='cat'>項目別</div>
+<details class='kx-cat'><summary>クラス・スキル<span>45件</span></summary><ul>
+<li><span class='kx-d'>9月16日（水）</span><a href='kr_updates/2026-09-16.html#s1'>クラス - ドレッドノート</a></li>
+<li><span class='kx-d'>9月16日（水）</span><a href='kr_updates/2026-09-16.html#s2'>クラス - ヴァンガード</a></li>
+<li><span class='kx-d'>9月16日（水）</span><a href='kr_updates/2026-09-16.html#s3'>スキル</a></li>
+<li><span class='kx-d'>8月26日（水）</span><a href='kr_updates/2026-08-26.html#s1'>クラス - フェニックスナイト／ヘルナイト共通</a></li>
+<li><span class='kx-d'>8月26日（水）</span><a href='kr_updates/2026-08-26.html#s2'>クラス - フェニックスナイト</a></li>
+<li><span class='kx-d'>8月26日（水）</span><a href='kr_updates/2026-08-26.html#s3'>クラス - ヘルナイト</a></li>
+<li><span class='kx-d'>8月19日（水）</span><a href='kr_updates/2026-08-19.html#s1'>スキル</a></li>
+<li><span class='kx-d'>8月12日（水）</span><a href='kr_updates/2026-08-12.html#s1'>クラス – アドベンチャラー／ウインドライダー／ゴーストハンター</a></li>
+<li><span class='kx-d'>8月5日（水）</span><a href='kr_updates/2026-08-05.html#s1'>クラス - アドベンチャラー／ウインドライダー／ゴーストハンター</a></li>
+<li><span class='kx-d'>7月29日（水）</span><a href='kr_updates/2026-07-29.html#s1'>クラス - マエストロ</a></li>
+<li><span class='kx-d'>7月29日（水）</span><a href='kr_updates/2026-07-29.html#s2'>クラス - フォーチュンシーカー</a></li>
+<li><span class='kx-d'>7月29日（水）</span><a href='kr_updates/2026-07-29.html#s4'>スキル</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s1'>クラス - マエストロ（Maestro）</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s2'>クラス - フォーチュンシーカー（Fortune Seeker）</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s8'>クラス - バルカス</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s9'>クラス - ドワーフ共通</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s10'>フォーチュンシーカー クラス</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s11'>クラス - マエストロ</a></li>
+<li><span class='kx-d'>7月1日（水）</span><a href='kr_updates/2026-07-01.html#s3'>クラス - セイクリッドテンプラー</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s10'>エヴァスドテンプラー</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s11'>シリエンテンプラー</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s12'>セイクリッドテンプラー</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s13'>ヘルナイト</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s14'>デュアリスト</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s15'>ソウルハウンド</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s16'>アドベンチャラー</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s17'>ウインドライダー</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s18'>ゴーストハンター</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s19'>デスナイト（ヒューマン）</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s20'>デスナイト（エルフ）</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s21'>デスナイト（ダークエルフ）</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s22'>スピリット</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s23'>エレメンタルマスター</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s24'>ローズベイン</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s25'>ミスティックミューズ</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s26'>アークメイジ、ソウルテイカー、ストーム スクリーマー</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s27'>エヴァスセイント、シリエンセイント、ハイロファント</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s28'>カーディナル</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s29'>スピリット</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s30'>エレメンタルマスター</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s31'>ローズベイン</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s32'>スキル エンチャント</a></li>
+<li><span class='kx-d'>6月17日（水）</span><a href='kr_updates/2026-06-17.html#s1'>クラス更新 - アサシン</a></li>
+<li><span class='kx-d'>6月10日（水）</span><a href='kr_updates/2026-06-10.html#s4'>クラス・スキル</a></li>
+<li><span class='kx-d'>6月4日（木）</span><a href='kr_updates/2026-06-04.html#s4'>クラス</a></li>
+</ul></details>
+<details class='kx-cat'><summary>狩場・インスタンスゾーン・ボス<span>20件</span></summary><ul>
+<li><span class='kx-d'>9月16日（水）</span><a href='kr_updates/2026-09-16.html#s5'>狩場</a></li>
+<li><span class='kx-d'>9月9日（水）</span><a href='kr_updates/2026-09-09.html#s2'>狩場</a></li>
+<li><span class='kx-d'>9月2日（水）</span><a href='kr_updates/2026-09-02.html#s2'>狩場・インスタンスゾーン・ボス</a></li>
+<li><span class='kx-d'>8月26日（水）</span><a href='kr_updates/2026-08-26.html#s5'>狩場 - クルマ塔 深層</a></li>
+<li><span class='kx-d'>8月26日（水）</span><a href='kr_updates/2026-08-26.html#s7'>マッチングダンジョン</a></li>
+<li><span class='kx-d'>8月5日（水）</span><a href='kr_updates/2026-08-05.html#s2'>狩場 - トレック オークキャンプ地</a></li>
+<li><span class='kx-d'>8月5日（水）</span><a href='kr_updates/2026-08-05.html#s3'>狩場</a></li>
+<li><span class='kx-d'>7月29日（水）</span><a href='kr_updates/2026-07-29.html#s5'>狩場 - 放棄された炭鉱</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s13'>狩場 - 放棄された炭鉱</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s21'>狩場</a></li>
+<li><span class='kx-d'>7月8日（水）</span><a href='kr_updates/2026-07-08.html#s4'>特殊狩場 - 鋼鉄の心の要塞</a></li>
+<li><span class='kx-d'>7月8日（水）</span><a href='kr_updates/2026-07-08.html#s5'>特殊狩場 - 水竜の峡谷</a></li>
+<li><span class='kx-d'>7月8日（水）</span><a href='kr_updates/2026-07-08.html#s6'>狩場</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s4'>アデン研究所</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s5'>ワールドレイド - ドラゴンレイド</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s6'>インスタンスゾーン</a></li>
+<li><span class='kx-d'>6月17日（水）</span><a href='kr_updates/2026-06-17.html#s4'>ワールドレイド - ドラゴンレイド</a></li>
+<li><span class='kx-d'>6月17日（水）</span><a href='kr_updates/2026-06-17.html#s5'>狩場 - フェアリー占領地</a></li>
+<li><span class='kx-d'>6月4日（木）</span><a href='kr_updates/2026-06-04.html#s5'>狩場 - 温泉地帯</a></li>
+<li><span class='kx-d'>6月4日（木）</span><a href='kr_updates/2026-06-04.html#s6'>特殊狩場 - テンペストの遺跡</a></li>
+</ul></details>
+<details class='kx-cat'><summary>アイテム・装備<span>5件</span></summary><ul>
+<li><span class='kx-d'>8月26日（水）</span><a href='kr_updates/2026-08-26.html#s6'>アイテム</a></li>
+<li><span class='kx-d'>6月10日（水）</span><a href='kr_updates/2026-06-10.html#s3'>アイテム・装備</a></li>
+<li><span class='kx-d'>6月4日（木）</span><a href='kr_updates/2026-06-04.html#s1'>人形</a></li>
+<li><span class='kx-d'>6月4日（木）</span><a href='kr_updates/2026-06-04.html#s2'>人形</a></li>
+<li><span class='kx-d'>6月4日（木）</span><a href='kr_updates/2026-06-04.html#s3'>アイテム - 宝石</a></li>
+</ul></details>
+<details class='kx-cat'><summary>特殊製作・ストア<span>31件</span></summary><ul>
+<li><span class='kx-d'>9月23日（水）</span><a href='kr_updates/2026-09-23.html#s6'>特殊製作 - エヴァ＆ウルフ＆バラカス／一閃＆抜刀 サーバー</a></li>
+<li><span class='kx-d'>9月16日（水）</span><a href='kr_updates/2026-09-16.html#s8'>特殊製作 - エヴァ&amp;ウルフ&amp;バラカス/一閃&amp;抜刀 サーバー</a></li>
+<li><span class='kx-d'>9月9日（水）</span><a href='kr_updates/2026-09-09.html#s5'>L2ストア - エヴァ&amp;ウルフ&amp;バラカス／一閃&amp;抜刀 サーバー</a></li>
+<li><span class='kx-d'>9月9日（水）</span><a href='kr_updates/2026-09-09.html#s6'>特殊製作 - エヴァ&amp;ウルフ&amp;バラカス／一閃&amp;抜刀 サーバー</a></li>
+<li><span class='kx-d'>9月2日（水）</span><a href='kr_updates/2026-09-02.html#s7'>L2ストア - エヴァ&amp;ウルフ&amp;バラカス/一閃&amp;抜刀 サーバー</a></li>
+<li><span class='kx-d'>9月2日（水）</span><a href='kr_updates/2026-09-02.html#s8'>特殊製作 - エヴァ・ウルフ・バラカス／一閃・抜刀 サーバー</a></li>
+<li><span class='kx-d'>8月26日（水）</span><a href='kr_updates/2026-08-26.html#s11'>特殊製作 - エヴァ／ウルフ／バラカス／一閃・抜刀 サーバー</a></li>
+<li><span class='kx-d'>8月19日（水）</span><a href='kr_updates/2026-08-19.html#s5'>特殊製作 - エヴァ＆ウルフ＆バラカス／一閃＆抜刀 サーバー</a></li>
+<li><span class='kx-d'>8月12日（水）</span><a href='kr_updates/2026-08-12.html#s10'>L2ストア - エヴァ&amp;ウルフ&amp;バラカス／一閃&amp;抜刀 サーバー</a></li>
+<li><span class='kx-d'>8月12日（水）</span><a href='kr_updates/2026-08-12.html#s11'>ユニークショップ - エヴァ・ウルフ・バラカス／一閃・抜刀 サーバー</a></li>
+<li><span class='kx-d'>8月12日（水）</span><a href='kr_updates/2026-08-12.html#s12'>特殊製作 – エヴァ・ウルフ・バラカス／一閃・抜刀 サーバー</a></li>
+<li><span class='kx-d'>8月5日（水）</span><a href='kr_updates/2026-08-05.html#s4'>特殊製作 - エヴァ＆ウルフ＆バラカス／一閃＆抜刀 サーバー</a></li>
+<li><span class='kx-d'>7月29日（水）</span><a href='kr_updates/2026-07-29.html#s7'>L2ストア - エヴァ＆ウルフ＆バラカス サーバー</a></li>
+<li><span class='kx-d'>7月29日（水）</span><a href='kr_updates/2026-07-29.html#s8'>特殊製作 - エヴァ＆ウルフ＆バラカス サーバー</a></li>
+<li><span class='kx-d'>7月29日（水）</span><a href='kr_updates/2026-07-29.html#s9'>L2ストア - 一閃&amp;抜刀 サーバー</a></li>
+<li><span class='kx-d'>7月29日（水）</span><a href='kr_updates/2026-07-29.html#s10'>特殊製作 - 一閃&amp;抜刀 サーバー</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s3'>L2ストア - エヴァ・ウルフ・バラカス サーバー</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s4'>L2ストア - 一閃・抜刀 サーバー</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s5'>特殊製作 - エヴァ・ウルフ・バラカス／一閃・抜刀 サーバー</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s12'>マエストロ製作所</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s15'>血盟ショップ</a></li>
+<li><span class='kx-d'>7月15日（水）</span><a href='kr_updates/2026-07-15.html#s1'>L2ストア - エヴァ／ウルフ／バラカス／一閃／抜刀 サーバー</a></li>
+<li><span class='kx-d'>7月15日（水）</span><a href='kr_updates/2026-07-15.html#s2'>特殊製作 - エヴァ／ウルフ／バラカス／一閃／抜刀 サーバー</a></li>
+<li><span class='kx-d'>7月8日（水）</span><a href='kr_updates/2026-07-08.html#s1'>特殊製作 - エヴァ＆ウルフ＆バラカス／一閃＆抜刀 サーバー</a></li>
+<li><span class='kx-d'>7月1日（水）</span><a href='kr_updates/2026-07-01.html#s1'>ユニークショップ - エヴァ＆ウルフ＆バラカス／一閃＆抜刀 サーバー</a></li>
+<li><span class='kx-d'>7月1日（水）</span><a href='kr_updates/2026-07-01.html#s2'>特殊製作 - エヴァ＆ウルフ＆バラカス／一閃＆抜刀 サーバー</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s1'>特殊製作 - エヴァ／ウルフ／バラカス／一閃／抜刀</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s3'>SP袋 - エヴァ&amp;ウルフ&amp;バラカス／一閃&amp;抜刀 サーバー</a></li>
+<li><span class='kx-d'>6月17日（水）</span><a href='kr_updates/2026-06-17.html#s7'>特殊製作 - エヴァ／ウルフ／バラカス&amp;一閃／抜刀</a></li>
+<li><span class='kx-d'>6月10日（水）</span><a href='kr_updates/2026-06-10.html#s1'>L2ストア - エヴァ・ウルフ・バラカス／一閃・抜刀 サーバー</a></li>
+<li><span class='kx-d'>6月10日（水）</span><a href='kr_updates/2026-06-10.html#s2'>特殊製作 - エヴァ・ウルフ・バラカス／一閃・抜刀 サーバー</a></li>
+</ul></details>
+<details class='kx-cat'><summary>イベント<span>27件</span></summary><ul>
+<li><span class='kx-d'>9月23日（水）</span><a href='kr_updates/2026-09-23.html#s1'>イベント - アデンの豊かさを守れ！</a></li>
+<li><span class='kx-d'>9月23日（水）</span><a href='kr_updates/2026-09-23.html#s4'>イベント - 秋夕（チュソク）</a></li>
+<li><span class='kx-d'>9月23日（水）</span><a href='kr_updates/2026-09-23.html#s5'>イベント - アデンの豊かさを守れ！</a></li>
+<li><span class='kx-d'>9月16日（水）</span><a href='kr_updates/2026-09-16.html#s7'>イベント - 月光海岸の伝説</a></li>
+<li><span class='kx-d'>9月9日（水）</span><a href='kr_updates/2026-09-09.html#s1'>イベント - ケルビムの城砦</a></li>
+<li><span class='kx-d'>9月9日（水）</span><a href='kr_updates/2026-09-09.html#s4'>イベント - 出席チェック（エヴァ&amp;ウルフ&amp;バラカス／一閃&amp;抜刀 サーバー）</a></li>
+<li><span class='kx-d'>9月2日（水）</span><a href='kr_updates/2026-09-02.html#s5'>イベント - 秋の花火祭り</a></li>
+<li><span class='kx-d'>9月2日（水）</span><a href='kr_updates/2026-09-02.html#s6'>イベント - 天上の塔</a></li>
+<li><span class='kx-d'>8月19日（水）</span><a href='kr_updates/2026-08-19.html#s2'>イベント - レベンハルトの試練場</a></li>
+<li><span class='kx-d'>8月19日（水）</span><a href='kr_updates/2026-08-19.html#s3'>イベント - ドラゴンの卵孵化</a></li>
+<li><span class='kx-d'>8月19日（水）</span><a href='kr_updates/2026-08-19.html#s4'>イベント - 古代の遺跡</a></li>
+<li><span class='kx-d'>8月12日（水）</span><a href='kr_updates/2026-08-12.html#s4'>イベント - 天上の塔</a></li>
+<li><span class='kx-d'>8月12日（水）</span><a href='kr_updates/2026-08-12.html#s6'>イベント - 古代の遺跡</a></li>
+<li><span class='kx-d'>8月12日（水）</span><a href='kr_updates/2026-08-12.html#s7'>イベント – 費用割引イベント</a></li>
+<li><span class='kx-d'>8月12日（水）</span><a href='kr_updates/2026-08-12.html#s9'>イベント - 出席チェック（エヴァ&amp;ウルフ&amp;バラカス／一閃&amp;抜刀 サーバー）</a></li>
+<li><span class='kx-d'>7月29日（水）</span><a href='kr_updates/2026-07-29.html#s6'>イベント - キングスイカ</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s7'>イベント - ギラン港へようこそ（エヴァ＆ウルフ＆バラカス／一閃＆抜刀サーバー）</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s14'>イベント - ゴーレム レイド</a></li>
+<li><span class='kx-d'>7月15日（水）</span><a href='kr_updates/2026-07-15.html#s3'>ペイバックイベント - エヴァ／ウルフ／バラカス／一閃／抜刀 サーバー</a></li>
+<li><span class='kx-d'>7月15日（水）</span><a href='kr_updates/2026-07-15.html#s7'>イベント - 出席チェック（エヴァ&amp;ウルフ&amp;バラカス／一閃&amp;抜刀 サーバー）</a></li>
+<li><span class='kx-d'>7月8日（水）</span><a href='kr_updates/2026-07-08.html#s2'>イベント - マスタートマを探そう</a></li>
+<li><span class='kx-d'>7月1日（水）</span><a href='kr_updates/2026-07-01.html#s4'>イベント - 酷暑討伐戦</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s2'>イベント</a></li>
+<li><span class='kx-d'>6月17日（水）</span><a href='kr_updates/2026-06-17.html#s6'>イベント</a></li>
+<li><span class='kx-d'>6月10日（水）</span><a href='kr_updates/2026-06-10.html#s6'>イベント - 「頑張れ！大韓民国」</a></li>
+<li><span class='kx-d'>6月10日（水）</span><a href='kr_updates/2026-06-10.html#s7'>イベント - ワニの島浄化する</a></li>
+<li><span class='kx-d'>6月4日（木）</span><a href='kr_updates/2026-06-04.html#s7'>イベント</a></li>
+</ul></details>
+<details class='kx-cat'><summary>PvP・攻城戦・要塞戦<span>6件</span></summary><ul>
+<li><span class='kx-d'>9月23日（水）</span><a href='kr_updates/2026-09-23.html#s2'>要塞戦</a></li>
+<li><span class='kx-d'>9月16日（水）</span><a href='kr_updates/2026-09-16.html#s4'>要塞戦</a></li>
+<li><span class='kx-d'>8月12日（水）</span><a href='kr_updates/2026-08-12.html#s3'>キルログ</a></li>
+<li><span class='kx-d'>8月12日（水）</span><a href='kr_updates/2026-08-12.html#s5'>イベント - 要塞戦</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s16'>リベンジシステム</a></li>
+<li><span class='kx-d'>7月15日（水）</span><a href='kr_updates/2026-07-15.html#s4'>攻城戦</a></li>
+</ul></details>
+<details class='kx-cat'><summary>ミッション・報酬<span>11件</span></summary><ul>
+<li><span class='kx-d'>9月2日（水）</span><a href='kr_updates/2026-09-02.html#s1'>モンスター討伐</a></li>
+<li><span class='kx-d'>9月2日（水）</span><a href='kr_updates/2026-09-02.html#s3'>成長ボーナス</a></li>
+<li><span class='kx-d'>8月26日（水）</span><a href='kr_updates/2026-08-26.html#s8'>ミッション</a></li>
+<li><span class='kx-d'>8月19日（水）</span><a href='kr_updates/2026-08-19.html#s6'>ミッション</a></li>
+<li><span class='kx-d'>7月8日（水）</span><a href='kr_updates/2026-07-08.html#s3'>ミッション - エヴァ＆ウルフ＆バラカス／一閃＆抜刀 サーバー</a></li>
+<li><span class='kx-d'>7月8日（水）</span><a href='kr_updates/2026-07-08.html#s8'>クエスト</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s7'>下級ボス報酬</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s8'>上級ボス報酬</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s9'>共通</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s33'>ミッション - エヴァ・ウルフ・バラカス/一閃・抜刀 サーバー</a></li>
+<li><span class='kx-d'>6月17日（水）</span><a href='kr_updates/2026-06-17.html#s3'>イベント - 出席チェック（エヴァ、ウルフ、バラカス、一閃、抜刀サーバー）</a></li>
+</ul></details>
+<details class='kx-cat'><summary>システム・UI・その他<span>39件</span></summary><ul>
+<li><span class='kx-d'>9月23日（水）</span><a href='kr_updates/2026-09-23.html#s3'>ヴァンガード</a></li>
+<li><span class='kx-d'>9月23日（水）</span><a href='kr_updates/2026-09-23.html#s7'>その他の変更事項</a></li>
+<li><span class='kx-d'>9月16日（水）</span><a href='kr_updates/2026-09-16.html#s6'>血族</a></li>
+<li><span class='kx-d'>9月16日（水）</span><a href='kr_updates/2026-09-16.html#s9'>その他の変更事項</a></li>
+<li><span class='kx-d'>9月9日（水）</span><a href='kr_updates/2026-09-09.html#s7'>その他の変更事項</a></li>
+<li><span class='kx-d'>9月2日（水）</span><a href='kr_updates/2026-09-02.html#s4'>環境設定</a></li>
+<li><span class='kx-d'>9月2日（水）</span><a href='kr_updates/2026-09-02.html#s9'>その他の変更事項</a></li>
+<li><span class='kx-d'>8月26日（水）</span><a href='kr_updates/2026-08-26.html#s4'>モンスター侵攻</a></li>
+<li><span class='kx-d'>8月26日（水）</span><a href='kr_updates/2026-08-26.html#s9'>インスタンスゾーンランキング</a></li>
+<li><span class='kx-d'>8月26日（水）</span><a href='kr_updates/2026-08-26.html#s10'>アイテム基本防御力減少効果表記</a></li>
+<li><span class='kx-d'>8月26日（水）</span><a href='kr_updates/2026-08-26.html#s12'>その他の変更事項</a></li>
+<li><span class='kx-d'>8月19日（水）</span><a href='kr_updates/2026-08-19.html#s7'>その他の変更事項</a></li>
+<li><span class='kx-d'>8月12日（水）</span><a href='kr_updates/2026-08-12.html#s2'>外形</a></li>
+<li><span class='kx-d'>8月12日（水）</span><a href='kr_updates/2026-08-12.html#s13'>UI</a></li>
+<li><span class='kx-d'>8月12日（水）</span><a href='kr_updates/2026-08-12.html#s14'>その他の変更事項</a></li>
+<li><span class='kx-d'>8月5日（水）</span><a href='kr_updates/2026-08-05.html#s5'>その他の変更事項</a></li>
+<li><span class='kx-d'>7月29日（水）</span><a href='kr_updates/2026-07-29.html#s3'>チャット</a></li>
+<li><span class='kx-d'>7月29日（水）</span><a href='kr_updates/2026-07-29.html#s11'>その他の変更事項</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s17'>経験値復旧システム</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s18'>UI</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s19'>スキルツールチップの改善</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s20'>着飾り</a></li>
+<li><span class='kx-d'>7月22日（水）</span><a href='kr_updates/2026-07-22.html#s22'>その他の変更事項</a></li>
+<li><span class='kx-d'>7月15日（水）</span><a href='kr_updates/2026-07-15.html#s5'>集魂</a></li>
+<li><span class='kx-d'>7月15日（水）</span><a href='kr_updates/2026-07-15.html#s8'>ワールド 取引所</a></li>
+<li><span class='kx-d'>7月15日（水）</span><a href='kr_updates/2026-07-15.html#s9'>その他の変更事項</a></li>
+<li><span class='kx-d'>7月8日（水）</span><a href='kr_updates/2026-07-08.html#s7'>暗黒軍団の侵攻</a></li>
+<li><span class='kx-d'>7月8日（水）</span><a href='kr_updates/2026-07-08.html#s9'>その他の変更事項</a></li>
+<li><span class='kx-d'>7月1日（水）</span><a href='kr_updates/2026-07-01.html#s5'>ランキング</a></li>
+<li><span class='kx-d'>7月1日（水）</span><a href='kr_updates/2026-07-01.html#s6'>その他の変更事項</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s34'>アイテム ツールチップ改善</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s35'>ワールド 取引所</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s36'>UI</a></li>
+<li><span class='kx-d'>6月24日（水）</span><a href='kr_updates/2026-06-24.html#s37'>その他変更事項</a></li>
+<li><span class='kx-d'>6月17日（水）</span><a href='kr_updates/2026-06-17.html#s8'>その他の変更事項</a></li>
+<li><span class='kx-d'>6月10日（水）</span><a href='kr_updates/2026-06-10.html#s5'>キャラクター情報</a></li>
+<li><span class='kx-d'>6月10日（水）</span><a href='kr_updates/2026-06-10.html#s8'>テレポート改善</a></li>
+<li><span class='kx-d'>6月10日（水）</span><a href='kr_updates/2026-06-10.html#s9'>その他の変更内容</a></li>
+<li><span class='kx-d'>6月4日（木）</span><a href='kr_updates/2026-06-04.html#s8'>その他の変更事項</a></li>
+</ul></details>
+<div class='kx-h' id='week'>週ごと</div>
+<div class='kx-week'><a class='t' href='kr_updates/2026-09-23.html'>9月23日（水） のアップデート</a><ul>
+<li><a href='kr_updates/2026-09-23.html#s1'>イベント - アデンの豊かさを守れ！</a></li>
+<li><a href='kr_updates/2026-09-23.html#s2'>要塞戦</a></li>
+<li><a href='kr_updates/2026-09-23.html#s3'>ヴァンガード</a></li>
+<li><a href='kr_updates/2026-09-23.html#s4'>イベント - 秋夕（チュソク）</a></li>
+<li><a href='kr_updates/2026-09-23.html#s5'>イベント - アデンの豊かさを守れ！</a></li>
+<li><a href='kr_updates/2026-09-23.html#s6'>特殊製作 - エヴァ＆ウルフ＆バラカス／一閃＆抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-09-23.html#s7'>その他の変更事項</a></li>
+</ul></div>
+<div class='kx-week'><a class='t' href='kr_updates/2026-09-16.html'>9月16日（水） のアップデート</a><ul>
+<li><a href='kr_updates/2026-09-16.html#s1'>クラス - ドレッドノート</a></li>
+<li><a href='kr_updates/2026-09-16.html#s2'>クラス - ヴァンガード</a></li>
+<li><a href='kr_updates/2026-09-16.html#s3'>スキル</a></li>
+<li><a href='kr_updates/2026-09-16.html#s4'>要塞戦</a></li>
+<li><a href='kr_updates/2026-09-16.html#s5'>狩場</a></li>
+<li><a href='kr_updates/2026-09-16.html#s6'>血族</a></li>
+<li><a href='kr_updates/2026-09-16.html#s7'>イベント - 月光海岸の伝説</a></li>
+<li><a href='kr_updates/2026-09-16.html#s8'>特殊製作 - エヴァ&amp;ウルフ&amp;バラカス/一閃&amp;抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-09-16.html#s9'>その他の変更事項</a></li>
+</ul></div>
+<div class='kx-week'><a class='t' href='kr_updates/2026-09-09.html'>9月9日（水） のアップデート</a><ul>
+<li><a href='kr_updates/2026-09-09.html#s1'>イベント - ケルビムの城砦</a></li>
+<li><a href='kr_updates/2026-09-09.html#s2'>狩場</a></li>
+<li><a href='kr_updates/2026-09-09.html#s4'>イベント - 出席チェック（エヴァ&amp;ウルフ&amp;バラカス／一閃&amp;抜刀 サーバー）</a></li>
+<li><a href='kr_updates/2026-09-09.html#s5'>L2ストア - エヴァ&amp;ウルフ&amp;バラカス／一閃&amp;抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-09-09.html#s6'>特殊製作 - エヴァ&amp;ウルフ&amp;バラカス／一閃&amp;抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-09-09.html#s7'>その他の変更事項</a></li>
+</ul></div>
+<div class='kx-week'><a class='t' href='kr_updates/2026-09-02.html'>9月2日（水） のアップデート</a><ul>
+<li><a href='kr_updates/2026-09-02.html#s1'>モンスター討伐</a></li>
+<li><a href='kr_updates/2026-09-02.html#s2'>狩場・インスタンスゾーン・ボス</a></li>
+<li><a href='kr_updates/2026-09-02.html#s3'>成長ボーナス</a></li>
+<li><a href='kr_updates/2026-09-02.html#s4'>環境設定</a></li>
+<li><a href='kr_updates/2026-09-02.html#s5'>イベント - 秋の花火祭り</a></li>
+<li><a href='kr_updates/2026-09-02.html#s6'>イベント - 天上の塔</a></li>
+<li><a href='kr_updates/2026-09-02.html#s7'>L2ストア - エヴァ&amp;ウルフ&amp;バラカス/一閃&amp;抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-09-02.html#s8'>特殊製作 - エヴァ・ウルフ・バラカス／一閃・抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-09-02.html#s9'>その他の変更事項</a></li>
+</ul></div>
+<div class='kx-week'><a class='t' href='kr_updates/2026-08-26.html'>8月26日（水） のアップデート</a><ul>
+<li><a href='kr_updates/2026-08-26.html#s1'>クラス - フェニックスナイト／ヘルナイト共通</a></li>
+<li><a href='kr_updates/2026-08-26.html#s2'>クラス - フェニックスナイト</a></li>
+<li><a href='kr_updates/2026-08-26.html#s3'>クラス - ヘルナイト</a></li>
+<li><a href='kr_updates/2026-08-26.html#s4'>モンスター侵攻</a></li>
+<li><a href='kr_updates/2026-08-26.html#s5'>狩場 - クルマ塔 深層</a></li>
+<li><a href='kr_updates/2026-08-26.html#s6'>アイテム</a></li>
+<li><a href='kr_updates/2026-08-26.html#s7'>マッチングダンジョン</a></li>
+<li><a href='kr_updates/2026-08-26.html#s8'>ミッション</a></li>
+<li><a href='kr_updates/2026-08-26.html#s9'>インスタンスゾーンランキング</a></li>
+<li><a href='kr_updates/2026-08-26.html#s10'>アイテム基本防御力減少効果表記</a></li>
+<li><a href='kr_updates/2026-08-26.html#s11'>特殊製作 - エヴァ／ウルフ／バラカス／一閃・抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-08-26.html#s12'>その他の変更事項</a></li>
+</ul></div>
+<div class='kx-week'><a class='t' href='kr_updates/2026-08-19.html'>8月19日（水） のアップデート</a><ul>
+<li><a href='kr_updates/2026-08-19.html#s1'>スキル</a></li>
+<li><a href='kr_updates/2026-08-19.html#s2'>イベント - レベンハルトの試練場</a></li>
+<li><a href='kr_updates/2026-08-19.html#s3'>イベント - ドラゴンの卵孵化</a></li>
+<li><a href='kr_updates/2026-08-19.html#s4'>イベント - 古代の遺跡</a></li>
+<li><a href='kr_updates/2026-08-19.html#s5'>特殊製作 - エヴァ＆ウルフ＆バラカス／一閃＆抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-08-19.html#s6'>ミッション</a></li>
+<li><a href='kr_updates/2026-08-19.html#s7'>その他の変更事項</a></li>
+</ul></div>
+<div class='kx-week'><a class='t' href='kr_updates/2026-08-12.html'>8月12日（水） のアップデート</a><ul>
+<li><a href='kr_updates/2026-08-12.html#s1'>クラス – アドベンチャラー／ウインドライダー／ゴーストハンター</a></li>
+<li><a href='kr_updates/2026-08-12.html#s2'>外形</a></li>
+<li><a href='kr_updates/2026-08-12.html#s3'>キルログ</a></li>
+<li><a href='kr_updates/2026-08-12.html#s4'>イベント - 天上の塔</a></li>
+<li><a href='kr_updates/2026-08-12.html#s5'>イベント - 要塞戦</a></li>
+<li><a href='kr_updates/2026-08-12.html#s6'>イベント - 古代の遺跡</a></li>
+<li><a href='kr_updates/2026-08-12.html#s7'>イベント – 費用割引イベント</a></li>
+<li><a href='kr_updates/2026-08-12.html#s9'>イベント - 出席チェック（エヴァ&amp;ウルフ&amp;バラカス／一閃&amp;抜刀 サーバー）</a></li>
+<li><a href='kr_updates/2026-08-12.html#s10'>L2ストア - エヴァ&amp;ウルフ&amp;バラカス／一閃&amp;抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-08-12.html#s11'>ユニークショップ - エヴァ・ウルフ・バラカス／一閃・抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-08-12.html#s12'>特殊製作 – エヴァ・ウルフ・バラカス／一閃・抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-08-12.html#s13'>UI</a></li>
+<li><a href='kr_updates/2026-08-12.html#s14'>その他の変更事項</a></li>
+</ul></div>
+<div class='kx-week'><a class='t' href='kr_updates/2026-08-05.html'>8月5日（水） のアップデート</a><ul>
+<li><a href='kr_updates/2026-08-05.html#s1'>クラス - アドベンチャラー／ウインドライダー／ゴーストハンター</a></li>
+<li><a href='kr_updates/2026-08-05.html#s2'>狩場 - トレック オークキャンプ地</a></li>
+<li><a href='kr_updates/2026-08-05.html#s3'>狩場</a></li>
+<li><a href='kr_updates/2026-08-05.html#s4'>特殊製作 - エヴァ＆ウルフ＆バラカス／一閃＆抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-08-05.html#s5'>その他の変更事項</a></li>
+</ul></div>
+<div class='kx-week'><a class='t' href='kr_updates/2026-07-29.html'>7月29日（水） のアップデート</a><ul>
+<li><a href='kr_updates/2026-07-29.html#s1'>クラス - マエストロ</a></li>
+<li><a href='kr_updates/2026-07-29.html#s2'>クラス - フォーチュンシーカー</a></li>
+<li><a href='kr_updates/2026-07-29.html#s3'>チャット</a></li>
+<li><a href='kr_updates/2026-07-29.html#s4'>スキル</a></li>
+<li><a href='kr_updates/2026-07-29.html#s5'>狩場 - 放棄された炭鉱</a></li>
+<li><a href='kr_updates/2026-07-29.html#s6'>イベント - キングスイカ</a></li>
+<li><a href='kr_updates/2026-07-29.html#s7'>L2ストア - エヴァ＆ウルフ＆バラカス サーバー</a></li>
+<li><a href='kr_updates/2026-07-29.html#s8'>特殊製作 - エヴァ＆ウルフ＆バラカス サーバー</a></li>
+<li><a href='kr_updates/2026-07-29.html#s9'>L2ストア - 一閃&amp;抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-07-29.html#s10'>特殊製作 - 一閃&amp;抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-07-29.html#s11'>その他の変更事項</a></li>
+</ul></div>
+<div class='kx-week'><a class='t' href='kr_updates/2026-07-22.html'>7月22日（水） のアップデート</a><ul>
+<li><a href='kr_updates/2026-07-22.html#s1'>クラス - マエストロ（Maestro）</a></li>
+<li><a href='kr_updates/2026-07-22.html#s2'>クラス - フォーチュンシーカー（Fortune Seeker）</a></li>
+<li><a href='kr_updates/2026-07-22.html#s3'>L2ストア - エヴァ・ウルフ・バラカス サーバー</a></li>
+<li><a href='kr_updates/2026-07-22.html#s4'>L2ストア - 一閃・抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-07-22.html#s5'>特殊製作 - エヴァ・ウルフ・バラカス／一閃・抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-07-22.html#s7'>イベント - ギラン港へようこそ（エヴァ＆ウルフ＆バラカス／一閃＆抜刀サーバー）</a></li>
+<li><a href='kr_updates/2026-07-22.html#s8'>クラス - バルカス</a></li>
+<li><a href='kr_updates/2026-07-22.html#s9'>クラス - ドワーフ共通</a></li>
+<li><a href='kr_updates/2026-07-22.html#s10'>フォーチュンシーカー クラス</a></li>
+<li><a href='kr_updates/2026-07-22.html#s11'>クラス - マエストロ</a></li>
+<li><a href='kr_updates/2026-07-22.html#s12'>マエストロ製作所</a></li>
+<li><a href='kr_updates/2026-07-22.html#s13'>狩場 - 放棄された炭鉱</a></li>
+<li><a href='kr_updates/2026-07-22.html#s14'>イベント - ゴーレム レイド</a></li>
+<li><a href='kr_updates/2026-07-22.html#s15'>血盟ショップ</a></li>
+<li><a href='kr_updates/2026-07-22.html#s16'>リベンジシステム</a></li>
+<li><a href='kr_updates/2026-07-22.html#s17'>経験値復旧システム</a></li>
+<li><a href='kr_updates/2026-07-22.html#s18'>UI</a></li>
+<li><a href='kr_updates/2026-07-22.html#s19'>スキルツールチップの改善</a></li>
+<li><a href='kr_updates/2026-07-22.html#s20'>着飾り</a></li>
+<li><a href='kr_updates/2026-07-22.html#s21'>狩場</a></li>
+<li><a href='kr_updates/2026-07-22.html#s22'>その他の変更事項</a></li>
+</ul></div>
+<div class='kx-week'><a class='t' href='kr_updates/2026-07-15.html'>7月15日（水） のアップデート</a><ul>
+<li><a href='kr_updates/2026-07-15.html#s1'>L2ストア - エヴァ／ウルフ／バラカス／一閃／抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-07-15.html#s2'>特殊製作 - エヴァ／ウルフ／バラカス／一閃／抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-07-15.html#s3'>ペイバックイベント - エヴァ／ウルフ／バラカス／一閃／抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-07-15.html#s4'>攻城戦</a></li>
+<li><a href='kr_updates/2026-07-15.html#s5'>集魂</a></li>
+<li><a href='kr_updates/2026-07-15.html#s7'>イベント - 出席チェック（エヴァ&amp;ウルフ&amp;バラカス／一閃&amp;抜刀 サーバー）</a></li>
+<li><a href='kr_updates/2026-07-15.html#s8'>ワールド 取引所</a></li>
+<li><a href='kr_updates/2026-07-15.html#s9'>その他の変更事項</a></li>
+</ul></div>
+<div class='kx-week'><a class='t' href='kr_updates/2026-07-08.html'>7月8日（水） のアップデート</a><ul>
+<li><a href='kr_updates/2026-07-08.html#s1'>特殊製作 - エヴァ＆ウルフ＆バラカス／一閃＆抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-07-08.html#s2'>イベント - マスタートマを探そう</a></li>
+<li><a href='kr_updates/2026-07-08.html#s3'>ミッション - エヴァ＆ウルフ＆バラカス／一閃＆抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-07-08.html#s4'>特殊狩場 - 鋼鉄の心の要塞</a></li>
+<li><a href='kr_updates/2026-07-08.html#s5'>特殊狩場 - 水竜の峡谷</a></li>
+<li><a href='kr_updates/2026-07-08.html#s6'>狩場</a></li>
+<li><a href='kr_updates/2026-07-08.html#s7'>暗黒軍団の侵攻</a></li>
+<li><a href='kr_updates/2026-07-08.html#s8'>クエスト</a></li>
+<li><a href='kr_updates/2026-07-08.html#s9'>その他の変更事項</a></li>
+</ul></div>
+<div class='kx-week'><a class='t' href='kr_updates/2026-07-01.html'>7月1日（水） のアップデート</a><ul>
+<li><a href='kr_updates/2026-07-01.html#s1'>ユニークショップ - エヴァ＆ウルフ＆バラカス／一閃＆抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-07-01.html#s2'>特殊製作 - エヴァ＆ウルフ＆バラカス／一閃＆抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-07-01.html#s3'>クラス - セイクリッドテンプラー</a></li>
+<li><a href='kr_updates/2026-07-01.html#s4'>イベント - 酷暑討伐戦</a></li>
+<li><a href='kr_updates/2026-07-01.html#s5'>ランキング</a></li>
+<li><a href='kr_updates/2026-07-01.html#s6'>その他の変更事項</a></li>
+</ul></div>
+<div class='kx-week'><a class='t' href='kr_updates/2026-06-24.html'>6月24日（水） のアップデート</a><ul>
+<li><a href='kr_updates/2026-06-24.html#s1'>特殊製作 - エヴァ／ウルフ／バラカス／一閃／抜刀</a></li>
+<li><a href='kr_updates/2026-06-24.html#s2'>イベント</a></li>
+<li><a href='kr_updates/2026-06-24.html#s3'>SP袋 - エヴァ&amp;ウルフ&amp;バラカス／一閃&amp;抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-06-24.html#s4'>アデン研究所</a></li>
+<li><a href='kr_updates/2026-06-24.html#s5'>ワールドレイド - ドラゴンレイド</a></li>
+<li><a href='kr_updates/2026-06-24.html#s6'>インスタンスゾーン</a></li>
+<li><a href='kr_updates/2026-06-24.html#s7'>下級ボス報酬</a></li>
+<li><a href='kr_updates/2026-06-24.html#s8'>上級ボス報酬</a></li>
+<li><a href='kr_updates/2026-06-24.html#s9'>共通</a></li>
+<li><a href='kr_updates/2026-06-24.html#s10'>エヴァスドテンプラー</a></li>
+<li><a href='kr_updates/2026-06-24.html#s11'>シリエンテンプラー</a></li>
+<li><a href='kr_updates/2026-06-24.html#s12'>セイクリッドテンプラー</a></li>
+<li><a href='kr_updates/2026-06-24.html#s13'>ヘルナイト</a></li>
+<li><a href='kr_updates/2026-06-24.html#s14'>デュアリスト</a></li>
+<li><a href='kr_updates/2026-06-24.html#s15'>ソウルハウンド</a></li>
+<li><a href='kr_updates/2026-06-24.html#s16'>アドベンチャラー</a></li>
+<li><a href='kr_updates/2026-06-24.html#s17'>ウインドライダー</a></li>
+<li><a href='kr_updates/2026-06-24.html#s18'>ゴーストハンター</a></li>
+<li><a href='kr_updates/2026-06-24.html#s19'>デスナイト（ヒューマン）</a></li>
+<li><a href='kr_updates/2026-06-24.html#s20'>デスナイト（エルフ）</a></li>
+<li><a href='kr_updates/2026-06-24.html#s21'>デスナイト（ダークエルフ）</a></li>
+<li><a href='kr_updates/2026-06-24.html#s22'>スピリット</a></li>
+<li><a href='kr_updates/2026-06-24.html#s23'>エレメンタルマスター</a></li>
+<li><a href='kr_updates/2026-06-24.html#s24'>ローズベイン</a></li>
+<li><a href='kr_updates/2026-06-24.html#s25'>ミスティックミューズ</a></li>
+<li><a href='kr_updates/2026-06-24.html#s26'>アークメイジ、ソウルテイカー、ストーム スクリーマー</a></li>
+<li><a href='kr_updates/2026-06-24.html#s27'>エヴァスセイント、シリエンセイント、ハイロファント</a></li>
+<li><a href='kr_updates/2026-06-24.html#s28'>カーディナル</a></li>
+<li><a href='kr_updates/2026-06-24.html#s29'>スピリット</a></li>
+<li><a href='kr_updates/2026-06-24.html#s30'>エレメンタルマスター</a></li>
+<li><a href='kr_updates/2026-06-24.html#s31'>ローズベイン</a></li>
+<li><a href='kr_updates/2026-06-24.html#s32'>スキル エンチャント</a></li>
+<li><a href='kr_updates/2026-06-24.html#s33'>ミッション - エヴァ・ウルフ・バラカス/一閃・抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-06-24.html#s34'>アイテム ツールチップ改善</a></li>
+<li><a href='kr_updates/2026-06-24.html#s35'>ワールド 取引所</a></li>
+<li><a href='kr_updates/2026-06-24.html#s36'>UI</a></li>
+<li><a href='kr_updates/2026-06-24.html#s37'>その他変更事項</a></li>
+</ul></div>
+<div class='kx-week'><a class='t' href='kr_updates/2026-06-17.html'>6月17日（水） のアップデート</a><ul>
+<li><a href='kr_updates/2026-06-17.html#s1'>クラス更新 - アサシン</a></li>
+<li><a href='kr_updates/2026-06-17.html#s3'>イベント - 出席チェック（エヴァ、ウルフ、バラカス、一閃、抜刀サーバー）</a></li>
+<li><a href='kr_updates/2026-06-17.html#s4'>ワールドレイド - ドラゴンレイド</a></li>
+<li><a href='kr_updates/2026-06-17.html#s5'>狩場 - フェアリー占領地</a></li>
+<li><a href='kr_updates/2026-06-17.html#s6'>イベント</a></li>
+<li><a href='kr_updates/2026-06-17.html#s7'>特殊製作 - エヴァ／ウルフ／バラカス&amp;一閃／抜刀</a></li>
+<li><a href='kr_updates/2026-06-17.html#s8'>その他の変更事項</a></li>
+</ul></div>
+<div class='kx-week'><a class='t' href='kr_updates/2026-06-10.html'>6月10日（水） のアップデート</a><ul>
+<li><a href='kr_updates/2026-06-10.html#s1'>L2ストア - エヴァ・ウルフ・バラカス／一閃・抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-06-10.html#s2'>特殊製作 - エヴァ・ウルフ・バラカス／一閃・抜刀 サーバー</a></li>
+<li><a href='kr_updates/2026-06-10.html#s3'>アイテム・装備</a></li>
+<li><a href='kr_updates/2026-06-10.html#s4'>クラス・スキル</a></li>
+<li><a href='kr_updates/2026-06-10.html#s5'>キャラクター情報</a></li>
+<li><a href='kr_updates/2026-06-10.html#s6'>イベント - 「頑張れ！大韓民国」</a></li>
+<li><a href='kr_updates/2026-06-10.html#s7'>イベント - ワニの島浄化する</a></li>
+<li><a href='kr_updates/2026-06-10.html#s8'>テレポート改善</a></li>
+<li><a href='kr_updates/2026-06-10.html#s9'>その他の変更内容</a></li>
+</ul></div>
+<div class='kx-week'><a class='t' href='kr_updates/2026-06-04.html'>6月4日（木） のアップデート</a><ul>
+<li><a href='kr_updates/2026-06-04.html#s1'>人形</a></li>
+<li><a href='kr_updates/2026-06-04.html#s2'>人形</a></li>
+<li><a href='kr_updates/2026-06-04.html#s3'>アイテム - 宝石</a></li>
+<li><a href='kr_updates/2026-06-04.html#s4'>クラス</a></li>
+<li><a href='kr_updates/2026-06-04.html#s5'>狩場 - 温泉地帯</a></li>
+<li><a href='kr_updates/2026-06-04.html#s6'>特殊狩場 - テンペストの遺跡</a></li>
+<li><a href='kr_updates/2026-06-04.html#s7'>イベント</a></li>
+<li><a href='kr_updates/2026-06-04.html#s8'>その他の変更事項</a></li>
+</ul></div>
+<footer class='foot'>海外の記事は個人による機械翻訳で、公式の翻訳ではありません。正確な内容は各週のページから原文（韓国公式）を確認してください。NCSOFT・エヌ・シー・ジャパン各社とは関係のない非公式のページです。Lineage II は NC Corporation の登録商標です。</footer>
+</div></body></html>
