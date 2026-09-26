@@ -1,0 +1,232 @@
+<!DOCTYPE html><html lang='ja'><head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<meta name='robots' content='noindex,nofollow,noarchive'>
+<title>韓国→日本の予測 — リネージュ2 情報収集レポート（非公式）</title>
+<link rel='icon' type='image/png' href='favicon.png'><link rel='apple-touch-icon' href='apple-touch-icon.png'>
+<link rel='preconnect' href='https://fonts.googleapis.com'><link href='https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap' rel='stylesheet'>
+<style>
+:root{
+  --ink:rgba(0,0,0,.87);--muted:#6b6f76;--line:#e5e5e5;--soft:#f3f4f6;
+  --accent:#25b4c8;--link:#1a56b5;
+  --all:#2a2a2a;--eva:rgba(6,172,210,.85);--crow:rgba(255,121,130,.9);--aden:rgba(166,17,195,.8);--unk:#9aa0a6;
+  --gacha:#d6333e;--craft:#1a56b5;--event:#6b6f76;--new:#e60012}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);
+     font-family:"Noto Sans JP",system-ui,-apple-system,"Segoe UI","Hiragino Sans",sans-serif;
+     font-size:15px;line-height:1.7}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+/* ヘッダー（公式の黒い帯に寄せる。ロゴ・画像は使わない） */
+.top{background:#141414;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pnav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.pnav a{color:#c7cbd1;font-size:.82rem;padding:2px 10px;border-radius:3px;white-space:nowrap}
+.pnav a.on{background:#3a3d42;color:#fff}
+.pnav a:hover{text-decoration:none;color:#fff}
+.top .name{font-size:1.05rem;font-weight:500;letter-spacing:.06em}
+.top .unofficial{font-size:.68rem;border:1px solid #777;color:#ccc;padding:0 6px;border-radius:3px;white-space:nowrap}
+.sub{position:sticky;top:0;z-index:5;background:linear-gradient(#2b2e33,#1f2226);color:#fff}
+.sub .row1{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 12px;
+           padding:10px 16px 2px;font-size:.78rem;color:#c7cbd1}
+.sub .row1 b{color:#fff;font-size:1rem;font-weight:500}
+.tabs{display:flex;gap:2px;overflow-x:auto;padding:0 8px}
+.tabs a{color:#e8e8e8;padding:8px 10px 9px;font-size:.9rem;white-space:nowrap;
+        border-bottom:3px solid transparent;text-decoration:none}
+.tabs a.on{color:#9fe3ee;border-bottom-color:#9fe3ee}
+.tabs a span{font-size:.72rem;color:#aab0b8;margin-left:4px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px 10px}
+.lead{font-size:.88rem;color:var(--muted);margin:14px 0 4px}
+details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
+.guide{background:var(--soft);border-radius:6px;padding:4px 14px;margin:8px 0}
+.guide ul{font-size:.84rem;margin:4px 0 8px;padding-left:20px}
+.guide li{margin:3px 0}
+.newbox{border:1px solid #f3c5c8;background:#fff6f6;border-radius:6px;padding:10px 14px;margin:12px 0}
+.newbox b{color:var(--new)}
+.newbox ul{margin:6px 0 0;padding-left:20px;font-size:.88rem}
+.note{color:var(--muted);font-size:.85rem}
+/* 地域の見出し（公式の「薄いグレーの帯＋水色の左線」に寄せる） */
+.region{margin:24px 0 10px;background:var(--soft);border-left:6px solid var(--accent);padding:8px 12px;
+        font-size:1.1rem;font-weight:700;display:flex;justify-content:space-between;align-items:baseline;
+        scroll-margin-top:96px}
+.region small{font-size:.8rem;font-weight:400;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px;align-items:start}
+.fold{margin:10px 0 0}
+.fold>summary{font-size:.85rem}
+.fold .grid{margin-top:8px}
+.empty{color:var(--muted);font-size:.85rem;padding:4px 0}
+/* カード */
+.card{border:1px solid var(--line);border-radius:6px;padding:12px 14px;background:#fff;min-width:0}
+.card.ended{background:#fafafa}
+.card.ended .title{color:var(--muted)}
+.tags{display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+.srv{font-size:.72rem;font-weight:400;color:#fff;padding:0 5px;border-radius:4px;line-height:1.6;white-space:nowrap}
+.srv.all{background:var(--all)}.srv.eva{background:var(--eva)}.srv.crow{background:var(--crow)}
+.srv.aden{background:var(--aden)}.srv.unk{background:var(--unk)}
+.kind{font-size:.72rem;font-weight:700;padding:0 6px;border-radius:4px;border:1px solid;line-height:1.5;
+      background:#fff;white-space:nowrap}
+.kind.g{color:var(--gacha);border-color:var(--gacha)}.kind.c{color:var(--craft);border-color:var(--craft)}
+.kind.e{color:var(--event);border-color:#c5c8cd}
+.newmark{color:var(--new);font-size:.72rem;font-weight:700;margin-left:2px}
+.title{display:block;font-size:1.02rem;font-weight:500;color:var(--ink);line-height:1.5;word-break:break-word}
+.orig{font-size:.74rem;color:var(--muted);margin-top:1px;word-break:break-word}
+.meta{font-size:.78rem;color:var(--muted);margin-top:4px;display:flex;gap:4px 10px;flex-wrap:wrap}
+.period{color:var(--ink)}
+.left{font-weight:700;color:#b3261e}
+.left.soon{background:#b3261e;color:#fff;padding:0 5px;border-radius:3px}
+.left.done{color:var(--muted);font-weight:400}
+/* 期待値（公式の確率表に寄せる：黒い見出し行） */
+.ev{margin-top:10px;font-size:.8rem}
+.ev .ev-note{font-size:.72rem;color:var(--muted);margin-bottom:3px}
+.ev .ev-head{font-weight:700;margin-bottom:4px}
+.ev table{width:100%;border-collapse:collapse}
+.ev th{background:#111;color:#fff;font-weight:500;padding:4px 6px;text-align:left;font-size:.74rem;white-space:nowrap}
+.ev td{border:1px solid #d9d9d9;padding:4px 6px;vertical-align:top;word-break:break-word}
+.ev td.p{white-space:nowrap;font-weight:700;color:var(--gacha);font-variant-numeric:tabular-nums}
+.ev td.n{font-variant-numeric:tabular-nums}
+.ev td img.ico{width:26px;height:26px;vertical-align:middle;margin:0 6px 2px 0;border-radius:3px}
+/* 地域間の照合（詳しい人向け） */
+.match table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.85rem}
+.match th{background:#111;color:#fff;font-weight:500;padding:5px 8px;text-align:left}
+.match td{border-bottom:1px solid var(--line);padding:5px 8px}
+.match h3{font-size:.95rem;margin:14px 0 4px}
+.num{text-align:right;white-space:nowrap}
+.foot{background:#2b2b2b;color:#bbb;font-size:.78rem;padding:18px 16px;margin-top:30px;line-height:1.8}
+.foot b{color:#fff}
+.foot a{color:#9fe3ee}
+
+.ev-t{width:100%;border-collapse:collapse;font-size:.86rem;margin:8px 0}
+.ev-t th,.ev-t td{border:1px solid var(--line);padding:4px 8px;text-align:left;vertical-align:top}
+.ev-t th{background:#111;color:#fff;font-weight:500;white-space:nowrap}
+.ev-t td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ev-t .ko{display:block;font-size:.74rem;color:var(--muted)}
+.ev-t .mid{color:var(--muted)}
+.ev-t .neg{color:var(--muted)}
+.ev-t td.soon{font-weight:700;color:#b3261e;white-space:nowrap}
+.ev-box{background:var(--soft);border-radius:6px;padding:10px 14px;margin:10px 0;font-size:.9rem}
+.ev-box b{font-size:1.05rem}
+.ev-wrap{overflow-x:auto}
+</style></head><body>
+<div class='top'><span class='name'>リネージュ2 情報収集レポート</span><span class='unofficial'>非公式</span><nav class='pnav'><a href='./'>ガチャ・イベント</a><a href='kr_updates.html'>韓国の先行アップデート</a><a href='kr_events.html' class=on>韓国→日本の予測</a></nav></div>
+<div class='sub'><div class='row1'><b>韓国→日本の予測（イベント・ガチャ）</b><span>韓国169件・日本175件を照合／9/1以降</span></div><nav class='tabs'><a href='#wait'>日本にまだ来ていないもの</a><a href='#lag'>時間差の実績</a></nav></div>
+<div class='wrap'>
+<p class='lead'>韓国（本国）で先に行われたイベント・ガチャ・特殊製作が、日本にどれくらい後に来るかを公式の一覧から照合しています（照合はAIによる目安）。日本はアデン・エヴァ・クロウ・全サーバー向け、韓国は話せる島（クラシック）だけのものを除いています。</p>
+<div class='ev-box'>韓国で最初にやってから日本に来るまで（名前がほぼ一致した28件）：<b>中央値 約116日（約4か月）</b>、1〜281日。<br>内訳：1か月以内 5件・1〜3か月 7件・3〜6か月 9件・6か月以上 7件。ほかに日韓同日6件・日本が先1件。<br>季節のイベント（新年・クリスマスなど）は1か月以内、ガチャ・特殊製作は3か月以上後が多い傾向です。日本の大型アップデートの日に、韓国の数か月前のイベントがまとめて来ることもあります。</div>
+<div class='region' id='wait'>日本にまだ来ていないもの<small>韓国の直近150日・41件</small></div>
+<p class='note'>韓国で行われ、日本の一覧にまだ同じものが見当たらないもの。「来るとしたら」は韓国の掲載日＋時間差の中央値で、あくまで目安です（日本に来ないものも含みます）。</p>
+<div class='ev-wrap'><table class='ev-t'><tr><th>韓国</th><th>名前</th><th>種類</th><th>韓国の対象</th><th>来るとしたら</th></tr>
+<tr><td class='n'>9/23</td><td>アデンの豊穣を守れ！<span class='ko'>아덴의 풍요를 지켜라!</span></td><td>イベント</td><td>全サーバー</td><td class='soon'>1月ごろ</td></tr>
+<tr><td class='n'>9/22</td><td>ロイヤルクラフト：精霊王＆魔法書<span class='ko'>로얄 크래프트 : 정령왕 &amp; 마법서</span></td><td>プロモーション</td><td>エヴァ・クロウ</td><td class='soon'>1月ごろ</td></tr>
+<tr><td class='n'>9/22</td><td>ヴェイルマー宝箱PLUS<span class='ko'>베일마르 보물 상자 PLUS</span></td><td>プロモーション</td><td>アデン</td><td class='soon'>1月ごろ</td></tr>
+<tr><td class='n'>9/15</td><td>ロイヤルクラフト：エリクサー＆ペンダント<span class='ko'>로얄 크래프트 : 엘릭서 &amp; 펜던트</span></td><td>プロモーション</td><td>エヴァ・クロウ</td><td class='soon'>1月ごろ</td></tr>
+<tr><td class='n'>9/15</td><td>ヴェイルマー宝箱<span class='ko'>베일마르 보물 상자</span></td><td>プロモーション</td><td>アデン</td><td class='soon'>1月ごろ</td></tr>
+<tr><td class='n'>9/9</td><td>ケルビムの城砦BOOST<span class='ko'>켈빔의 성채 BOOST</span></td><td>イベント</td><td>アデン・エヴァ・クロウ</td><td class='soon'>1月ごろ</td></tr>
+<tr><td class='n'>9/8</td><td>ペリオンの宝箱PLUS<span class='ko'>페리온의 보물 상자 PLUS</span></td><td>プロモーション</td><td>エヴァ・クロウ</td><td class='soon'>1月ごろ</td></tr>
+<tr><td class='n'>9/8</td><td>ドラゴンの遺産PLUS<span class='ko'>드래곤의 유산 PLUS</span></td><td>プロモーション</td><td>アデン</td><td class='soon'>1月ごろ</td></tr>
+<tr><td class='n'>9/2</td><td>秋の花火祭り<span class='ko'>가을 불꽃 축제</span></td><td>イベント</td><td>アデン・エヴァ・クロウ</td><td class='soon'>12月ごろ</td></tr>
+<tr><td class='n'>9/2</td><td>天上の塔ホットタイム<span class='ko'>천상의 탑 핫타임</span></td><td>イベント</td><td>アデン・エヴァ・クロウ</td><td class='soon'>12月ごろ</td></tr>
+<tr><td class='n'>9/1</td><td>ペリオンの宝箱<span class='ko'>페리온의 보물 상자</span></td><td>プロモーション</td><td>エヴァ・クロウ</td><td class='soon'>12月ごろ</td></tr>
+<tr><td class='n'>8/25</td><td>強化完成戦－迅速＆権能<span class='ko'>강화 완성전 – 신속 &amp; 권능</span></td><td>プロモーション</td><td>エヴァ・クロウ</td><td class='soon'>12月ごろ</td></tr>
+<tr><td class='n'>8/25</td><td>ユニークショップPLUS<span class='ko'>유니크 상점 PLUS</span></td><td>プロモーション</td><td>アデン</td><td class='soon'>12月ごろ</td></tr>
+<tr><td class='n'>8/19</td><td>ドラコの卵孵化<span class='ko'>드라코의 알 부화</span></td><td>イベント</td><td>アデン・エヴァ・クロウ</td><td class='soon'>12月ごろ</td></tr>
+<tr><td class='n'>8/18</td><td>成長の祝福<span class='ko'>성장의 축복</span></td><td>プロモーション</td><td>エヴァ・クロウ</td><td class='soon'>12月ごろ</td></tr>
+<tr><td class='n'>8/11</td><td>ユニークショップ－ベニルのタリスマン<span class='ko'>유니크 상점 – 베니르의 탈리스만</span></td><td>プロモーション</td><td>エヴァ・クロウ</td><td class='soon'>12月ごろ</td></tr>
+<tr><td class='n'>8/11</td><td>プレミアムレアリティボックスPLUS<span class='ko'>프리미엄 레어리티 박스 PLUS</span></td><td>プロモーション</td><td>アデン</td><td class='soon'>12月ごろ</td></tr>
+<tr><td class='n'>8/4</td><td>強化完成戦－伝説魔法書＆タリスマン<span class='ko'>강화 완성전 – 전설 마법서 &amp; 탈리스만</span></td><td>プロモーション</td><td>エヴァ・クロウ</td><td class='soon'>11月ごろ</td></tr>
+<tr><td class='n'>8/4</td><td>プレミアムレアリティボックス<span class='ko'>프리미엄 레어리티 박스</span></td><td>プロモーション</td><td>アデン</td><td class='soon'>11月ごろ</td></tr>
+<tr><td class='n'>7/28</td><td>炭鉱の隠された宝箱PLUS<span class='ko'>탄광의 숨겨진 보물상자 PLUS</span></td><td>プロモーション</td><td>アデン</td><td class='soon'>11月ごろ</td></tr>
+<tr><td class='n'>7/28</td><td>マプルの箱<span class='ko'>마프르의 상자</span></td><td>プロモーション</td><td>エヴァ・クロウ</td><td class='soon'>11月ごろ</td></tr>
+<tr><td class='n'>7/22</td><td>ゴーレムレイド<span class='ko'>골렘 레이드</span></td><td>イベント</td><td>アデン・エヴァ・クロウ</td><td class='soon'>11月ごろ</td></tr>
+<tr><td class='n'>7/21</td><td>炭鉱の隠された宝箱<span class='ko'>탄광의 숨겨진 보물상자</span></td><td>プロモーション</td><td>アデン</td><td class='soon'>11月ごろ</td></tr>
+<tr><td class='n'>7/14</td><td>マナストーンペイバック<span class='ko'>마정석 페이백</span></td><td>イベント</td><td>アデン・エヴァ・クロウ</td><td class='soon'>11月ごろ</td></tr>
+<tr><td class='n'>7/14</td><td>強化完成戦－サークレット＆マント<span class='ko'>강화 완성전 – 서클릿 &amp; 망토</span></td><td>プロモーション</td><td>エヴァ・クロウ</td><td class='soon'>11月ごろ</td></tr>
+<tr><td class='n'>7/14</td><td>ラヴィアンローズの宝石箱<span class='ko'>라비앙로즈의 보석 상자</span></td><td>プロモーション</td><td>アデン</td><td class='soon'>11月ごろ</td></tr>
+<tr><td class='n'>7/8</td><td>マスタートーマを探せ！<span class='ko'>마스터 토마를 찾아라!</span></td><td>イベント</td><td>アデン・エヴァ・クロウ</td><td class='soon'>11月ごろ</td></tr>
+<tr><td class='n'>7/7</td><td>サマーフェスタボックスPLUS<span class='ko'>썸머 페스타 박스 PLUS</span></td><td>プロモーション</td><td>アデン</td><td class='soon'>10月ごろ</td></tr>
+<tr><td class='n'>6/30</td><td>ユニークショップ－ドラゴンのベルト<span class='ko'>유니크 상점 – 드래곤의 벨트</span></td><td>プロモーション</td><td>エヴァ・クロウ</td><td class='soon'>10月ごろ</td></tr>
+<tr><td class='n'>6/30</td><td>サマーフェスタボックス<span class='ko'>썸머 페스타 상자</span></td><td>プロモーション</td><td>アデン</td><td class='soon'>10月ごろ</td></tr>
+<tr><td class='n'>6/23</td><td>ユニークショップPLUS<span class='ko'>유니크 상점 PLUS</span></td><td>プロモーション</td><td>アデン</td><td class='soon'>10月ごろ</td></tr>
+<tr><td class='n'>6/16</td><td>ユニークショップ<span class='ko'>유니크 상점</span></td><td>プロモーション</td><td>アデン</td><td class='soon'>10月ごろ</td></tr>
+<tr><td class='n'>6/10</td><td>ワニの島を浄化せよ<span class='ko'>악어의 섬 정화하기</span></td><td>イベント</td><td>アデン・エヴァ・クロウ</td><td class='soon'>10月ごろ</td></tr>
+<tr><td class='n'>6/10</td><td>コンテンツチャレンジ<span class='ko'>콘텐츠 챌린지</span></td><td>イベント</td><td>アデン・エヴァ・クロウ</td><td class='soon'>10月ごろ</td></tr>
+<tr><td class='n'>6/9</td><td>華麗な宝石<span class='ko'>화려한 보석</span></td><td>プロモーション</td><td>エヴァ・クロウ</td><td class='soon'>10月ごろ</td></tr>
+<tr><td class='n'>6/1</td><td>テンペストの遺物<span class='ko'>템페스트의 유물</span></td><td>プロモーション</td><td>エヴァ・クロウ</td><td class='soon'>時期は過ぎた</td></tr>
+<tr><td class='n'>5/20</td><td>ブラッククーポン<span class='ko'>블랙 쿠폰</span></td><td>イベント</td><td>—</td><td class='soon'>時期は過ぎた</td></tr>
+<tr><td class='n'>5/20</td><td>クラスチェンジ<span class='ko'>클래스 체인지</span></td><td>イベント</td><td>アデン・エヴァ・クロウ</td><td class='soon'>時期は過ぎた</td></tr>
+<tr><td class='n'>5/12</td><td>プレステージ人形製作<span class='ko'>프레스티지 인형 제작</span></td><td>プロモーション</td><td>エヴァ・クロウ</td><td class='soon'>時期は過ぎた</td></tr>
+<tr><td class='n'>5/12</td><td>パーフェクトユニークチケット<span class='ko'>퍼펙트 유니크 티켓</span></td><td>プロモーション</td><td>アデン</td><td class='soon'>時期は過ぎた</td></tr>
+<tr><td class='n'>5/4</td><td>ブラッククーポン<span class='ko'>블랙 쿠폰</span></td><td>イベント</td><td>—</td><td class='soon'>時期は過ぎた</td></tr>
+</table></div>
+<div class='region' id='lag'>時間差の実績<small>69組</small></div>
+<p class='note'>同じイベント・商品と判断した組。確度「中」は名前が違うが内容が同じと判断したもの。差がマイナスは日本が先（韓国での再開催など）。</p>
+<div class='ev-wrap'><table class='ev-t'><tr><th>韓国</th><th>韓国の名前</th><th>日本</th><th>日本の名前</th><th>差</th><th>確度</th></tr>
+<tr><td class='n'>9/16</td><td>月明りの海岸の伝説<span class='ko'>달빛 해안의 전설</span></td><td class='n'>4/22</td><td>月明りの海岸の伝説<span class='ko'>ADEN/EVA/CROW</span></td><td class='n neg'>-147日（日本が先）</td><td>高</td></tr>
+<tr><td class='n'>9/7</td><td>ブラックマイレージ<span class='ko'>블랙 마일리지</span></td><td class='n'>8/12</td><td>ブラックマイレージ<span class='ko'>ALL</span></td><td class='n neg'>-26日（日本が先）</td><td>高</td></tr>
+<tr><td class='n'>8/19</td><td>レベンハルトの試験場<span class='ko'>레벤하르트의 시험장</span></td><td class='n'>9/16</td><td>レイヴンハートの試験場<span class='ko'>ADEN/EVA/CROW</span></td><td class='n'>+28日</td><td>高</td></tr>
+<tr class='mid'><td class='n'>7/29</td><td>王スイカ祭り<span class='ko'>왕수박 축제</span></td><td class='n'>8/12</td><td>ポモナのしゅうかくさい<span class='ko'>ADEN/EVA/CROW</span></td><td class='n'>+14日</td><td>中</td></tr>
+<tr><td class='n'>7/22</td><td>クラスチェンジ<span class='ko'>클래스 체인지</span></td><td class='n'>7/22</td><td>クラスチェンジ<span class='ko'>ADEN/EVA/CROW</span></td><td class='n'>同日</td><td>高</td></tr>
+<tr class='mid'><td class='n'>7/22</td><td>おかえり、ギラン港へ！<span class='ko'>돌아와요, 기란항에!</span></td><td class='n'>7/22</td><td>おかえり、アデンへ<span class='ko'>ADEN/EVA/CROW</span></td><td class='n'>同日</td><td>中</td></tr>
+<tr class='mid'><td class='n'>7/1</td><td>猛暑討伐戦<span class='ko'>무더위 토벌전</span></td><td class='n'>7/1</td><td>レイドタイムラッシュ<span class='ko'>ADEN/EVA/CROW</span></td><td class='n'>同日</td><td>中</td></tr>
+<tr><td class='n'>6/9</td><td>火竜の赤い宝物PLUS<span class='ko'>화룡의 붉은 보물 PLUS</span></td><td class='n'>5/27</td><td>火竜の宝<span class='ko'>EVA/CROW</span></td><td class='n neg'>-13日（日本が先）</td><td>高</td></tr>
+<tr><td class='n'>6/3</td><td>火竜の赤い宝物<span class='ko'>화룡의 붉은 보물</span></td><td class='n'>5/27</td><td>火竜の宝<span class='ko'>EVA/CROW</span></td><td class='n neg'>-7日（日本が先）</td><td>高</td></tr>
+<tr><td class='n'>5/20</td><td>創世の庭園<span class='ko'>창세기 정원</span></td><td class='n'>8/26</td><td>創世の庭園<span class='ko'>ADEN/EVA/CROW</span></td><td class='n'>+98日</td><td>高</td></tr>
+<tr class='mid'><td class='n'>5/20</td><td>おかえり、ギラン港へ<span class='ko'>돌아와요, 기란 항에</span></td><td class='n'>7/22</td><td>おかえり、アデンへ<span class='ko'>ADEN/EVA/CROW</span></td><td class='n'>+63日</td><td>中</td></tr>
+<tr class='mid'><td class='n'>5/19</td><td>アガシオン＆魔法書フルパッケージ特別展<span class='ko'>아가시온&amp;마법서 풀패키지 특별전</span></td><td class='n'>7/22</td><td>アガシオン＆魔法書パッケージ<span class='ko'>EVA/CROW</span></td><td class='n'>+64日</td><td>中</td></tr>
+<tr class='mid'><td class='n'>5/5</td><td>強化＆刻印パッケージ－超越強化石/ペンダント－<span class='ko'>강화&amp;인장 패키지 -초월 강화석/펜던트-</span></td><td class='n'>6/24</td><td>超越強化補給品<span class='ko'>ADEN</span></td><td class='n'>+50日</td><td>中</td></tr>
+<tr class='mid'><td class='n'>4/28</td><td>マスター：ウェポン＆スキルPLUS<span class='ko'>마스터: 웨폰&amp;스킬 PLUS</span></td><td class='n'>8/26</td><td>ウェポン＆スキルマスターボックス<span class='ko'>ADEN</span></td><td class='n'>+120日</td><td>中</td></tr>
+<tr><td class='n'>4/28</td><td>天上の箱<span class='ko'>천상의 상자</span></td><td class='n'>7/22</td><td>天上の宝箱<span class='ko'>EVA/CROW</span></td><td class='n'>+85日</td><td>高</td></tr>
+<tr><td class='n'>4/21</td><td>マスター：ウェポン＆スキル<span class='ko'>마스터: 웨폰&amp;스킬</span></td><td class='n'>8/26</td><td>ウェポン＆スキルマスターボックス<span class='ko'>ADEN</span></td><td class='n'>+127日</td><td>高</td></tr>
+<tr><td class='n'>4/14</td><td>天上＆サークレットチャレンジ<span class='ko'>천상&amp;서클릿 챌린지</span></td><td class='n'>9/16</td><td>天上＆サークレット チャレンジ ボックス<span class='ko'>ADEN</span></td><td class='n'>+155日</td><td>高</td></tr>
+<tr class='mid'><td class='n'>4/8</td><td>不滅の刀、マスターピスエディション<span class='ko'>불멸의 카타나, 마스터피스 에디션</span></td><td class='n'>11/5</td><td>古代カタナの合成<span class='ko'>ADEN/EVA</span></td><td class='n neg'>-154日（日本が先）</td><td>中</td></tr>
+<tr><td class='n'>4/8</td><td>レベンハルトの試験場<span class='ko'>레벤하르트의 시험장</span></td><td class='n'>9/16</td><td>レイヴンハートの試験場<span class='ko'>ADEN/EVA/CROW</span></td><td class='n'>+161日</td><td>高</td></tr>
+<tr><td class='n'>3/31</td><td>ファントムラッシュフェスタ<span class='ko'>팬텀 러시 페스타</span></td><td class='n'>9/9</td><td>ファントム ラッシュ フェスタ ボックス<span class='ko'>ADEN</span></td><td class='n'>+162日</td><td>高</td></tr>
+<tr><td class='n'>3/17</td><td>超越のエッセンス<span class='ko'>초월의 정수</span></td><td class='n'>8/5</td><td>超越のエッセンスボックス<span class='ko'>ADEN</span></td><td class='n'>+141日</td><td>高</td></tr>
+<tr class='mid'><td class='n'>3/11</td><td>クラスチェンジ<span class='ko'>클래스 체인지</span></td><td class='n'>7/22</td><td>クラスチェンジ<span class='ko'>ADEN/EVA/CROW</span></td><td class='n'>+133日</td><td>中</td></tr>
+<tr class='mid'><td class='n'>3/11</td><td>サーバー戦アップデート記念<span class='ko'>서버전 업데이트 기념</span></td><td class='n'>4/22</td><td>アップデート記念クーポン祭り<span class='ko'>ADEN/EVA/CROW</span></td><td class='n'>+42日</td><td>中</td></tr>
+<tr><td class='n'>3/10</td><td>春の香りPLUS<span class='ko'>봄의 향기 PLUS</span></td><td class='n'>4/22</td><td>春の香り<span class='ko'>EVA/CROW</span></td><td class='n'>+43日</td><td>高</td></tr>
+<tr class='mid'><td class='n'>3/4</td><td>春の庭園<span class='ko'>봄의 정원</span></td><td class='n'>3/18</td><td>フラワーガーデンフェス<span class='ko'>ADEN/EVA/CROW</span></td><td class='n'>+14日</td><td>中</td></tr>
+<tr><td class='n'>3/3</td><td>春の香り<span class='ko'>봄의 향기</span></td><td class='n'>4/22</td><td>春の香り<span class='ko'>EVA/CROW</span></td><td class='n'>+50日</td><td>高</td></tr>
+<tr><td class='n'>2/24</td><td>祝福の時間<span class='ko'>축복의 시간</span></td><td class='n'>4/1</td><td>特殊製作｜祝福の時間<span class='ko'>EVA/CROW</span></td><td class='n'>+36日</td><td>高</td></tr>
+<tr><td class='n'>2/18</td><td>レアアップグレード<span class='ko'>레어 업그레이드</span></td><td class='n'>8/5</td><td>レアアップグレード<span class='ko'>EVA/CROW</span></td><td class='n'>+168日</td><td>高</td></tr>
+<tr><td class='n'>2/11</td><td>レベンハルトの試験場<span class='ko'>레벤하르트의 시험장</span></td><td class='n'>9/16</td><td>レイヴンハートの試験場<span class='ko'>ADEN/EVA/CROW</span></td><td class='n'>+217日</td><td>高</td></tr>
+<tr><td class='n'>2/10</td><td>新年福袋<span class='ko'>신년 복주머니</span></td><td class='n'>1/7</td><td>2026新年ポーチ<span class='ko'>EVA</span></td><td class='n neg'>-34日（日本が先）</td><td>高</td></tr>
+<tr><td class='n'>2/4</td><td>ワールドレイド集中攻略戦<span class='ko'>월드 레이드 집중 공략전</span></td><td class='n'>3/18</td><td>ワールドレイド集中攻略戦<span class='ko'>ADEN/EVA/CROW</span></td><td class='n'>+42日</td><td>高</td></tr>
+<tr><td class='n'>2/3</td><td>超越のエッセンスPLUS<span class='ko'>초월의 정수 PLUS</span></td><td class='n'>8/5</td><td>超越のエッセンスボックス<span class='ko'>ADEN</span></td><td class='n'>+183日</td><td>高</td></tr>
+<tr><td class='n'>1/27</td><td>超越のエッセンス<span class='ko'>초월의 정수</span></td><td class='n'>8/5</td><td>超越のエッセンスボックス<span class='ko'>ADEN</span></td><td class='n'>+190日</td><td>高</td></tr>
+<tr><td class='n'>1/27</td><td>精霊王の宝<span class='ko'>정령왕의 보물</span></td><td class='n'>5/13</td><td>精霊王の宝<span class='ko'>ADEN</span></td><td class='n'>+106日</td><td>高</td></tr>
+<tr class='mid'><td class='n'>1/21</td><td>ブラックマイレージ<span class='ko'>블랙 마일리지</span></td><td class='n'>8/12</td><td>ブラックマイレージ<span class='ko'>ALL</span></td><td class='n'>+203日</td><td>中</td></tr>
+<tr><td class='n'>1/20</td><td>ハイクラス特殊装備ボックス<span class='ko'>하이클래스 특수 장비 상자</span></td><td class='n'>5/27</td><td>ハイクラス特殊装備ボックス<span class='ko'>ADEN</span></td><td class='n'>+127日</td><td>高</td></tr>
+<tr class='mid'><td class='n'>1/13</td><td>スキルマスター<span class='ko'>스킬 마스터</span></td><td class='n'>8/26</td><td>ウェポン＆スキルマスターボックス<span class='ko'>ADEN</span></td><td class='n'>+225日</td><td>中</td></tr>
+<tr><td class='n'>1/13</td><td>プレステージカードセレクション＆特殊製作<span class='ko'>프레스티지 카드 셀렉션 &amp; 특수 제작</span></td><td class='n'>7/8</td><td>「プレステージカードセレクション」製作<span class='ko'>ADEN</span></td><td class='n'>+176日</td><td>高</td></tr>
+<tr><td class='n'>1/6</td><td>安定＆祝福呪文書製作<span class='ko'>안정된 &amp; 축복 주문서 제작</span></td><td class='n'>2/11</td><td>特殊製作「安全＆祝福スクロール」<span class='ko'>EVA/CROW</span></td><td class='n'>+36日</td><td>高</td></tr>
+<tr><td class='n'>1/6</td><td>新年福袋PLUS<span class='ko'>신년 행운 주머니 PLUS</span></td><td class='n'>1/7</td><td>2026新年ポーチ<span class='ko'>EVA</span></td><td class='n'>+1日</td><td>高</td></tr>
+<tr><td class='n'>12/30</td><td>新年福袋<span class='ko'>신년 행운 주머니</span></td><td class='n'>1/7</td><td>2026新年ポーチ<span class='ko'>EVA</span></td><td class='n'>+8日</td><td>高</td></tr>
+<tr><td class='n'>12/24</td><td>雪原のスノークン<span class='ko'>설원의 스노우 쿵</span></td><td class='n'>1/14</td><td>Snowman Smash<span class='ko'>CROW/EVA/ADEN</span></td><td class='n'>+21日</td><td>高</td></tr>
+<tr class='mid'><td class='n'>12/23</td><td>L2ホリデーボックスPLUS<span class='ko'>L2 홀리데이 박스 PLUS</span></td><td class='n'>12/17</td><td>ハッピークリスマスパッケージ<span class='ko'>CROW/EVA/ADEN</span></td><td class='n neg'>-6日（日本が先）</td><td>中</td></tr>
+<tr class='mid'><td class='n'>12/16</td><td>L2ホリデーボックス<span class='ko'>L2 홀리데이 박스</span></td><td class='n'>12/17</td><td>ハッピークリスマスパッケージ<span class='ko'>CROW/EVA/ADEN</span></td><td class='n'>+1日</td><td>中</td></tr>
+<tr><td class='n'>12/16</td><td>ヘルバウンドの宝物PLUS<span class='ko'>헬바운드의 보물 PLUS</span></td><td class='n'>9/16</td><td>ヘルバウンドの宝箱<span class='ko'>EVA/CROW</span></td><td class='n'>+274日</td><td>高</td></tr>
+<tr><td class='n'>12/10</td><td>黄金の鍵を探せ<span class='ko'>황금 열쇠를 찾아라</span></td><td class='n'>12/17</td><td>アデン｜サンタのゴールデンキー<span class='ko'>ADEN</span></td><td class='n'>+7日</td><td>高</td></tr>
+<tr><td class='n'>12/9</td><td>ヘルバウンドの宝物<span class='ko'>헬바운드의 보물</span></td><td class='n'>9/16</td><td>ヘルバウンドの宝箱<span class='ko'>EVA/CROW</span></td><td class='n'>+281日</td><td>高</td></tr>
+<tr><td class='n'>12/3</td><td>オルビスの殿堂<span class='ko'>오르비스 전당</span></td><td class='n'>2/4</td><td>オルビスの殿堂&amp;オクタビスの神殿<span class='ko'>CROW/EVA/ADEN</span></td><td class='n'>+63日</td><td>高</td></tr>
+<tr><td class='n'>12/3</td><td>オクタビスの神殿<span class='ko'>옥타비스의 신전</span></td><td class='n'>2/4</td><td>オルビスの殿堂&amp;オクタビスの神殿<span class='ko'>CROW/EVA/ADEN</span></td><td class='n'>+63日</td><td>高</td></tr>
+<tr><td class='n'>12/3</td><td>月明りの海岸の伝説<span class='ko'>달빛 해안의 전설</span></td><td class='n'>4/22</td><td>月明りの海岸の伝説<span class='ko'>ADEN/EVA/CROW</span></td><td class='n'>+140日</td><td>高</td></tr>
+<tr><td class='n'>12/2</td><td>外形製作<span class='ko'>외형 제작</span></td><td class='n'>2/25</td><td>特殊製作｜外形製作<span class='ko'>CROW</span></td><td class='n'>+85日</td><td>高</td></tr>
+<tr><td class='n'>12/2</td><td>ヴァラカス遠征隊補給品PLUS<span class='ko'>발라카스 원정대 보급품 PLUS</span></td><td class='n'>6/4</td><td>ヴァラカス遠征隊の補給品<span class='ko'>ADEN</span></td><td class='n'>+184日</td><td>高</td></tr>
+<tr><td class='n'>11/25</td><td>ヴァラカス遠征隊補給品<span class='ko'>발라카스 원정대 보급품</span></td><td class='n'>6/4</td><td>ヴァラカス遠征隊の補給品<span class='ko'>ADEN</span></td><td class='n'>+191日</td><td>高</td></tr>
+<tr class='mid'><td class='n'>11/18</td><td>クロウボックスAddition<span class='ko'>크로우 상자 Addition</span></td><td class='n'>11/5</td><td>クロウボックス<span class='ko'>ADEN</span></td><td class='n neg'>-13日（日本が先）</td><td>中</td></tr>
+<tr><td class='n'>11/18</td><td>エルモアデンの宝箱<span class='ko'>엘모아덴의 보물 상자</span></td><td class='n'>11/19</td><td>エルモアデンの宝箱<span class='ko'>EVA</span></td><td class='n'>+1日</td><td>高</td></tr>
+<tr><td class='n'>11/6</td><td>GLOBAL ARENA: ONE WORLD<span class='ko'>GLOBAL ARENA: ONE WORLD</span></td><td class='n'>11/5</td><td>GLOBAL ARENA ONE WORLD<span class='ko'>CROW</span></td><td class='n neg'>-1日（日本が先）</td><td>高</td></tr>
+<tr><td class='n'>11/5</td><td>一閃＆抜刀歓迎の宴<span class='ko'>일섬 &amp; 발도 환영의 연(宴)</span></td><td class='n'>11/5</td><td>歓迎の宴<span class='ko'>CROW/EVA/ADEN</span></td><td class='n'>同日</td><td>高</td></tr>
+<tr><td class='n'>11/5</td><td>GLOBAL ARENA: ONE WORLD<span class='ko'>GLOBAL ARENA: ONE WORLD</span></td><td class='n'>11/5</td><td>GLOBAL ARENA ONE WORLD<span class='ko'>CROW</span></td><td class='n'>同日</td><td>高</td></tr>
+<tr><td class='n'>11/5</td><td>古代カタナ<span class='ko'>고대 카타나</span></td><td class='n'>11/5</td><td>古代カタナの合成<span class='ko'>ADEN/EVA</span></td><td class='n'>同日</td><td>高</td></tr>
+<tr class='mid'><td class='n'>11/5</td><td>出席チェック<span class='ko'>출석 체크</span></td><td class='n'>11/5</td><td>【アデン】出席チェック<span class='ko'>ADEN</span></td><td class='n'>同日</td><td>中</td></tr>
+<tr><td class='n'>11/5</td><td>パティシエの招待<span class='ko'>파티쉐의 초대</span></td><td class='n'>11/5</td><td>【エヴァ/アデン】パティシエの招待<span class='ko'>ADEN/EVA</span></td><td class='n'>同日</td><td>高</td></tr>
+<tr><td class='n'>11/5</td><td>歓迎の宴<span class='ko'>환영의 연회</span></td><td class='n'>11/5</td><td>歓迎の宴<span class='ko'>CROW/EVA/ADEN</span></td><td class='n'>同日</td><td>高</td></tr>
+<tr><td class='n'>11/5</td><td>ブラッククーポン<span class='ko'>블랙 쿠폰</span></td><td class='n'>11/5</td><td>【エヴァ/アデン】ブラッククーポン<span class='ko'>ADEN/EVA</span></td><td class='n'>同日</td><td>高</td></tr>
+<tr><td class='n'>11/4</td><td>クロウボックス＆クラス支援パッケージ<span class='ko'>크로우 상자 &amp; 클래스 지원 패키지</span></td><td class='n'>11/5</td><td>クロウボックス<span class='ko'>ADEN</span></td><td class='n'>+1日</td><td>高</td></tr>
+<tr class='mid'><td class='n'>10/27</td><td>サムライクロウ前夜祭<span class='ko'>사무라이 크로우 전야제</span></td><td class='n'>11/5</td><td>「SAMURAI CROW」アップデート記念イベント<span class='ko'>CROW/EVA/ADEN</span></td><td class='n'>+9日</td><td>中</td></tr>
+<tr class='mid'><td class='n'>10/21</td><td>ブラックウィークボックス<span class='ko'>블랙 위크 상자</span></td><td class='n'>11/21</td><td>ブラックフライデーセール<span class='ko'>CROW/EVA/ADEN</span></td><td class='n'>+31日</td><td>中</td></tr>
+<tr><td class='n'>10/15</td><td>火竜の宝物<span class='ko'>화룡의 보물</span></td><td class='n'>5/27</td><td>火竜の宝<span class='ko'>EVA/CROW</span></td><td class='n'>+224日</td><td>高</td></tr>
+<tr><td class='n'>10/10</td><td>モグラを捕まえろ<span class='ko'>두더지를 잡아라</span></td><td class='n'>5/27</td><td>モグラ退治大作戦<span class='ko'>ADEN/EVA/CROW</span></td><td class='n'>+229日</td><td>高</td></tr>
+<tr><td class='n'>9/9</td><td>トリオルの隠された宝物<span class='ko'>트리올의 숨겨진 보물</span></td><td class='n'>5/13</td><td>トリオルの隠された宝箱<span class='ko'>EVA/CROW</span></td><td class='n'>+246日</td><td>高</td></tr>
+</table></div>
+<footer class='foot'>公式サイトの一覧をもとに個人が照合した非公式のページです。NCSOFT・エヌ・シー・ジャパン各社とは関係ありません。Lineage II は NC Corporation の登録商標です。</footer>
+</div></body></html>
