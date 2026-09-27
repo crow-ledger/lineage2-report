@@ -252,27 +252,69 @@ Lineage II は NC Corporation の登録商標です。</footer>
     try { localStorage.setItem('l2-item-view', v); } catch (e) {}
   }
   // 1段階の効果の行 → {能力名: 値} と数値の無い効果。予告の区切り（「+7以上エンチャント時効果」から空行まで）と見出し（<基本効果> 等）は除く
+  // 能力（STR〜MEN）。EUのデータの日本語の名前は、韓国の辞典の STR/INT/DEX/WIT/CON/MEN と同じ並びで対応していた
+  var STATS = ['STR', 'INT', 'DEX', 'WIT', 'CON', 'MEN'];
+  var STAT_JA = {'力': 'STR', '知能': 'INT', '敏捷': 'DEX', '精神力': 'WIT', '体力': 'CON', '意志': 'MEN'};
+  function statOf(x){ x = String(x).trim(); var u = x.toUpperCase(); return STATS.indexOf(u) >= 0 ? u : (STAT_JA[x] || null); }
+  // 単独でも使われる能力名（「防御力/魔法耐性」「攻撃力/魔法力」を分けてよいもの）
+  var KNOWN = ['防御力', '魔法耐性', '攻撃力', '魔法力', '攻撃速度', '詠唱速度', '魔法速度', '移動速度', '命中', '回避',
+               '物理防御', '魔法防御', '物理攻撃力', '魔法攻撃力', '物理命中', '魔法命中', '物理回避', '魔法回避'];
+  var TAIL = /^(HP|MP|CP|EXP|XP|SP|命中|耐性)$/;
+  // まとめ書きの能力名を、分けてよければ能力名の並びにする。効果の説明文（「発動確率:」「バフ：」「、」を含む等）は分けない
+  function splitName(name){
+    if (/[：:、%]|効果|発動|バフ|^[-−]|\d/.test(name)) return null;
+    var parts = name.split(/\s*[\/／]\s*/);
+    if (parts.length < 2 || parts.some(function(x){ return !x; })) return null;
+    var st = parts.map(statOf);
+    if (st.every(function(t){ return t; })) return st;                                   // STR / INT …
+    if (parts.every(function(x){ return KNOWN.indexOf(x) >= 0; })) return parts;        // 防御力/魔法耐性
+    var m = parts[0].replace(/\s+/g, '').match(/^(.+?)(HP|MP|CP|EXP|XP|SP|命中|耐性)$/);
+    if (m && parts.slice(1).every(function(x){ return TAIL.test(x.replace(/\s+/g, '')); }))  // 最大HP/MP/CP、ショック命中/耐性
+      return [m[1] + m[2]].concat(parts.slice(1).map(function(x){ return m[1] + x.replace(/\s+/g, ''); }));
+    return null;
+  }
+  // 1段階の効果の行 → 能力と値（出てくる順）と、数値の無い効果。予告の区切り（「+7以上エンチャント時効果」から空行まで）と見出し（<基本効果> 等）は除く。
+  // 「STR / INT / DEX / WIT +1」のようなまとめ書きは能力ごとに分ける。同じ段階に同じ名前が2回あるもの（基本の値と追加の値）は2つ目を「（追加）」に
+  // （以前は後の値で上書きし、防御力 +100 が +20 に下がったように見えていた。2026-09-28）
   function parseLv(lines){
-    var vals = {}, text = [], skip = false;
+    var vals = {}, order = [], text = [], skip = false;
+    // 「最大 MP」と「最大MP」のように空白だけ違う名前は同じ行に（名前の空白を取って比べる）
+    function put(n, v){ n = n.replace(/(最大|獲得)\s+/g, '$1').replace(/\s+(HP|MP|CP|SP)$/, '$1'); if (vals[n] !== undefined) n += '（追加）'; if (vals[n] === undefined) order.push(n); vals[n] = v; }
     (lines || []).forEach(function(raw){
       var x = String(raw).trim();
       if (!x) { skip = false; return; }
       if (/以上\s*エンチャント時/.test(x) || /^\+\d+\s*以上/.test(x)) { skip = true; return; }
       if (skip || /^[<＜].*[>＞]$/.test(x)) return;
       x = x.replace(/^（装備の数値）/, '');
+      // 「STR +10/DEX +10/CON +10」のように能力ごとに数値を書いた行は、そのまま1つずつに
+      var multi = x.split(/\s*[\/／]\s*/);
+      if (multi.length > 1 && multi.every(function(q){ var mm = q.match(/^(\S+)\s*([+\-−]\s?[\d,\.]+\s*%?)$/); return mm && statOf(mm[1]); })) {
+        multi.forEach(function(q){ var mm = q.match(/^(\S+)\s*([+\-−]\s?[\d,\.]+\s*%?)$/); put(statOf(mm[1]), mm[2].replace(/\s/g, '')); });
+        return;
+      }
       var m = x.match(/^(.+?)\s*[:：]?\s*([+\-−]\s?[\d,\.]+\s*%?)$/);
-      if (m) { vals[m[1].trim()] = m[2].replace(/\s/g, ''); return; }
-      text.push(x);
+      if (!m) { text.push(x); return; }
+      var name = m[1].trim(), v = m[2].replace(/\s/g, '');
+      var sp = splitName(name);
+      if (sp) { sp.forEach(function(t){ put(t, v); }); return; }
+      put(statOf(name) || name, v);
     });
-    return {vals: vals, text: text};
+    return {vals: vals, order: order, text: text};
   }
   function numOf(v){ return parseFloat(String(v || '').replace(/[,%+]/g, '').replace('−', '-')); }
   // 表で比べる：行＝能力、列＝強化段階。前の段階から数値が変わった所を黄色に。数値の無い効果は変わった段階だけ下に
   function cmpTable(d){
     var lvs = Object.keys(d.enchant || {}).sort(function(a, b){ return a - b; });
     var per = lvs.map(function(l){ return parseLv(d.enchant[l]); });
+    // 行の並び：「段階ごと」の文章に出てくる順（前の表と同じ）。「（追加）」は元の能力のすぐ下
+    var seen = [];
+    per.forEach(function(p){ p.order.forEach(function(n){ if (seen.indexOf(n) < 0) seen.push(n); }); });
     var names = [];
-    per.forEach(function(p){ Object.keys(p.vals).forEach(function(n){ if (names.indexOf(n) < 0) names.push(n); }); });
+    seen.filter(function(n){ return !/（追加）$/.test(n); }).forEach(function(n){
+      names.push(n);
+      if (seen.indexOf(n + '（追加）') >= 0) names.push(n + '（追加）');
+    });
+    seen.forEach(function(n){ if (names.indexOf(n) < 0) names.push(n); });
     var h = '';
     if (names.length) {
       h += "<div class='it-cmpw'><table class='it-cmp'><tr><th class='n'>能力</th>" + lvs.map(function(l){ return "<th>+" + esc(l) + "</th>"; }).join('') + "</tr>";
