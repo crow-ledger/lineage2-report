@@ -124,16 +124,19 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 .en-t td.p.low{color:#b3261e}
 .it-empty{color:var(--muted);font-size:.9rem}
 .untr{color:#8a5a00}
+.en-t .alt{display:block;font-size:.76rem;color:var(--muted);margin-top:2px}
+.en-h{font-size:.92rem;margin:12px 0 4px;border-left:4px solid var(--accent);padding-left:8px}
 </style></head><body>
 <div class='top'><span class='name'>リネージュ2 情報収集レポート</span><span class='unofficial'>非公式</span><nav class='pnav'><a href='./'>ガチャ・イベント</a><a href='kr_updates.html'>韓国の先行アップデート</a><a href='kr_events.html'>韓国→日本の予測</a><a href='items.html'>アイテム検索</a><a href='enchant.html' class=on>強化・合成</a><a href='boss_drops.html'>ボスのドロップ</a></nav></div>
-<div class='sub'><div class='row1'><b>強化・合成の確率（韓国公式の確率ページを日本語で）</b><span>1,977件・韓国の公開 2026-09-23</span></div></div>
+<div class='sub'><div class='row1'><b>強化・合成の確率（韓国公式の確率ページを日本語で）</b><span>2,282件・韓国の公開 2026-09-23</span></div></div>
 <div class='wrap'>
 <p class='lead'>アイテムの強化（成功で+1、失敗で消える・そのまま等）と合成（2つを使い、成功で次のレベル）の成功確率です。
 韓国公式の確率ページの「本サーバー」（日本のアデン・エヴァ・クロウ相当）の表を日本語にしました。名前の一部（日本語・韓国語）で探せます。</p>
 <details class='guide'><summary>注意</summary><ul>
 <li><strong>韓国の数値（参考値）</strong>です。日本と同じとは限りません。韓国の公開が変わったら取り直します。</li>
 <li>名前は日本の公式アイテム検索の名前（同じアイテム）か、機械翻訳です。<span class='untr'>茶色の文字</span>は訳が無く韓国語のままのものです。</li>
-<li>「武器・防具の強化」「挑戦ポイント」「潜在力」は、韓国公式でも表ではなく別の記事で公開されているため、ここにはありません。合成・製作にかかるアデナは載っていません。</li>
+<li>「武器・防具の強化」「挑戦ポイント」「潜在力」は、韓国公式でも表ではなく別の記事で公開されているため、ここにはありません。合成にかかるアデナは、韓国公式にもEUにも見当たりませんでした。</li>
+<li><strong>特殊製作（EU・クロウ相当）</strong>は、EUの知識ベース（l2wiki.com）の Samurai サーバー（クロウ相当）の特殊製作の材料・アデナ・確率です（参考値）。</li>
 <li>NCSOFT・エヌ・シー・ジャパン各社とは関係のない非公式のページです。出典：<a href='https://probability.plaync.com/lineage2/index' target='_blank' rel='noopener'>韓国公式 確率ページ</a></li>
 </ul></details>
 <div class='it-bar'>
@@ -171,7 +174,7 @@ Lineage II は NC Corporation の登録商標です。</footer>
     list.innerHTML = shown.slice(0, 300).map(function(g, i){
       return "<div class='it-row' data-i='" + i + "'><span class='nm'><span class='cat'>" + esc(g.c) + "</span>" + cell(g.n) +
              (g.m && g.c === '染料の合成' ? ' ' + esc(g.m) : '') +
-             (g.k && g.k !== g.n ? "<span class='ko'>" + esc(g.k) + "</span>" : '') + "</span></div>";
+             (g.s ? "<span class='ko'>" + esc(g.s) + "</span>" : (g.k && g.k !== g.n ? "<span class='ko'>" + esc(g.k) + "</span>" : '')) + "</span></div>";
     }).join('') || "<p class='it-empty' style='padding:10px'>見つかりませんでした。</p>";
   }
   function isP(h){ return /成功|確率|維持|初期化|破壊/.test(h); }
@@ -181,6 +184,15 @@ Lineage II は NC Corporation の登録商標です。</footer>
     var h = "<h2>" + cell(g.n) + "</h2>" + (g.k && g.k !== g.n ? "<div class='ko'>" + esc(g.k) + "</div>" : '');
     h += "<div class='cnote'>" + esc(g.c) + "：" + esc(data.notes[g.c] || '') + "</div>";
     if (g.m) h += "<div class='meta'>" + cell(g.m) + "</div>";
+    if (g.u) h += "<div class='cnote'>出典：<a href='" + esc(g.u) + "' target='_blank' rel='noopener'>l2wiki.com（EU）</a></div>";
+    if (g.cost && g.cost.length) {
+      // 費用：組み合わせ（〇通り目）ごとの表。選択肢は材料の下に小さく
+      g.cost.forEach(function(c, k){
+        h += "<h3 class='en-h'>費用" + (g.cost.length > 1 ? "（" + (k + 1) + "通り目）" : "") + "</h3><div class='en-wrap'><table class='en-t'><tr><th>材料</th><th>個数</th></tr>" +
+          c.map(function(x){ return "<tr><td>" + cell(x[0]) + (x[2] ? "<span class='alt'>" + cell(x[2]) + "</span>" : '') + "</td><td class='p'>" + esc(x[1]) + "</td></tr>"; }).join('') + "</table></div>";
+      });
+      h += "<h3 class='en-h'>できるもの</h3>";
+    }
     h += "<div class='en-wrap'><table class='en-t'><tr>" + g.h.map(function(x){ return "<th>" + esc(x) + "</th>"; }).join('') + "</tr>";
     h += g.r.map(function(r){
       return "<tr>" + r.map(function(v, j){
