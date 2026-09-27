@@ -1,3 +1,4 @@
 # 日付つきのレポート本文は公開しない。公開するのは index.html と翻訳ページだけ
 *.txt
 !robots.txt
+last_run.log
