@@ -183,6 +183,11 @@ Lineage II は NC Corporation の登録商標です。</footer>
       if (c && g.c !== c) return false;
       return !k || g.nn.indexOf(k) >= 0 || g.nk.indexOf(k) >= 0;
     });
+    // 名前が入力した言葉で始まるものを先に（アイテム検索と同じ。2026-09-28）
+    if (k) {
+      shown = shown.map(function(g, i){ return [g.nn.indexOf(k) === 0 || g.nk.indexOf(k) === 0 ? 0 : 1, i, g]; })
+                   .sort(function(a, b){ return a[0] - b[0] || a[1] - b[1]; }).map(function(v){ return v[2]; });
+    }
     count.textContent = shown.length.toLocaleString() + '件' + (shown.length > 300 ? '（先頭の300件を表示。名前を入れて絞り込んでください）' : '');
     list.innerHTML = shown.slice(0, 300).map(function(g, i){
       return "<div class='it-row' data-i='" + i + "'><span class='nm'><span class='cat'>" + esc(g.c) + "</span>" + cell(g.n) + (g.x ? " <span class='x'>[" + esc(g.x) + "]</span>" : '') +

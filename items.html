@@ -188,6 +188,12 @@ Lineage II は NC Corporation の登録商標です。</footer>
       if (t && x[4].split('・').indexOf(t) < 0) return false;
       return !k || x.nj.indexOf(k) >= 0 || x.nk.indexOf(k) >= 0 || x.na.indexOf(k) >= 0;
     });
+    // 名前が入力した言葉で始まるものを先に（「祝福」なら「祝福された〜」が先頭に。以前は名前順で、下の方に隠れていた。2026-09-28）。
+    // 次に日本の正式名のあるもの。それ以外は元の並び（名前順）
+    if (k) {
+      var rank = function(x){ return (x.nj.indexOf(k) === 0 || x.nk.indexOf(k) === 0 ? 0 : 2) + (x[6] ? 0 : 1); };
+      shown = shown.map(function(x, i){ return [rank(x), i, x]; }).sort(function(a, b){ return a[0] - b[0] || a[1] - b[1]; }).map(function(v){ return v[2]; });
+    }
     count.textContent = shown.length.toLocaleString() + '件' + (shown.length > 200 ? '（先頭の200件を表示。名前をもう少し入れて絞り込んでください）' : '');
     if (!k && !g && !t) {
       list.innerHTML = "<div class='it-hint'>名前の一部を入れて探してください（日本語・韓国語どちらでも）。<br>例：" +
