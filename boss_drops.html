@@ -2,6 +2,8 @@
 <meta name='viewport' content='width=device-width,initial-scale=1'>
 <meta name='robots' content='noindex,nofollow,noarchive'>
 <title>ボスのドロップ — リネージュ2 情報収集レポート（非公式）</title>
+<meta name='description' content='レイドボスを倒したときに出るアイテムと確率（EUのデータ・非公式）。アイテム名から落とすボスも探せます。'>
+<meta property='og:type' content='website'><meta property='og:title' content='リネージュ2 ボスのドロップ（非公式）'><meta property='og:image' content='https://crow-ledger.github.io/lineage2-report/og.png'>
 <link rel='icon' type='image/png' href='favicon.png'><link rel='apple-touch-icon' href='apple-touch-icon.png'>
 <link rel='preconnect' href='https://fonts.googleapis.com'>
 <link href='https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap' rel='stylesheet'>
@@ -80,6 +82,9 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 .ev{margin-top:10px;font-size:.8rem}
 .ev .ev-note{font-size:.72rem;color:var(--muted);margin-bottom:3px}
 .ev .ev-head{font-weight:700;margin-bottom:4px}
+.ev .ev-more{font-size:.76rem;margin-top:2px}
+.nocrow{font-size:.7rem;color:var(--muted);border:1px dashed #b9bec5;border-radius:3px;padding:0 5px;margin-left:4px}
+.trb{font-size:.68rem;font-weight:500;color:#0f6f7d;background:#e3f5f8;border-radius:3px;padding:0 5px;margin-left:6px;vertical-align:2px}
 .ev table{width:100%;border-collapse:collapse}
 .ev th{background:#111;color:#fff;font-weight:500;padding:4px 6px;text-align:left;font-size:.74rem;white-space:nowrap}
 .ev td{border:1px solid #d9d9d9;padding:4px 6px;vertical-align:top;word-break:break-word}
@@ -120,8 +125,9 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 .bd-t .en{display:block;font-size:.72rem}
 .bd-t tr.mark td{background:#fff6d6}
 .bd-empty{color:var(--muted);font-size:.9rem}
+.bd-row .lv{font-size:.8rem;font-weight:700;background:var(--soft);border-radius:3px;padding:0 5px;margin-left:4px}
 </style></head><body>
-<div class='top'><a class='name' href='./'>リネージュ2 情報収集レポート</a><span class='unofficial'>非公式</span><nav class='pnav'><a href='./'>TOP</a><a href='gacha.html'>ガチャ・イベント</a><a href='kr_updates.html'>韓国の先行アップデート</a><a href='kr_events.html'>韓国→日本の予測</a><a href='items.html'>アイテム検索</a><a href='enchant.html'>強化・合成</a><a href='boss_drops.html' class=on>ボスのドロップ</a></nav></div>
+<div class='top'><a class='name' href='./'>リネージュ2 情報収集レポート</a><span class='unofficial'>非公式</span><nav class='pnav'><a href='./'>TOP</a><a href='gacha.html'>ガチャ・イベント</a><a href='kr_updates.html'>韓国の先行アップデート</a><a href='kr_events.html'>韓国→日本の時間差</a><a href='items.html'>アイテム検索</a><a href='enchant.html'>強化・合成</a><a href='boss_drops.html' class=on>ボスのドロップ</a></nav></div>
 <div class='sub'><div class='row1'><b>ボスのドロップ（EU公式のデータ）</b><span>165体</span></div></div>
 <div class='wrap'>
 <p class='lead'>レイドボスを倒したときに出る可能性のあるアイテムと確率です。日本・韓国の公式には無いため、
@@ -165,7 +171,7 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
     return (s.indexOf('.') >= 0 ? s.replace(/\.?0+$/, '') : s) + '%';
   }
   // 1回あたりが小さいときは「約○回に1回」も添える
-  function odds(v){ if (!(v > 0) || v >= 10) return ''; var n = 100 / v; return "<span class='en'>約" + (n >= 100 ? Math.round(n).toLocaleString() : n.toFixed(1).replace(/\.0$/, '')) + "回に1回</span>"; }
+  function odds(v){ if (!(v > 0) || v >= 10) return ''; var n = 100 / v; return "<span class='en'>約" + Math.round(n).toLocaleString() + "回に1回</span>"; }
   function hits(b, k){
     var out = [];
     Object.keys(b.tabs).forEach(function(t){ b.tabs[t].forEach(function(g){ g.items.forEach(function(it){
@@ -180,9 +186,10 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
       var h = k && !byName ? hits(b, k) : [];
       return {b: b, show: byName || h.length, h: h};
     }).filter(function(r){ return r.show; });
+    rows.sort(function(a, b){ return a.b.ja === b.b.ja ? (+a.b.lv || 0) - (+b.b.lv || 0) : 0; });
     list.innerHTML = rows.map(function(r){
-      return "<div class='bd-row' data-id='" + r.b.id + "'>" + esc(r.b.ja) + "<span class='en'>" + esc(r.b.en) +
-             (r.b.lv ? "・Lv" + esc(r.b.lv) : "") + "・No." + r.b.id + "</span>" +
+      return "<div class='bd-row' data-id='" + r.b.id + "'>" + esc(r.b.ja) + (r.b.lv ? " <span class='lv'>Lv" + esc(r.b.lv) + "</span>" : "") +
+             "<span class='en'>" + esc(r.b.en) + "・No." + r.b.id + "</span>" +
              (r.h.length ? "<span class='hit'>" + esc(r.h.slice(0, 3).join('、')) + (r.h.length > 3 ? ' ほか' : '') + "</span>" : '') + "</div>";
     }).join('') || "<p class='bd-empty' style='padding:10px'>見つかりませんでした。</p>";
   }
@@ -197,7 +204,7 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
       h += "<div class='bd-g'>グループ" + (i + 1) + "（当たる確率 " + pct(g.chance) + "）</div><table class='bd-t'><tr><th>アイテム</th><th>個数</th><th>グループ内</th><th>1回あたり</th></tr>";
       g.items.forEach(function(it){
         var m = k && (norm(it.ja).indexOf(k) >= 0 || norm(it.en).indexOf(k) >= 0);
-        var name = it.link ? "<a href='items.html?q=" + encodeURIComponent(it.ja) + "' target='_blank' rel='noopener'>" + esc(it.ja) + "</a>" : esc(it.ja);
+        var name = it.link ? "<a href='items.html?" + (it.id ? "id=" + it.id : "q=" + encodeURIComponent(it.ja)) + "'>" + esc(it.ja) + "</a>" : esc(it.ja);
         h += "<tr" + (m ? " class='mark'" : "") + "><td>" + name + "<span class='en'>" + esc(it.en) + (it.src === '訳' ? '（名前は機械翻訳）' : '') + "</span></td>" +
              "<td class='n'>" + esc(it.qty) + "</td><td class='n'>" + pct(it.rate) + "</td><td class='n p'>" + pct(it.p) + odds(it.p) + "</td></tr>";
       });
@@ -210,6 +217,7 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
     var r = e.target.closest('.bd-row'); if (!r) return;
     [].forEach.call(list.querySelectorAll('.bd-row.on'), function(x){ x.className = 'bd-row'; }); r.className = 'bd-row on';
     cur = bosses.filter(function(b){ return String(b.id) === r.getAttribute('data-id'); })[0];
+    try { history.replaceState(null, '', 'boss_drops.html?id=' + cur.id); } catch (e) {}
     render();
     if (window.innerWidth <= 800) detail.scrollIntoView({behavior: 'smooth'});
   });
@@ -217,8 +225,14 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
   q.addEventListener('input', function(){ clearTimeout(timer); timer = setTimeout(function(){ search(); if (cur) render(); }, 150); });
   fetch('boss_drops.json').then(function(r){ return r.json(); }).then(function(data){
     bosses = data.map(function(b){ b.nj = norm(b.ja); b.ne = norm(b.en); return b; });
-    var p = new URLSearchParams(location.search).get('q'); if (p) q.value = p;
+    var sp = new URLSearchParams(location.search), p = sp.get('q'), id = sp.get('id');
+    if (p) q.value = p;
     search();
+    // ?id= ならそのボスを、?q= でボス名が1件だけ当たるならそれを開く
+    var pick = id ? list.querySelector(".bd-row[data-id='" + id + "']") : null;
+    if (!pick && id) { q.value = ''; search(); pick = list.querySelector(".bd-row[data-id='" + id + "']"); }
+    if (!pick && p) { var rs = list.querySelectorAll('.bd-row'); if (rs.length === 1) pick = rs[0]; }
+    if (pick) pick.click();
   });
 })();
 </script>

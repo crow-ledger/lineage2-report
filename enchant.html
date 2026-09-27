@@ -84,6 +84,9 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 .ev{margin-top:10px;font-size:.8rem}
 .ev .ev-note{font-size:.72rem;color:var(--muted);margin-bottom:3px}
 .ev .ev-head{font-weight:700;margin-bottom:4px}
+.ev .ev-more{font-size:.76rem;margin-top:2px}
+.nocrow{font-size:.7rem;color:var(--muted);border:1px dashed #b9bec5;border-radius:3px;padding:0 5px;margin-left:4px}
+.trb{font-size:.68rem;font-weight:500;color:#0f6f7d;background:#e3f5f8;border-radius:3px;padding:0 5px;margin-left:6px;vertical-align:2px}
 .ev table{width:100%;border-collapse:collapse}
 .ev th{background:#111;color:#fff;font-weight:500;padding:4px 6px;text-align:left;font-size:.74rem;white-space:nowrap}
 .ev td{border:1px solid #d9d9d9;padding:4px 6px;vertical-align:top;word-break:break-word}
@@ -126,10 +129,18 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 .it-empty{color:var(--muted);font-size:.9rem}
 .untr{color:#8a5a00}
 .x{font-weight:400;color:#8a5a00;font-size:.85em}
+.en-sw{margin:8px 0 6px}
+.en-sw button{border:1px solid var(--line);background:#fff;border-radius:4px;padding:3px 12px;cursor:pointer;font-family:inherit;font-size:.85rem;margin-right:4px}
+.en-sw button.on{background:#111;color:#fff;border-color:#111}
+.en-pv td.p{text-align:center;white-space:normal;min-width:5.5em}
+.en-pv th{white-space:normal;font-size:.8rem}
+.en-pv th.st{background:#f3f4f6;color:#111;white-space:nowrap}
+.en-t .f{display:block;font-size:.72rem;color:var(--muted);font-weight:400}
+.en-go{display:inline-block;margin:6px 0;font-size:.82rem;border:1px solid var(--accent);border-radius:4px;padding:2px 10px}
 .en-t .alt{display:block;font-size:.76rem;color:var(--muted);margin-top:2px}
 .en-h{font-size:.92rem;margin:12px 0 4px;border-left:4px solid var(--accent);padding-left:8px}
 </style></head><body>
-<div class='top'><a class='name' href='./'>リネージュ2 情報収集レポート</a><span class='unofficial'>非公式</span><nav class='pnav'><a href='./'>TOP</a><a href='gacha.html'>ガチャ・イベント</a><a href='kr_updates.html'>韓国の先行アップデート</a><a href='kr_events.html'>韓国→日本の予測</a><a href='items.html'>アイテム検索</a><a href='enchant.html' class=on>強化・合成</a><a href='boss_drops.html'>ボスのドロップ</a></nav></div>
+<div class='top'><a class='name' href='./'>リネージュ2 情報収集レポート</a><span class='unofficial'>非公式</span><nav class='pnav'><a href='./'>TOP</a><a href='gacha.html'>ガチャ・イベント</a><a href='kr_updates.html'>韓国の先行アップデート</a><a href='kr_events.html'>韓国→日本の時間差</a><a href='items.html'>アイテム検索</a><a href='enchant.html' class=on>強化・合成</a><a href='boss_drops.html'>ボスのドロップ</a></nav></div>
 <div class='sub'><div class='row1'><b>強化・合成の確率（韓国公式の確率ページを日本語で）</b><span>2,046件・韓国の公開 2026-09-23</span></div></div>
 <div class='wrap'>
 <p class='lead'>アイテムの強化（成功で+1、失敗で消える・そのまま等）と合成（2つを使い、成功で次のレベル）の成功確率です。
@@ -196,15 +207,69 @@ Lineage II は NC Corporation の登録商標です。</footer>
       });
       h += "<h3 class='en-h'>できるもの</h3>";
     }
-    h += "<div class='en-wrap'><table class='en-t'><tr>" + g.h.map(function(x){ return "<th>" + esc(x) + "</th>"; }).join('') + "</tr>";
+    h += goLinks(g);
+    var pv = pivot(g);
+    if (pv) {
+      h += "<div class='en-sw'><button type='button' data-v='pv' class='on'>段階ごとに比べる</button><button type='button' data-v='raw'>元の表</button></div>";
+      h += "<div id='v-pv'>" + pv + "</div><div id='v-raw' style='display:none'>" + rawTable(g) + "</div>";
+    } else {
+      h += rawTable(g);
+    }
+    detail.innerHTML = h;
+    [].forEach.call(detail.querySelectorAll('.en-sw button'), function(b){
+      b.onclick = function(){
+        [].forEach.call(detail.querySelectorAll('.en-sw button'), function(x){ x.className = x === b ? 'on' : ''; });
+        detail.querySelector('#v-pv').style.display = b.getAttribute('data-v') === 'pv' ? '' : 'none';
+        detail.querySelector('#v-raw').style.display = b.getAttribute('data-v') === 'raw' ? '' : 'none';
+      };
+    });
+    // 開いた項目をURLに残す（仲間に送れるように）
+    try { history.replaceState(null, '', 'enchant.html?q=' + encodeURIComponent(g.k || g.n) + (g.x ? '&x=' + encodeURIComponent(g.x) : '')); } catch (e) {}
+    if (window.innerWidth <= 800) detail.scrollIntoView({behavior: 'smooth'});
+  }
+  function rawTable(g){
+    var h = "<div class='en-wrap'><table class='en-t'><tr>" + g.h.map(function(x){ return "<th>" + esc(x) + "</th>"; }).join('') + "</tr>";
     h += g.r.map(function(r){
       return "<tr>" + r.map(function(v, j){
         if (isP(g.h[j]) && /%$/.test(v)) { var n = parseFloat(v); return "<td class='p" + (n < 10 && /成功/.test(g.h[j]) ? " low" : "") + "'>" + esc(v) + "</td>"; }
         return "<td>" + cell(v) + "</td>";
       }).join('') + "</tr>";
     }).join('') + "</table></div>";
-    detail.innerHTML = h;
-    if (window.innerWidth <= 800) detail.scrollIntoView({behavior: 'smooth'});
+    return h;
+  }
+  // 強化の表を「行＝段階、列＝使うもの」に組み替える（+7→+8 の確率が表のあちこちに散らばっていたので）。
+  // 付記（刻印あり・なし）で数値が同じものは1つの列にまとめる。失敗しても消えない（維持）ものは「平均約N回」を添える
+  function pivot(g){
+    var si = g.h.indexOf('段階'), ui = g.h.indexOf('使うもの'), ok = g.h.indexOf('成功');
+    if (si < 0 || ui < 0 || ok < 0) return '';
+    var keep = g.h.indexOf('維持（消えない）'), reset = g.h.indexOf('初期化（+0に戻る）'), dest = g.h.indexOf('破壊（消える）');
+    var stages = [], cols = [], cells = {};
+    g.r.forEach(function(r){
+      var st = r[si], by = r[ui];
+      if (stages.indexOf(st) < 0) stages.push(st);
+      if (cols.indexOf(by) < 0) cols.push(by);
+      var c = "<b>" + esc(r[ok]) + "</b>";
+      if (dest >= 0 && r[dest]) c += "<span class='f'>失敗で消える</span>";
+      else if (reset >= 0 && r[reset]) c += "<span class='f'>失敗で+0に戻る</span>";
+      else if (keep >= 0 && r[keep]) {
+        var p = parseFloat(r[ok]);
+        c += "<span class='f'>失敗しても消えない" + (p > 0 ? "・平均約" + Math.round(100 / p).toLocaleString() + "回" : "") + "</span>";
+      }
+      cells[st + '|' + by] = cells[st + '|' + by] || c;
+    });
+    var num = function(x){ return parseInt(String(x).replace(/^\+/, ''), 10) || 0; };
+    stages.sort(function(a, b){ return num(a) - num(b); });
+    var h = "<div class='en-wrap'><table class='en-t en-pv'><tr><th>段階</th>" + cols.map(function(c){ return "<th>" + cell(c) + "</th>"; }).join('') + "</tr>";
+    stages.forEach(function(st){
+      h += "<tr><th class='st'>" + esc(st) + "</th>" + cols.map(function(c){ var v = cells[st + '|' + c]; return "<td class='p'>" + (v || "<span class='f'>—</span>") + "</td>"; }).join('') + "</tr>";
+    });
+    return h + "</table></div><p class='cnote'>成功率。「—」はその段階では使えないもの。「平均約N回」は失敗しても消えない強化で、1回ずつ成功する確率が同じとしたときの目安です。</p>";
+  }
+  // ほかのページへ（アイテムの能力）
+  function goLinks(g){
+    if (!/特殊装備|祝福|合成|特殊製作|武器・防具の強化/.test(g.c) || /^[A-D~]/.test(g.n)) return '';
+    var name = String(g.n).replace(/^\+\d+\s*/, '').replace(/（.*?）$/, '');
+    return "<div><a class='en-go' href='items.html?q=" + encodeURIComponent(name) + "'>「" + esc(name) + "」の能力を見る →</a></div>";
   }
   list.addEventListener('click', function(e){
     var r = e.target.closest('.it-row'); if (!r) return;
@@ -221,7 +286,11 @@ Lineage II は NC Corporation の登録商標です。</footer>
     if (p.get('q')) q.value = p.get('q');
     if (p.get('cat')) cSel.value = p.get('cat');
     search();
-    if (p.get('q') && shown.length) open(shown[0], list.querySelector('.it-row'));
+    if (p.get('q') && shown.length) {
+      var i = 0, x = p.get('x');
+      if (x) shown.some(function(g, j){ if (g.x === x) { i = j; return true; } return false; });
+      open(shown[i], list.querySelectorAll('.it-row')[i]);
+    }
   });
 })();
 </script>

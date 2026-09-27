@@ -84,6 +84,9 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 .ev{margin-top:10px;font-size:.8rem}
 .ev .ev-note{font-size:.72rem;color:var(--muted);margin-bottom:3px}
 .ev .ev-head{font-weight:700;margin-bottom:4px}
+.ev .ev-more{font-size:.76rem;margin-top:2px}
+.nocrow{font-size:.7rem;color:var(--muted);border:1px dashed #b9bec5;border-radius:3px;padding:0 5px;margin-left:4px}
+.trb{font-size:.68rem;font-weight:500;color:#0f6f7d;background:#e3f5f8;border-radius:3px;padding:0 5px;margin-left:6px;vertical-align:2px}
 .ev table{width:100%;border-collapse:collapse}
 .ev th{background:#111;color:#fff;font-weight:500;padding:4px 6px;text-align:left;font-size:.74rem;white-space:nowrap}
 .ev td{border:1px solid #d9d9d9;padding:4px 6px;vertical-align:top;word-break:break-word}
@@ -128,7 +131,10 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 .it-flags span{display:inline-block;font-size:.76rem;border:1px solid var(--line);border-radius:4px;padding:0 6px;margin:2px 4px 2px 0}
 .it-flags span.no{color:var(--muted);text-decoration:line-through}
 .it-empty{color:var(--muted);font-size:.9rem}
-.nojp{color:#b3261e}
+.nojp{color:var(--muted)}
+.it-hint{padding:12px;font-size:.9rem;color:var(--muted);line-height:1.9}
+.it-lines b{background:#fff4d6;font-weight:700}
+.it-go{display:inline-block;margin:0 6px 6px 0;font-size:.82rem;border:1px solid var(--accent);border-radius:4px;padding:2px 10px}
 .it-row .ex,.it-detail h2 .ex{font-weight:400;color:#8a5a00;font-size:.85em}
 .it-row .no,.it-detail h2 .no{font-weight:400;color:var(--muted);font-size:.8em}
 .jpmark{font-size:.78rem;border-radius:4px;padding:2px 8px;display:inline-block;margin:4px 0}
@@ -136,8 +142,8 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 .jpmark.no{background:#fdecea;color:#b3261e}
 .jpmark.eu{background:#eef3fd;color:#1a4fa0}
 </style></head><body>
-<div class='top'><a class='name' href='./'>リネージュ2 情報収集レポート</a><span class='unofficial'>非公式</span><nav class='pnav'><a href='./'>TOP</a><a href='gacha.html'>ガチャ・イベント</a><a href='kr_updates.html'>韓国の先行アップデート</a><a href='kr_events.html'>韓国→日本の予測</a><a href='items.html' class=on>アイテム検索</a><a href='enchant.html'>強化・合成</a><a href='boss_drops.html'>ボスのドロップ</a></nav></div>
-<div class='sub'><div class='row1'><b>アイテム検索（韓国公式のアイテム辞典を日本語で）</b><span>3,763件</span></div></div>
+<div class='top'><a class='name' href='./'>リネージュ2 情報収集レポート</a><span class='unofficial'>非公式</span><nav class='pnav'><a href='./'>TOP</a><a href='gacha.html'>ガチャ・イベント</a><a href='kr_updates.html'>韓国の先行アップデート</a><a href='kr_events.html'>韓国→日本の時間差</a><a href='items.html' class=on>アイテム検索</a><a href='enchant.html'>強化・合成</a><a href='boss_drops.html'>ボスのドロップ</a></nav></div>
+<div class='sub'><div class='row1'><b>アイテム検索（韓国公式のアイテム辞典を日本語で）</b><span>3,789件</span></div></div>
 <div class='wrap'>
 <p class='lead'>韓国公式のアイテム辞典のデータを日本語に訳して検索できるようにしたものです。
 強化段階（+0、+1…）ごとの能力も見られます。日本語・韓国語のどちらでも、名前の一部で探せます。</p>
@@ -145,7 +151,7 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 <li><strong>韓国（アデン・エヴァ・クロウ相当）の現在のデータ</strong>です。日本では未実装のアイテムや、数値が違うものがあり得ます。</li>
 <li><strong>日本の公式アイテム検索に同じアイテム（同じID）があるものは、名前と説明を日本の正式なもの</strong>にしています。
 強化段階ごとの効果は日本の公式データに無いため、韓国のデータの機械翻訳です。</li>
-<li>日本の公式データに無いアイテム（「日本データなし」）は、日本では未実装の可能性があり、名前・説明とも機械翻訳です。正確な内容は各アイテムの「韓国公式」で確かめてください。</li>
+<li>日本の公式データに無いアイテム（「日本未確認」）は、日本では未実装の可能性があり、名前・説明とも機械翻訳です。正確な内容は各アイテムの「韓国公式」で確かめてください。</li>
 <li>NCSOFT・エヌ・シー・ジャパン各社とは関係のない非公式のページです。</li>
 </ul></details>
 <div class='it-bar'>
@@ -183,10 +189,16 @@ Lineage II は NC Corporation の登録商標です。</footer>
       return !k || x.nj.indexOf(k) >= 0 || x.nk.indexOf(k) >= 0 || x.na.indexOf(k) >= 0;
     });
     count.textContent = shown.length.toLocaleString() + '件' + (shown.length > 200 ? '（先頭の200件を表示。名前をもう少し入れて絞り込んでください）' : '');
+    if (!k && !g && !t) {
+      list.innerHTML = "<div class='it-hint'>名前の一部を入れて探してください（日本語・韓国語どちらでも）。<br>例：" +
+        ['ドラゴンのベルト', 'バイウム リング', '英雄のサークレット', 'タリスマン', 'アガシオン'].map(function(w){
+          return "<a href='#' data-q='" + esc(w) + "'>" + esc(w) + "</a>"; }).join('　') + "</div>";
+      return;
+    }
     list.innerHTML = shown.slice(0, 200).map(function(x, i){
       return "<div class='it-row' data-i='" + i + "'>" + icon(x[5]) + "<span class='nm'>" + esc(x[1]) + tag(x[8], x[9] ? x[0] : 0) +
              "<span class='ko'>" + esc(x[2]) + "</span></span><span class='gr'>" + esc(x[3]) + "<br>" + esc(x[4]) +
-             (x[6] ? "" : "<br><span class='nojp'>日本データなし</span>") + "</span></div>";
+             (x[6] ? "" : "<br><span class='nojp'>日本未確認</span>") + "</span></div>";
     }).join('') || "<p class='it-empty' style='padding:10px'>見つかりませんでした。</p>";
   }
   // 「刻印」などの付記と、同じ名前が複数あるときの番号
@@ -198,10 +210,17 @@ Lineage II は NC Corporation の登録商標です。</footer>
       r.map(function(x){ return "<tr><td>" + esc(x.by) + "</td><td style='text-align:right;font-weight:700'>" + esc(x.p) + "</td></tr>"; }).join('') + "</table>";
   }
   function lines(arr){ return "<pre class='it-lines'>" + esc((arr || []).join('\n').replace(/\n{3,}/g, '\n\n').trim()) + "</pre>"; }
+  function diffLines(arr, prev){
+    var before = {}; (prev || []).forEach(function(x){ before[x.trim()] = 1; });
+    var text = (arr || []).join('\n').replace(/\n{3,}/g, '\n\n').trim().split('\n');
+    return "<pre class='it-lines'>" + text.map(function(x){ return prev && x.trim() && !before[x.trim()] ? "<b>" + esc(x) + "</b>" : esc(x); }).join('\n') + "</pre>";
+  }
   function showLevel(d, lv){
     var box = detail.querySelector('#lvbox');
     [].forEach.call(detail.querySelectorAll('.it-lv button'), function(b){ b.className = b.getAttribute('data-lv') === lv ? 'on' : ''; });
-    box.innerHTML = lines(d.enchant[lv]) + euRate(d, lv);
+    var lvs = Object.keys(d.enchant || {}).sort(function(a, b){ return a - b; }), i = lvs.indexOf(lv);
+    box.innerHTML = (i > 0 ? "<p class='it-empty' style='margin:0 0 4px'>黄色＝+" + esc(lvs[i - 1]) + " から変わった行</p>" : '') +
+                    diffLines(d.enchant[lv], i > 0 ? d.enchant[lvs[i - 1]] : null) + euRate(d, lv);
     try { localStorage.setItem('l2-item-lv', lv); } catch (e) {}
   }
   function open(id, row){
@@ -210,6 +229,7 @@ Lineage II は NC Corporation の登録商標です。</footer>
     detail.innerHTML = "<p class='it-empty'>読み込み中…</p>";
     fetch('items/d/' + id + '.json').then(function(r){ return r.json(); }).then(function(d){
       cur = d;
+      try { history.replaceState(null, '', 'items.html?id=' + d.id); } catch (e) {}
       var h = "<h2>" + icon(d.icon) + "<span>" + esc(d.ja) + tag(d.extra, d.id) + "<br><span class='ko'>" + esc(d.ko) + "</span></span></h2>";
       if (d.source === 'eu') h += "<div class='jpmark eu'>韓国公式の辞典に無いアイテム。強化段階ごとの能力と強化の成功確率は<strong>EU（l2wiki.com）のデータ</strong>の機械翻訳です（参考値）</div>";
       h += d.jp ? "<div class='jpmark ok'>日本の正式名（日本の公式アイテム検索と同じアイテム）</div>"
@@ -226,15 +246,22 @@ Lineage II は NC Corporation の登録商標です。</footer>
       if (lvs.length) {
         var saved = null; try { saved = localStorage.getItem('l2-item-lv'); } catch (e) {}
         var first = lvs.indexOf(saved) >= 0 ? saved : lvs[0];
-        h += "<h3>強化段階ごとの効果</h3><div class='it-lv'>" + lvs.map(function(l){ return "<button type='button' data-lv='" + l + "'>+" + l + "</button>"; }).join('') + "</div><div id='lvbox'></div>";
+        h += "<h3>強化段階ごとの効果</h3>" + goLinks(d) + "<div class='it-lv'>" + lvs.map(function(l){ return "<button type='button' data-lv='" + l + "'>+" + l + "</button>"; }).join('') + "</div><div id='lvbox'></div>";
         detail.innerHTML = h + more(d);
         [].forEach.call(detail.querySelectorAll('.it-lv button'), function(b){ b.onclick = function(){ showLevel(d, b.getAttribute('data-lv')); }; });
         showLevel(d, first);
       } else {
-        detail.innerHTML = h + more(d);
+        detail.innerHTML = h + goLinks(d) + more(d);
       }
       if (window.innerWidth <= 800) detail.scrollIntoView({behavior: 'smooth'});
     }).catch(function(){ detail.innerHTML = "<p class='it-empty'>読み込めませんでした。</p>"; });
+  }
+  // ほかのページへ（強化・合成の確率、落とすボス）
+  function goLinks(d){
+    var h = "<div>";
+    if (d.rates) h += "<a class='it-go' href='enchant.html?q=" + encodeURIComponent(d.rate_q || d.ko) + "'>この装備の強化・合成の確率 →</a>";
+    h += "<a class='it-go' href='boss_drops.html?q=" + encodeURIComponent(d.ja) + "'>落とすボスを探す →</a>";
+    return h + "</div>";
   }
   function more(d){
     var h = "";
@@ -256,8 +283,20 @@ Lineage II は NC Corporation の登録商標です。</footer>
     var gs = {}, ts = {};
     items.forEach(function(x){ gs[x[3]] = 1; x[4].split('・').forEach(function(t){ if (t) ts[t] = 1; }); });
     fillSelect(gSel, Object.keys(gs).sort()); fillSelect(tSel, Object.keys(ts).sort());
-    var p = new URLSearchParams(location.search).get('q'); if (p) q.value = p;
+    var sp = new URLSearchParams(location.search), p = sp.get('q'), id = sp.get('id');
+    if (p) q.value = p;
     search();
+    if (id) { open(id, null); return; }
+    if (p) {
+      var k = norm(p), i = -1;
+      shown.some(function(x, j){ if (x.nj === k || x.nk === k) { i = j; return true; } return false; });
+      if (i < 0 && shown.length === 1) i = 0;
+      if (i >= 0) open(shown[i][0], list.querySelectorAll('.it-row')[i]);
+    }
+  });
+  list.addEventListener('click', function(e){
+    var a = e.target.closest('a[data-q]'); if (!a) return;
+    e.preventDefault(); q.value = a.getAttribute('data-q'); search();
   });
 })();
 </script>
