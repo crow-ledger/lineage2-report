@@ -1,0 +1,213 @@
+<!DOCTYPE html><html lang='ja'><head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<meta name='robots' content='noindex,nofollow,noarchive'>
+<title>リネージュ2 強化・合成の確率（非公式）</title>
+<meta name='description' content='韓国公式の確率ページから、強化・合成の成功確率を日本語で（非公式・参考値）。'>
+<meta property='og:type' content='website'><meta property='og:title' content='リネージュ2 強化・合成の確率（非公式）'>
+<meta property='og:description' content='韓国公式の確率ページから、強化・合成の成功確率を日本語で（非公式・参考値）。'>
+<meta property='og:image' content='https://crow-ledger.github.io/lineage2-report/og.png'>
+<link rel='icon' type='image/png' href='favicon.png'><link rel='apple-touch-icon' href='apple-touch-icon.png'>
+<link rel='preconnect' href='https://fonts.googleapis.com'>
+<link href='https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap' rel='stylesheet'>
+<style>
+:root{
+  --ink:rgba(0,0,0,.87);--muted:#6b6f76;--line:#e5e5e5;--soft:#f3f4f6;
+  --accent:#25b4c8;--link:#1a56b5;
+  --all:#2a2a2a;--eva:rgba(6,172,210,.85);--crow:rgba(255,121,130,.9);--aden:rgba(166,17,195,.8);--unk:#9aa0a6;
+  --gacha:#d6333e;--craft:#1a56b5;--event:#6b6f76;--new:#e60012}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);
+     font-family:"Noto Sans JP",system-ui,-apple-system,"Segoe UI","Hiragino Sans",sans-serif;
+     font-size:15px;line-height:1.7}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+/* ヘッダー（公式の黒い帯に寄せる。ロゴ・画像は使わない） */
+.top{background:#141414;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pnav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.pnav a{color:#c7cbd1;font-size:.82rem;padding:2px 10px;border-radius:3px;white-space:nowrap}
+.pnav a.on{background:#3a3d42;color:#fff}
+.pnav a:hover{text-decoration:none;color:#fff}
+.pnav a.ext{border:1px solid #555;margin-left:6px}
+.top .name{font-size:1.05rem;font-weight:500;letter-spacing:.06em}
+.top .unofficial{font-size:.68rem;border:1px solid #777;color:#ccc;padding:0 6px;border-radius:3px;white-space:nowrap}
+.sub{position:sticky;top:0;z-index:5;background:linear-gradient(#2b2e33,#1f2226);color:#fff}
+.sub .row1{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 12px;
+           padding:10px 16px 2px;font-size:.78rem;color:#c7cbd1}
+.sub .row1 b{color:#fff;font-size:1rem;font-weight:500}
+.tabs{display:flex;gap:2px;overflow-x:auto;padding:0 8px}
+.tabs a{color:#e8e8e8;padding:8px 10px 9px;font-size:.9rem;white-space:nowrap;
+        border-bottom:3px solid transparent;text-decoration:none}
+.tabs a.on{color:#9fe3ee;border-bottom-color:#9fe3ee}
+.tabs a span{font-size:.72rem;color:#aab0b8;margin-left:4px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px 10px}
+.lead{font-size:.88rem;color:var(--muted);margin:14px 0 4px}
+details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
+.guide{background:var(--soft);border-radius:6px;padding:4px 14px;margin:8px 0}
+.guide ul{font-size:.84rem;margin:4px 0 8px;padding-left:20px}
+.guide li{margin:3px 0}
+.newbox{border:1px solid #f3c5c8;background:#fff6f6;border-radius:6px;padding:10px 14px;margin:12px 0}
+.newbox b{color:var(--new)}
+.newbox ul{margin:6px 0 0;padding-left:20px;font-size:.88rem}
+.note{color:var(--muted);font-size:.85rem}
+/* 地域の見出し（公式の「薄いグレーの帯＋水色の左線」に寄せる） */
+.region{margin:24px 0 10px;background:var(--soft);border-left:6px solid var(--accent);padding:8px 12px;
+        font-size:1.1rem;font-weight:700;display:flex;justify-content:space-between;align-items:baseline;
+        scroll-margin-top:96px}
+.region small{font-size:.8rem;font-weight:400;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px;align-items:start}
+.fold{margin:10px 0 0}
+.fold>summary{font-size:.85rem}
+.fold .grid{margin-top:8px}
+.empty{color:var(--muted);font-size:.85rem;padding:4px 0}
+/* カード */
+.card{border:1px solid var(--line);border-radius:6px;padding:12px 14px;background:#fff;min-width:0}
+.card.ended{background:#fafafa}
+.card.ended .title{color:var(--muted)}
+.tags{display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+.srv{font-size:.72rem;font-weight:400;color:#fff;padding:0 5px;border-radius:4px;line-height:1.6;white-space:nowrap}
+.srv.all{background:var(--all)}.srv.eva{background:var(--eva)}.srv.crow{background:var(--crow)}
+.srv.aden{background:var(--aden)}.srv.unk{background:var(--unk)}
+.kind{font-size:.72rem;font-weight:700;padding:0 6px;border-radius:4px;border:1px solid;line-height:1.5;
+      background:#fff;white-space:nowrap}
+.kind.g{color:var(--gacha);border-color:var(--gacha)}.kind.c{color:var(--craft);border-color:var(--craft)}
+.kind.e{color:var(--event);border-color:#c5c8cd}
+.newmark{color:var(--new);font-size:.72rem;font-weight:700;margin-left:2px}
+.title{display:block;font-size:1.02rem;font-weight:500;color:var(--ink);line-height:1.5;word-break:break-word}
+.orig{font-size:.74rem;color:var(--muted);margin-top:1px;word-break:break-word}
+.meta{font-size:.78rem;color:var(--muted);margin-top:4px;display:flex;gap:4px 10px;flex-wrap:wrap}
+.period{color:var(--ink)}
+.left{font-weight:700;color:#b3261e}
+.left.soon{background:#b3261e;color:#fff;padding:0 5px;border-radius:3px}
+.left.done{color:var(--muted);font-weight:400}
+/* 期待値（公式の確率表に寄せる：黒い見出し行） */
+.ev{margin-top:10px;font-size:.8rem}
+.ev .ev-note{font-size:.72rem;color:var(--muted);margin-bottom:3px}
+.ev .ev-head{font-weight:700;margin-bottom:4px}
+.ev table{width:100%;border-collapse:collapse}
+.ev th{background:#111;color:#fff;font-weight:500;padding:4px 6px;text-align:left;font-size:.74rem;white-space:nowrap}
+.ev td{border:1px solid #d9d9d9;padding:4px 6px;vertical-align:top;word-break:break-word}
+.ev td.p{white-space:nowrap;font-weight:700;color:var(--gacha);font-variant-numeric:tabular-nums}
+.ev td.n{font-variant-numeric:tabular-nums}
+.ev td img.ico{width:26px;height:26px;vertical-align:middle;margin:0 6px 2px 0;border-radius:3px}
+/* 地域間の照合（詳しい人向け） */
+.match table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.85rem}
+.match th{background:#111;color:#fff;font-weight:500;padding:5px 8px;text-align:left}
+.match td{border-bottom:1px solid var(--line);padding:5px 8px}
+.match h3{font-size:.95rem;margin:14px 0 4px}
+.num{text-align:right;white-space:nowrap}
+.foot{background:#2b2b2b;color:#bbb;font-size:.78rem;padding:18px 16px;margin-top:30px;line-height:1.8}
+.foot b{color:#fff}
+.foot a{color:#9fe3ee}
+
+.it-bar{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 8px}
+.it-bar input{flex:1 1 260px;font-size:1rem;padding:9px 12px;border:1px solid var(--line);border-radius:6px;font-family:inherit}
+.it-bar select{font-size:.9rem;padding:8px;border:1px solid var(--line);border-radius:6px;font-family:inherit;background:#fff}
+.it-count{font-size:.82rem;color:var(--muted);margin:2px 0 8px}
+.it-layout{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.5fr);gap:14px;align-items:start}
+@media (max-width:800px){.it-layout{grid-template-columns:1fr}}
+.it-list{border:1px solid var(--line);border-radius:6px;max-height:72vh;overflow:auto;background:#fff}
+.it-row{padding:7px 10px;border-bottom:1px solid var(--line);cursor:pointer}
+.it-row:hover,.it-row.on{background:#eef8fa}
+.it-row .nm{font-weight:500;line-height:1.35}
+.it-row .ko{display:block;font-size:.74rem;color:var(--muted);font-weight:400}
+.it-row .cat{display:inline-block;font-size:.7rem;border:1px solid var(--line);border-radius:3px;padding:0 5px;margin-right:6px;color:var(--muted);font-weight:400}
+.it-detail{border:1px solid var(--line);border-radius:6px;padding:14px 16px;background:#fff;min-height:200px}
+.it-detail h2{margin:0 0 2px;font-size:1.2rem}
+.it-detail .ko{font-size:.8rem;color:var(--muted)}
+.it-detail .meta{font-size:.84rem;margin:6px 0;white-space:pre-wrap}
+.it-detail .cnote{font-size:.8rem;color:var(--muted);margin:4px 0 10px}
+.en-wrap{overflow-x:auto}
+.en-t{border-collapse:collapse;font-size:.86rem;width:100%}
+.en-t th,.en-t td{border:1px solid var(--line);padding:4px 8px;text-align:left;vertical-align:top;white-space:pre-wrap}
+.en-t th{background:#111;color:#fff;font-weight:500;white-space:nowrap}
+.en-t td.p{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:700}
+.en-t td.p.low{color:#b3261e}
+.it-empty{color:var(--muted);font-size:.9rem}
+.untr{color:#8a5a00}
+</style></head><body>
+<div class='top'><span class='name'>リネージュ2 情報収集レポート</span><span class='unofficial'>非公式</span><nav class='pnav'><a href='./'>ガチャ・イベント</a><a href='kr_updates.html'>韓国の先行アップデート</a><a href='kr_events.html'>韓国→日本の予測</a><a href='items.html'>アイテム検索</a><a href='enchant.html' class=on>強化・合成</a><a href='boss_drops.html'>ボスのドロップ</a></nav></div>
+<div class='sub'><div class='row1'><b>強化・合成の確率（韓国公式の確率ページを日本語で）</b><span>1,977件・韓国の公開 2026-09-23</span></div></div>
+<div class='wrap'>
+<p class='lead'>アイテムの強化（成功で+1、失敗で消える・そのまま等）と合成（2つを使い、成功で次のレベル）の成功確率です。
+韓国公式の確率ページの「本サーバー」（日本のアデン・エヴァ・クロウ相当）の表を日本語にしました。名前の一部（日本語・韓国語）で探せます。</p>
+<details class='guide'><summary>注意</summary><ul>
+<li><strong>韓国の数値（参考値）</strong>です。日本と同じとは限りません。韓国の公開が変わったら取り直します。</li>
+<li>名前は日本の公式アイテム検索の名前（同じアイテム）か、機械翻訳です。<span class='untr'>茶色の文字</span>は訳が無く韓国語のままのものです。</li>
+<li>「武器・防具の強化」「挑戦ポイント」「潜在力」は、韓国公式でも表ではなく別の記事で公開されているため、ここにはありません。合成・製作にかかるアデナは載っていません。</li>
+<li>NCSOFT・エヌ・シー・ジャパン各社とは関係のない非公式のページです。出典：<a href='https://probability.plaync.com/lineage2/index' target='_blank' rel='noopener'>韓国公式 確率ページ</a></li>
+</ul></details>
+<div class='it-bar'>
+<input id='q' type='search' placeholder='名前で探す（例：ドラゴンのベルト、バイウム タリスマン、탈리스만）' autocomplete='off'>
+<select id='cat'><option value=''>区分すべて</option></select>
+</div>
+<div class='it-count' id='count'></div>
+<div class='it-layout'>
+<div class='it-list' id='list'></div>
+<div class='it-detail' id='detail'><p class='it-empty'>左の一覧から選んでください。</p></div>
+</div>
+<footer class='foot'>韓国公式の確率ページをもとに個人が翻訳した非公式のページです。NCSOFT・エヌ・シー・ジャパン各社とは関係ありません。
+Lineage II は NC Corporation の登録商標です。</footer>
+</div>
+<script>
+(function(){
+  var data = null, shown = [];
+  var q = document.getElementById('q'), cSel = document.getElementById('cat');
+  var list = document.getElementById('list'), count = document.getElementById('count'), detail = document.getElementById('detail');
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function norm(s){
+    return (s || '').normalize('NFKC').toLowerCase()
+      .replace(/[ぁ-ゖ]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) + 0x60); })
+      .replace(/[\s・･·\-ー＝=]/g, '');
+  }
+  var HANGUL = /[가-힣]/;
+  function cell(s){ s = String(s == null ? '' : s); return HANGUL.test(s) ? "<span class='untr'>" + esc(s) + "</span>" : esc(s); }
+  function search(){
+    var k = norm(q.value), c = cSel.value;
+    shown = data.groups.filter(function(g){
+      if (c && g.c !== c) return false;
+      return !k || g.nn.indexOf(k) >= 0 || g.nk.indexOf(k) >= 0;
+    });
+    count.textContent = shown.length.toLocaleString() + '件' + (shown.length > 300 ? '（先頭の300件を表示。名前を入れて絞り込んでください）' : '');
+    list.innerHTML = shown.slice(0, 300).map(function(g, i){
+      return "<div class='it-row' data-i='" + i + "'><span class='nm'><span class='cat'>" + esc(g.c) + "</span>" + cell(g.n) +
+             (g.m && g.c === '染料の合成' ? ' ' + esc(g.m) : '') +
+             (g.k && g.k !== g.n ? "<span class='ko'>" + esc(g.k) + "</span>" : '') + "</span></div>";
+    }).join('') || "<p class='it-empty' style='padding:10px'>見つかりませんでした。</p>";
+  }
+  function isP(h){ return /成功|確率|維持|初期化|破壊/.test(h); }
+  function open(g, row){
+    [].forEach.call(list.querySelectorAll('.it-row.on'), function(r){ r.className = 'it-row'; });
+    if (row) row.className = 'it-row on';
+    var h = "<h2>" + cell(g.n) + "</h2>" + (g.k && g.k !== g.n ? "<div class='ko'>" + esc(g.k) + "</div>" : '');
+    h += "<div class='cnote'>" + esc(g.c) + "：" + esc(data.notes[g.c] || '') + "</div>";
+    if (g.m) h += "<div class='meta'>" + cell(g.m) + "</div>";
+    h += "<div class='en-wrap'><table class='en-t'><tr>" + g.h.map(function(x){ return "<th>" + esc(x) + "</th>"; }).join('') + "</tr>";
+    h += g.r.map(function(r){
+      return "<tr>" + r.map(function(v, j){
+        if (isP(g.h[j]) && /%$/.test(v)) { var n = parseFloat(v); return "<td class='p" + (n < 10 && /成功/.test(g.h[j]) ? " low" : "") + "'>" + esc(v) + "</td>"; }
+        return "<td>" + cell(v) + "</td>";
+      }).join('') + "</tr>";
+    }).join('') + "</table></div>";
+    detail.innerHTML = h;
+    if (window.innerWidth <= 800) detail.scrollIntoView({behavior: 'smooth'});
+  }
+  list.addEventListener('click', function(e){
+    var r = e.target.closest('.it-row'); if (!r) return;
+    open(shown[+r.getAttribute('data-i')], r);
+  });
+  var timer = null;
+  q.addEventListener('input', function(){ clearTimeout(timer); timer = setTimeout(search, 150); });
+  cSel.onchange = search;
+  fetch('enchant/data.json').then(function(r){ return r.json(); }).then(function(d){
+    data = d;
+    d.groups.forEach(function(g){ g.nn = norm(g.n); g.nk = norm(g.k); });
+    d.cats.forEach(function(c){ var o = document.createElement('option'); o.value = c; o.textContent = c; cSel.appendChild(o); });
+    var p = new URLSearchParams(location.search);
+    if (p.get('q')) q.value = p.get('q');
+    if (p.get('cat')) cSel.value = p.get('cat');
+    search();
+    if (p.get('q') && shown.length) open(shown[0], list.querySelector('.it-row'));
+  });
+})();
+</script>
+</body></html>
