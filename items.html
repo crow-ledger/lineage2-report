@@ -134,6 +134,20 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 .nojp{color:var(--muted)}
 .it-hint{padding:12px;font-size:.9rem;color:var(--muted);line-height:1.9}
 .it-lines b{background:#fff4d6;font-weight:700}
+.it-sw{margin:4px 0 8px}
+.it-sw button{border:1px solid var(--line);background:#fff;border-radius:4px;padding:3px 12px;cursor:pointer;font-family:inherit;font-size:.85rem;margin-right:4px}
+.it-sw button.on{background:#111;color:#fff;border-color:#111}
+.it-cmpw{overflow-x:auto}
+table.it-cmp{border-collapse:collapse;font-size:.8rem;white-space:nowrap}
+table.it-cmp th,table.it-cmp td{border:1px solid var(--line);padding:3px 7px;text-align:right}
+table.it-cmp th{background:#111;color:#fff;font-weight:500}
+table.it-cmp .n{text-align:left;background:#f7f7f8;color:inherit;position:sticky;left:0}
+table.it-cmp th.n{background:#111;color:#fff}
+table.it-cmp td.up{background:#fff4d6;font-weight:700}
+table.it-cmp td.z{color:#c0c4ca}
+.it-fx{font-size:.82rem;margin:8px 0 0}
+.it-fx dt{font-weight:700}
+.it-fx dd{margin:2px 0 0 1em}
 .it-go{display:inline-block;margin:0 6px 6px 0;font-size:.82rem;border:1px solid var(--accent);border-radius:4px;padding:2px 10px}
 .it-row .ex,.it-detail h2 .ex{font-weight:400;color:#8a5a00;font-size:.85em}
 .it-row .no,.it-detail h2 .no{font-weight:400;color:var(--muted);font-size:.8em}
@@ -229,6 +243,55 @@ Lineage II は NC Corporation の登録商標です。</footer>
                     diffLines(d.enchant[lv], i > 0 ? d.enchant[lvs[i - 1]] : null) + euRate(d, lv);
     try { localStorage.setItem('l2-item-lv', lv); } catch (e) {}
   }
+  // 「段階ごと」と「表で比べる」の切り替え（選んだ方を覚えておく）
+  function setView(v){
+    [].forEach.call(detail.querySelectorAll('.it-sw button'), function(b){ b.className = b.getAttribute('data-v') === v ? 'on' : ''; });
+    var a = detail.querySelector('#v-lv'), t = detail.querySelector('#v-tbl');
+    if (a) a.style.display = v === 'tbl' ? 'none' : '';
+    if (t) t.style.display = v === 'tbl' ? '' : 'none';
+    try { localStorage.setItem('l2-item-view', v); } catch (e) {}
+  }
+  // 1段階の効果の行 → {能力名: 値} と数値の無い効果。予告の区切り（「+7以上エンチャント時効果」から空行まで）と見出し（<基本効果> 等）は除く
+  function parseLv(lines){
+    var vals = {}, text = [], skip = false;
+    (lines || []).forEach(function(raw){
+      var x = String(raw).trim();
+      if (!x) { skip = false; return; }
+      if (/以上\s*エンチャント時/.test(x) || /^\+\d+\s*以上/.test(x)) { skip = true; return; }
+      if (skip || /^[<＜].*[>＞]$/.test(x)) return;
+      x = x.replace(/^（装備の数値）/, '');
+      var m = x.match(/^(.+?)\s*[:：]?\s*([+\-−]\s?[\d,\.]+\s*%?)$/);
+      if (m) { vals[m[1].trim()] = m[2].replace(/\s/g, ''); return; }
+      text.push(x);
+    });
+    return {vals: vals, text: text};
+  }
+  function numOf(v){ return parseFloat(String(v || '').replace(/[,%+]/g, '').replace('−', '-')); }
+  // 表で比べる：行＝能力、列＝強化段階。前の段階から数値が変わった所を黄色に。数値の無い効果は変わった段階だけ下に
+  function cmpTable(d){
+    var lvs = Object.keys(d.enchant || {}).sort(function(a, b){ return a - b; });
+    var per = lvs.map(function(l){ return parseLv(d.enchant[l]); });
+    var names = [];
+    per.forEach(function(p){ Object.keys(p.vals).forEach(function(n){ if (names.indexOf(n) < 0) names.push(n); }); });
+    var h = '';
+    if (names.length) {
+      h += "<div class='it-cmpw'><table class='it-cmp'><tr><th class='n'>能力</th>" + lvs.map(function(l){ return "<th>+" + esc(l) + "</th>"; }).join('') + "</tr>";
+      names.forEach(function(n){
+        h += "<tr><td class='n'>" + esc(n) + "</td>";
+        per.forEach(function(p, i){
+          var v = p.vals[n], prev = i > 0 ? per[i - 1].vals[n] : undefined;
+          var up = v !== undefined && i > 0 && (prev === undefined || numOf(v) !== numOf(prev));
+          h += "<td class='" + (v === undefined ? 'z' : (up ? 'up' : '')) + "'>" + (v === undefined ? '—' : esc(v)) + "</td>";
+        });
+        h += "</tr>";
+      });
+      h += "</table></div><p class='it-empty' style='margin:4px 0'>黄色＝前の段階から数値が変わった所。予告の行（「+7以上エンチャント時効果」など）は除いています。</p>";
+    }
+    var fx = [], last = '';
+    per.forEach(function(p, i){ var t = p.text.join(' / '); if (t && t !== last) fx.push([lvs[i], t]); last = t; });
+    if (fx.length) h += "<dl class='it-fx'><dt>数値の無い効果（変わった段階だけ）</dt>" + fx.map(function(f){ return "<dd><b>+" + esc(f[0]) + "〜：</b>" + esc(f[1]) + "</dd>"; }).join('') + "</dl>";
+    return h || "<p class='it-empty'>表にできる数値がありません。「段階ごと」で見てください。</p>";
+  }
   function open(id, row){
     [].forEach.call(list.querySelectorAll('.it-row.on'), function(r){ r.className = 'it-row'; });
     if (row) row.className = 'it-row on';
@@ -252,10 +315,16 @@ Lineage II は NC Corporation の登録商標です。</footer>
       if (lvs.length) {
         var saved = null; try { saved = localStorage.getItem('l2-item-lv'); } catch (e) {}
         var first = lvs.indexOf(saved) >= 0 ? saved : lvs[0];
-        h += "<h3>強化段階ごとの効果</h3>" + goLinks(d) + "<div class='it-lv'>" + lvs.map(function(l){ return "<button type='button' data-lv='" + l + "'>+" + l + "</button>"; }).join('') + "</div><div id='lvbox'></div>";
+        var mode = 'lv'; try { mode = localStorage.getItem('l2-item-view') || 'lv'; } catch (e) {}
+        h += "<h3>強化段階ごとの効果</h3>" + goLinks(d) +
+             "<div class='it-sw'><button type='button' data-v='lv'>段階ごと</button><button type='button' data-v='tbl'>表で比べる</button></div>" +
+             "<div id='v-lv'><div class='it-lv'>" + lvs.map(function(l){ return "<button type='button' data-lv='" + l + "'>+" + l + "</button>"; }).join('') + "</div><div id='lvbox'></div></div>" +
+             "<div id='v-tbl'>" + cmpTable(d) + "</div>";
         detail.innerHTML = h + more(d);
         [].forEach.call(detail.querySelectorAll('.it-lv button'), function(b){ b.onclick = function(){ showLevel(d, b.getAttribute('data-lv')); }; });
+        [].forEach.call(detail.querySelectorAll('.it-sw button'), function(b){ b.onclick = function(){ setView(b.getAttribute('data-v')); }; });
         showLevel(d, first);
+        setView(mode);
       } else {
         detail.innerHTML = h + goLinks(d) + more(d);
       }
