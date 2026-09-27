@@ -121,7 +121,7 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 .bd-empty{color:var(--muted);font-size:.9rem}
 </style></head><body>
 <div class='top'><span class='name'>リネージュ2 情報収集レポート</span><span class='unofficial'>非公式</span><nav class='pnav'><a href='./'>ガチャ・イベント</a><a href='kr_updates.html'>韓国の先行アップデート</a><a href='kr_events.html'>韓国→日本の予測</a><a href='items.html'>アイテム検索</a><a href='boss_drops.html' class=on>ボスのドロップ</a></nav></div>
-<div class='sub'><div class='row1'><b>ボスのドロップ（EU公式のデータ）</b><span>41体</span></div></div>
+<div class='sub'><div class='row1'><b>ボスのドロップ（EU公式のデータ）</b><span>165体</span></div></div>
 <div class='wrap'>
 <p class='lead'>レイドボスを倒したときに出る可能性のあるアイテムと確率です。日本・韓国の公式には無いため、
 <strong>EUの運営（Innova）の知識ベース l2wiki.com</strong> のデータを載せています。
@@ -130,7 +130,10 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 <li>ドロップは「グループ」ごとに抽選されます。<strong>グループの確率</strong>（例：15%）でそのグループが当たり、当たったグループの中から<strong>グループ内の確率</strong>（例：12.5%）で1つが選ばれます。</li>
 <li><strong>1回あたりの確率</strong>＝グループの確率×グループ内の確率。ボスを1回倒したときにそのアイテムが出る確率の目安です。</li>
 <li>データは<strong>EUのもの</strong>です。日本（クロウ・エヴァ）と確率や中身が違う場合があります。</li>
-<li>l2wiki のボス一覧のうち、ドロップの表が載っていないボス（ハイエリートの一部など18体）は省いています（ロシアの公式情報サイト l2central.info にも載っていません）。</li>
+<li>l2wiki の全モンスター（約1,900体）と狩場・インスタンス・イベントのページから、ボスを洗い出して載せています。
+ボスでもドロップの表が載っていないもの（フェリオン、イスティナ、四君主、フリンテッサ、ハイエリートの一部、ボスの取り巻きなど）は省いています。
+ロシアの公式情報サイト l2central.info にも載っていません。</li>
+<li>ボス名は機械翻訳です。日本のパッチノート等で確かめた表記（アンドレアス ヴァン ホルター、グラキエス、オクタビス など）にはそろえています。</li>
 <li>アイテム名は、日本の公式アイテム検索と同じアイテム（同じID）なら日本の正式名、それ以外は機械翻訳です。名前を押すとアイテム検索で能力を見られます。</li>
 <li>NCSOFT・エヌ・シー・ジャパン・Innova 各社とは関係のない非公式のページです。</li>
 </ul></details>
@@ -170,7 +173,8 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
       return {b: b, show: byName || h.length, h: h};
     }).filter(function(r){ return r.show; });
     list.innerHTML = rows.map(function(r){
-      return "<div class='bd-row' data-id='" + r.b.id + "'>" + esc(r.b.ja) + "<span class='en'>" + esc(r.b.en) + "</span>" +
+      return "<div class='bd-row' data-id='" + r.b.id + "'>" + esc(r.b.ja) + "<span class='en'>" + esc(r.b.en) +
+             (r.b.lv ? "・Lv" + esc(r.b.lv) : "") + "・No." + r.b.id + "</span>" +
              (r.h.length ? "<span class='hit'>" + esc(r.h.slice(0, 3).join('、')) + (r.h.length > 3 ? ' ほか' : '') + "</span>" : '') + "</div>";
     }).join('') || "<p class='bd-empty' style='padding:10px'>見つかりませんでした。</p>";
   }
@@ -178,7 +182,8 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
     var b = cur, k = norm(q.value);
     var tabs = ORDER.filter(function(t){ return b.tabs[t]; });
     if (tabs.indexOf(tab) < 0) tab = tabs[0];
-    var h = "<h2>" + esc(b.ja) + "</h2><div class='en'>" + esc(b.en) + "・<a href='https://l2wiki.com/essence/npcs/" + b.id + ".html' target='_blank' rel='noopener'>l2wiki（原文）</a></div>";
+    var h = "<h2>" + esc(b.ja) + "</h2><div class='en'>" + esc(b.en) + (b.lv ? "・Lv" + esc(b.lv) : "") +
+            (b.hp ? "・HP " + Number(b.hp).toLocaleString() : "") + "・<a href='https://l2wiki.com/essence/npcs/" + b.id + ".html' target='_blank' rel='noopener'>l2wiki（原文）</a></div>";
     h += "<div class='bd-tabs'>" + tabs.map(function(t){ return "<button type='button' data-t='" + t + "' class='" + (t === tab ? 'on' : '') + "'>" + esc(TABS[t]) + "</button>"; }).join('') + "</div>";
     b.tabs[tab].forEach(function(g, i){
       h += "<div class='bd-g'>グループ" + (i + 1) + "（当たる確率 " + pct(g.chance) + "）</div><table class='bd-t'><tr><th>アイテム</th><th>個数</th><th>グループ内</th><th>1回あたり</th></tr>";
