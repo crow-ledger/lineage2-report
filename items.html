@@ -158,7 +158,7 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 <div class='it-list' id='list'></div>
 <div class='it-detail' id='detail'><p class='it-empty'>左の一覧からアイテムを選んでください。</p></div>
 </div>
-<footer class='foot'>韓国公式のアイテム辞典をもとに個人が翻訳した非公式のページです。NCSOFT・エヌ・シー・ジャパン各社とは関係ありません。
+<footer class='foot'>韓国公式のアイテム辞典をもとに個人が翻訳した非公式のページです。NCSOFT・エヌ・シー・ジャパン各社とは関係ありません。アイテムのアイコン画像の権利は、NCSOFT・Innova 各社に帰属します。
 Lineage II は NC Corporation の登録商標です。</footer>
 </div>
 <script>
@@ -194,7 +194,7 @@ Lineage II は NC Corporation の登録商標です。</footer>
   // EUのデータの強化の成功確率（この段階にする確率）
   function euRate(d, lv){
     var r = (d.eu_rates || {})[lv]; if (!r || !r.length) return '';
-    return "<table class='it-opt' style='margin-top:8px'><tr><td colspan='2'><strong>+" + (+lv - 1) + " → +" + esc(lv) + " の成功確率（EU）</strong></td></tr>" +
+    return "<table class='it-opt' style='margin-top:8px'><tr><td colspan='2'><strong>+" + (+lv - 1) + "→+" + esc(lv) + " の成功確率（EU）</strong></td></tr>" +
       r.map(function(x){ return "<tr><td>" + esc(x.by) + "</td><td style='text-align:right;font-weight:700'>" + esc(x.p) + "</td></tr>"; }).join('') + "</table>";
   }
   function lines(arr){ return "<pre class='it-lines'>" + esc((arr || []).join('\n').replace(/\n{3,}/g, '\n\n').trim()) + "</pre>"; }
@@ -219,7 +219,7 @@ Lineage II は NC Corporation の登録商標です。</footer>
       if (d.types.length) meta.push(esc(d.types.join('・')));
       if (d.weight) meta.push("重さ " + esc(d.weight));
       meta.push("<a href='" + esc(d.url) + "' target='_blank' rel='noopener'>" + (d.source === 'eu' ? 'EU（l2wiki）' : '韓国公式') + "</a>");
-      if (d.rates) meta.push("<a href='enchant.html?q=" + encodeURIComponent(d.ko) + "'>強化・合成の確率</a>");
+      if (d.rates) meta.push("<a href='enchant.html?q=" + encodeURIComponent(d.rate_q || d.ko) + "'>強化・合成の確率</a>");
       h += "<div class='meta'>" + meta.join('・') + "</div>";
       if (d.options.length) h += "<h3>基本能力</h3><table class='it-opt'>" + d.options.map(function(o){ return "<tr><td>" + esc(o[0]) + "</td><td>" + esc(o[1]) + "</td></tr>"; }).join('') + "</table>";
       var lvs = Object.keys(d.enchant || {}).sort(function(a, b){ return a - b; });
