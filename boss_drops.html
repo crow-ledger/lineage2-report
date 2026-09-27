@@ -157,7 +157,14 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
       .replace(/[ぁ-ゖ]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) + 0x60); })
       .replace(/[\s・･·\-ー＝=]/g, '');
   }
-  function pct(v){ return (v >= 1 ? v.toFixed(v >= 10 ? 1 : 2) : v >= 0.01 ? v.toFixed(3) : v.toPrecision(2)).replace(/\.?0+$/, '') + '%'; }
+  // 小さい確率も有効数字2桁で出す（指数表記にしない）
+  function pct(v){
+    if (!(v > 0)) return '0%';
+    var s = v >= 1 ? v.toFixed(v >= 10 ? 1 : 2) : v.toFixed(Math.min(12, 1 - Math.floor(Math.log10(v))));
+    return (s.indexOf('.') >= 0 ? s.replace(/\.?0+$/, '') : s) + '%';
+  }
+  // 1回あたりが小さいときは「約○回に1回」も添える
+  function odds(v){ if (!(v > 0) || v >= 10) return ''; var n = 100 / v; return "<span class='en'>約" + (n >= 100 ? Math.round(n).toLocaleString() : n.toFixed(1).replace(/\.0$/, '')) + "回に1回</span>"; }
   function hits(b, k){
     var out = [];
     Object.keys(b.tabs).forEach(function(t){ b.tabs[t].forEach(function(g){ g.items.forEach(function(it){
@@ -191,7 +198,7 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
         var m = k && (norm(it.ja).indexOf(k) >= 0 || norm(it.en).indexOf(k) >= 0);
         var name = it.link ? "<a href='items.html?q=" + encodeURIComponent(it.ja) + "' target='_blank' rel='noopener'>" + esc(it.ja) + "</a>" : esc(it.ja);
         h += "<tr" + (m ? " class='mark'" : "") + "><td>" + name + "<span class='en'>" + esc(it.en) + (it.src === '訳' ? '（名前は機械翻訳）' : '') + "</span></td>" +
-             "<td class='n'>" + esc(it.qty) + "</td><td class='n'>" + pct(it.rate) + "</td><td class='n p'>" + pct(it.p) + "</td></tr>";
+             "<td class='n'>" + esc(it.qty) + "</td><td class='n'>" + pct(it.rate) + "</td><td class='n p'>" + pct(it.p) + odds(it.p) + "</td></tr>";
       });
       h += "</table>";
     });
