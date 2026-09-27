@@ -259,7 +259,7 @@ Lineage II は NC Corporation の登録商標です。</footer>
   // ほかのページへ（強化・合成の確率、落とすボス）
   function goLinks(d){
     var h = "<div>";
-    if (d.rates) h += "<a class='it-go' href='enchant.html?q=" + encodeURIComponent(d.rate_q || d.ko) + "'>この装備の強化・合成の確率 →</a>";
+    if (d.rates) h += "<a class='it-go' href='enchant.html?q=" + encodeURIComponent(d.rate_q || d.ko) + "'>この装備の強化・合成・変換の確率 →</a>";
     h += "<a class='it-go' href='boss_drops.html?q=" + encodeURIComponent(d.ja) + "'>落とすボスを探す →</a>";
     return h + "</div>";
   }

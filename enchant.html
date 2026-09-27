@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang='ja'><head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width,initial-scale=1'>
 <meta name='robots' content='noindex,nofollow,noarchive'>
-<title>リネージュ2 強化・合成の確率（非公式）</title>
+<title>リネージュ2 強化・合成・変換の確率（非公式）</title>
 <meta name='description' content='韓国公式の確率ページから、強化・合成の成功確率を日本語で（非公式・参考値）。'>
 <meta property='og:type' content='website'><meta property='og:title' content='リネージュ2 強化・合成の確率（非公式）'>
 <meta property='og:description' content='韓国公式の確率ページから、強化・合成の成功確率を日本語で（非公式・参考値）。'>
@@ -141,9 +141,9 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 .en-h{font-size:.92rem;margin:12px 0 4px;border-left:4px solid var(--accent);padding-left:8px}
 </style></head><body>
 <div class='top'><a class='name' href='./'>リネージュ2 情報収集レポート</a><span class='unofficial'>非公式</span><nav class='pnav'><a href='./'>TOP</a><a href='gacha.html'>ガチャ・イベント</a><a href='kr_updates.html'>韓国の先行アップデート</a><a href='kr_events.html'>韓国→日本の時間差</a><a href='items.html'>アイテム検索</a><a href='enchant.html' class=on>強化・合成</a><a href='boss_drops.html'>ボスのドロップ</a></nav></div>
-<div class='sub'><div class='row1'><b>強化・合成の確率（韓国公式の確率ページを日本語で）</b><span>2,046件・韓国の公開 2026-09-23</span></div></div>
+<div class='sub'><div class='row1'><b>強化・合成の確率（韓国公式の確率ページを日本語で）</b><span>2,418件・韓国の公開 2026-09-23</span></div></div>
 <div class='wrap'>
-<p class='lead'>アイテムの強化（成功で+1、失敗で消える・そのまま等）と合成（2つを使い、成功で次のレベル）の成功確率です。
+<p class='lead'>アイテムの強化（成功で+1、失敗で消える・そのまま等）、合成（2つを使い、成功で次のレベル）、アイテム変換（装備などを変換して別のアイテムに。区分「アイテム変換」）の成功確率です。
 韓国公式の確率ページの「本サーバー」（日本のアデン・エヴァ・クロウ相当）の表を日本語にしました。名前の一部（日本語・韓国語）で探せます。</p>
 <details class='guide'><summary>注意</summary><ul>
 <li><strong>韓国の数値（参考値）</strong>です。日本と同じとは限りません。韓国の公開が変わったら取り直します。</li>
@@ -267,7 +267,7 @@ Lineage II は NC Corporation の登録商標です。</footer>
   }
   // ほかのページへ（アイテムの能力）
   function goLinks(g){
-    if (!/特殊装備|祝福|合成|特殊製作|武器・防具の強化/.test(g.c) || /^[A-D~]/.test(g.n)) return '';
+    if (!/特殊装備|祝福|合成|特殊製作|武器・防具の強化|アイテム変換/.test(g.c) || /^[A-D~]/.test(g.n)) return '';
     var name = String(g.n).replace(/^\+\d+\s*/, '').replace(/（.*?）$/, '');
     return "<div><a class='en-go' href='items.html?q=" + encodeURIComponent(name) + "'>「" + esc(name) + "」の能力を見る →</a></div>";
   }
