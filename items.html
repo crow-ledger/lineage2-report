@@ -128,6 +128,8 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 .it-flags span.no{color:var(--muted);text-decoration:line-through}
 .it-empty{color:var(--muted);font-size:.9rem}
 .nojp{color:#b3261e}
+.it-row .ex,.it-detail h2 .ex{font-weight:400;color:#8a5a00;font-size:.85em}
+.it-row .no,.it-detail h2 .no{font-weight:400;color:var(--muted);font-size:.8em}
 .jpmark{font-size:.78rem;border-radius:4px;padding:2px 8px;display:inline-block;margin:4px 0}
 .jpmark.ok{background:#e8f5ee;color:#1e7d4f}
 .jpmark.no{background:#fdecea;color:#b3261e}
@@ -180,11 +182,13 @@ Lineage II は NC Corporation の登録商標です。</footer>
     });
     count.textContent = shown.length.toLocaleString() + '件' + (shown.length > 200 ? '（先頭の200件を表示。名前をもう少し入れて絞り込んでください）' : '');
     list.innerHTML = shown.slice(0, 200).map(function(x, i){
-      return "<div class='it-row' data-i='" + i + "'>" + icon(x[5]) + "<span class='nm'>" + esc(x[1]) +
+      return "<div class='it-row' data-i='" + i + "'>" + icon(x[5]) + "<span class='nm'>" + esc(x[1]) + tag(x[8], x[9] ? x[0] : 0) +
              "<span class='ko'>" + esc(x[2]) + "</span></span><span class='gr'>" + esc(x[3]) + "<br>" + esc(x[4]) +
              (x[6] ? "" : "<br><span class='nojp'>日本データなし</span>") + "</span></div>";
     }).join('') || "<p class='it-empty' style='padding:10px'>見つかりませんでした。</p>";
   }
+  // 「刻印」などの付記と、同じ名前が複数あるときの番号
+  function tag(extra, no){ return (extra ? " <span class='ex'>[" + esc(extra) + "]</span>" : '') + (no ? " <span class='no'>No." + esc(no) + "</span>" : ''); }
   function lines(arr){ return "<pre class='it-lines'>" + esc((arr || []).join('\n').replace(/\n{3,}/g, '\n\n').trim()) + "</pre>"; }
   function showLevel(d, lv){
     var box = detail.querySelector('#lvbox');
@@ -198,7 +202,7 @@ Lineage II は NC Corporation の登録商標です。</footer>
     detail.innerHTML = "<p class='it-empty'>読み込み中…</p>";
     fetch('items/d/' + id + '.json').then(function(r){ return r.json(); }).then(function(d){
       cur = d;
-      var h = "<h2>" + icon(d.icon) + "<span>" + esc(d.ja) + "<br><span class='ko'>" + esc(d.ko) + "</span></span></h2>";
+      var h = "<h2>" + icon(d.icon) + "<span>" + esc(d.ja) + tag(d.extra, d.id) + "<br><span class='ko'>" + esc(d.ko) + "</span></span></h2>";
       h += d.jp ? "<div class='jpmark ok'>日本の正式名（日本の公式アイテム検索と同じアイテム）</div>"
                 : "<div class='jpmark no'>日本の公式アイテム検索に無いアイテム（日本では未実装の可能性）。名前は機械翻訳です</div>";
       h += "<div class='meta'>" + esc(d.grade) + (d.types.length ? "・" + esc(d.types.join('・')) : '') +
