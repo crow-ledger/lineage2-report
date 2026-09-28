@@ -387,9 +387,45 @@ Lineage II は NC Corporation の登録商標です。</footer>
     }).catch(function(){ detail.innerHTML = "<p class='it-empty'>読み込めませんでした。</p>"; });
   }
   // ほかのページへ（強化・合成の確率、落とすボス）
+  // 精錬・ソウル ストーンのページへのリンク（2026-09-29）。精錬の部位は種類（武器・防具）か名前（アクセサリー等）で決める
+  var RPARTS = [];
+  var lastGo = null;          // 部位の一覧を読む前に詳細を開いたとき（?id=）、読み終えたらリンクを作り直す
+  fetch('refine/parts.json').then(function(r){ return r.json(); }).then(function(p){
+    RPARTS = p;
+    var box = document.getElementById('it-golinks');
+    if (box && lastGo) box.outerHTML = goLinks(lastGo);
+  }).catch(function(){});
+  var WEAPON_T = ['両手', '片手', 'デュアルソード', '剣', '両手杖', '短剣', '鈍器', '魔法剣', '格闘用武器', '槍', '弓', '魔法鈍器', '両手剣', '古代剣', '細身剣', 'シューター', '両手鈍器'];
+  var ARMOR_P = {'兜': 7, 'ヘルム': 7, '上衣': 4, '上半身': 4, '下衣': 8, '下半身': 8, 'グローブ': 6, '手': 6, 'ブーツ': 5, '足': 5, 'シールド': 3, 'シギル': 3, '左手': 3};
+  var NAME_P = {35: ['プロテクション クローク', '血盟クローク', 'アデン クローク', 'アデンのクローク']};
+  function hasT(d, list){ return (d.types || []).some(function(t){ return list.indexOf(t) >= 0; }); }
+  function refinePart(d){
+    var nm = String(d.ja || '').replace(/\s+/g, '');
+    // 名前で決まる部位（リング・イアリング・ベルト・クローク・サークレット等）。名前の長いものを先に
+    var hit = RPARTS.filter(function(p){ return p[2] !== '武器' && p[2] !== '防具' && !/（/.test(p[1]); })
+      .map(function(p){ return [p[0], [p[1].replace(/\*$/, '')].concat(NAME_P[p[0]] || [])]; })
+      .filter(function(p){ return p[1].some(function(n){ return nm.indexOf(n.replace(/\s+/g, '')) >= 0; }); })
+      .sort(function(a, b){ return b[1][0].length - a[1][0].length; })[0];
+    if (hit) return hit[0];
+    if (hasT(d, WEAPON_T)) return 1;
+    for (var i = 0; i < (d.types || []).length; i++) if (ARMOR_P[d.types[i]]) return ARMOR_P[d.types[i]];
+    if (hasT(d, ['ヘアーアクセサリー', 'ヘアアクセサリー'])) return 2;
+    return null;
+  }
+  function soulLink(d){
+    if (hasT(d, WEAPON_T)) return 'refine.html?t=soul&s=aden_w';
+    if (hasT(d, ['上下衣', 'ワンピース'])) return 'refine.html?t=soul&s=aden_a&alt=1';
+    if (hasT(d, ['兜', 'ヘルム', '上衣', '上半身', '下衣', '下半身', 'グローブ', '手', 'ブーツ', '足'])) return 'refine.html?t=soul&s=aden_a';
+    return null;
+  }
   function goLinks(d){
-    var h = "<div>";
+    lastGo = d;
+    var h = "<div id='it-golinks'>";
     if (d.rates) h += "<a class='it-go' href='enchant.html?q=" + encodeURIComponent(d.rate_q || d.ko) + "'>この装備の強化・合成・変換の確率 →</a>";
+    var rp = refinePart(d), sl = soulLink(d);
+    if (rp && !RPARTS.some(function(p){ return p[0] === rp; })) rp = null;     // 表の無い部位（ヘア アクセサリー等）はリンクしない
+    if (rp) h += "<a class='it-go' href='refine.html?t=ref&p=" + rp + "'>この部位の精錬で付くオプション →</a>";
+    if (sl) h += "<a class='it-go' href='" + sl + "'>付けられるソウル ストーンの効果 →</a>";
     h += "<a class='it-go' href='boss_drops.html?q=" + encodeURIComponent(d.ja) + "'>落とすボスを探す →</a>";
     return h + "</div>";
   }
