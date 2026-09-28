@@ -108,7 +108,9 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 .it-bar select{font-size:.9rem;padding:8px;border:1px solid var(--line);border-radius:6px;font-family:inherit;background:#fff}
 .it-count{font-size:.82rem;color:var(--muted);margin:2px 0 8px}
 .it-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:14px;align-items:start}
-@media (max-width:800px){.it-layout{grid-template-columns:1fr}}
+/* 「表で比べる」の間は表を広く（左の一覧を狭める） */
+.it-layout.wide{grid-template-columns:minmax(0,.55fr) minmax(0,1.75fr)}
+@media (max-width:800px){.it-layout,.it-layout.wide{grid-template-columns:1fr}}
 .it-list{border:1px solid var(--line);border-radius:6px;max-height:70vh;overflow:auto;background:#fff}
 .it-row{display:flex;gap:10px;align-items:center;padding:7px 10px;border-bottom:1px solid var(--line);cursor:pointer}
 .it-row:hover,.it-row.on{background:#eef8fa}
@@ -141,7 +143,8 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 table.it-cmp{border-collapse:collapse;font-size:.8rem;white-space:nowrap}
 table.it-cmp th,table.it-cmp td{border:1px solid var(--line);padding:3px 7px;text-align:right}
 table.it-cmp th{background:#111;color:#fff;font-weight:500}
-table.it-cmp .n{text-align:left;background:#f7f7f8;color:inherit;position:sticky;left:0}
+table.it-cmp .n{text-align:left;background:#f7f7f8;color:inherit;position:sticky;left:0;white-space:normal;min-width:8.5em;max-width:12em;line-height:1.35;word-break:break-all;font-size:.78rem}
+/* 能力名の列は最大幅を決めて折り返す（長い名前が1行のまま表の幅を使い切り、数字がほとんど見えなかった。2026-09-28） */
 table.it-cmp th.n{background:#111;color:#fff}
 table.it-cmp td.up{background:#fff4d6;font-weight:700}
 table.it-cmp td.z{color:#c0c4ca}
@@ -249,6 +252,7 @@ Lineage II は NC Corporation の登録商標です。</footer>
     var a = detail.querySelector('#v-lv'), t = detail.querySelector('#v-tbl');
     if (a) a.style.display = v === 'tbl' ? 'none' : '';
     if (t) t.style.display = v === 'tbl' ? '' : 'none';
+    var lay = document.querySelector('.it-layout'); if (lay) lay.className = 'it-layout' + (v === 'tbl' && t ? ' wide' : '');
     try { localStorage.setItem('l2-item-view', v); } catch (e) {}
   }
   // 1段階の効果の行 → {能力名: 値} と数値の無い効果。予告の区切り（「+7以上エンチャント時効果」から空行まで）と見出し（<基本効果> 等）は除く
