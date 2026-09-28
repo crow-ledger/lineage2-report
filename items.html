@@ -261,8 +261,8 @@ Lineage II は NC Corporation の登録商標です。</footer>
   var STAT_JA = {'力': 'STR', '知能': 'INT', '敏捷': 'DEX', '精神力': 'WIT', '体力': 'CON', '意志': 'MEN'};
   function statOf(x){ x = String(x).trim(); var u = x.toUpperCase(); return STATS.indexOf(u) >= 0 ? u : (STAT_JA[x] || null); }
   // 単独でも使われる能力名（「防御力/魔法耐性」「攻撃力/魔法力」を分けてよいもの）
-  var KNOWN = ['防御力', '魔法耐性', '魔法抵抗力', '攻撃力', '魔法力', '攻撃速度', '詠唱速度', '魔法速度', '移動速度', '命中', '回避',
-               '物理防御', '魔法防御', '物理攻撃力', '魔法攻撃力', '物理命中', '魔法命中', '物理回避', '魔法回避'];
+  var KNOWN = ['防御力', '魔法耐性', '魔法抵抗力', '攻撃力', '魔法力', '魔力', '攻撃速度', '詠唱速度', '魔法速度', '魔法詠唱速度', '移動速度', '命中', '回避',
+               '物理防御', '魔法防御', '物理攻撃力', '魔法攻撃力', '物理命中', '魔法命中', '物理命中率', '魔法命中率', '物理回避', '魔法回避'];
   var TAIL = /^(HP|MP|CP|EXP|XP|SP|命中|耐性)$/;
   // まとめ書きの能力名を、分けてよければ能力名の並びにする。効果の説明文（「発動確率:」「バフ：」「、」を含む等）は分けない
   function splitName(name){
@@ -348,7 +348,10 @@ Lineage II は NC Corporation の登録商標です。</footer>
       var h = "<h2>" + icon(d.icon) + "<span>" + esc(d.ja) + tag(d.extra, d.id) + "<br><span class='ko'>" + esc(d.ko) + "</span></span></h2>";
       if (d.source === 'eu') h += "<div class='jpmark eu'>韓国公式の辞典に無いアイテム。強化段階ごとの能力と強化の成功確率は<strong>EU（l2wiki.com）のデータ</strong>の機械翻訳です（参考値）</div>";
       // 日本のゲーム画面で確かめて表記を合わせたアイテム（jp_wording.json）
-      if (d.wording && !d.wording.general) h += "<div class='jpmark ok'>強化段階ごとの効果の<strong>言い回しを日本のゲーム画面に合わせています</strong>（確認した段階：" +
+      // 日本公式・韓国・EUの説明がゲームより古いと分かっている系統（アガシオンのブレスレット等。2026-09-28 利用者の確認）
+      if (d.warn) h += "<div class='jpmark no'>" + esc(d.warn) + "</div>";
+      if (d.desc_src === '日本のゲーム画面') h += "<div class='jpmark ok'>説明の<strong>数値と言い回しを日本のゲーム画面に合わせています</strong>（日本公式の説明より新しい値）</div>";
+      else if (d.wording && !d.wording.general && (d.wording.checked || []).length) h += "<div class='jpmark ok'>強化段階ごとの効果の<strong>言い回しを日本のゲーム画面に合わせています</strong>（確認した段階：" +
                           (d.wording.checked || []).map(function(l){ return '+' + esc(l); }).join('・') + "。数値は元のデータのまま）</div>";
       // スクショで確かめた言い方を当てただけのアイテム（このアイテムの画面は未確認）
       else if (d.wording) h += "<div class='jpmark'>言い回しの一部（防御力・魔法抵抗力・＜基本効果＞ など）を、ほかのアイテムの日本のゲーム画面で確かめた表記に合わせています</div>";
