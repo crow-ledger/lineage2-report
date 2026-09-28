@@ -1,0 +1,351 @@
+<!DOCTYPE html><html lang='ja'><head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<meta name='robots' content='noindex,nofollow,noarchive'>
+<title>リネージュ2 精錬・ソウル ストーン（非公式）</title>
+<meta name='description' content='精錬で部位ごとに付くオプションと確率、ソウル ストーンのステップごとの選択肢と数値を日本語で（韓国公式のデータ・非公式）。'>
+<meta property='og:type' content='website'><meta property='og:title' content='リネージュ2 精錬・ソウル ストーン（非公式）'>
+<meta property='og:description' content='精錬で部位ごとに付くオプションと確率、ソウル ストーンのステップごとの選択肢と数値を日本語で（韓国公式のデータ・非公式）。'>
+<meta property='og:image' content='https://crow-ledger.github.io/lineage2-report/og.png'>
+<link rel='icon' type='image/png' href='favicon.png'><link rel='apple-touch-icon' href='apple-touch-icon.png'>
+<link rel='preconnect' href='https://fonts.googleapis.com'>
+<link href='https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap' rel='stylesheet'>
+<style>
+:root{
+  --ink:rgba(0,0,0,.87);--muted:#6b6f76;--line:#e5e5e5;--soft:#f3f4f6;
+  --accent:#25b4c8;--link:#1a56b5;
+  --all:#2a2a2a;--eva:rgba(6,172,210,.85);--crow:rgba(255,121,130,.9);--aden:rgba(166,17,195,.8);--unk:#9aa0a6;
+  --gacha:#d6333e;--craft:#1a56b5;--event:#6b6f76;--new:#e60012}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);
+     font-family:"Noto Sans JP",system-ui,-apple-system,"Segoe UI","Hiragino Sans",sans-serif;
+     font-size:15px;line-height:1.7}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+/* ヘッダー（公式の黒い帯に寄せる。ロゴ・画像は使わない） */
+.top{background:#141414;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pnav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.pnav a{color:#c7cbd1;font-size:.82rem;padding:2px 10px;border-radius:3px;white-space:nowrap}
+.pnav a.on{background:#3a3d42;color:#fff}
+.pnav a:hover{text-decoration:none;color:#fff}
+.pnav a.ext{border:1px solid #555;margin-left:6px}
+.top .name{font-size:1.05rem;font-weight:500;letter-spacing:.06em;color:#fff}
+.top a.name:hover{text-decoration:none}
+.top .unofficial{font-size:.68rem;border:1px solid #777;color:#ccc;padding:0 6px;border-radius:3px;white-space:nowrap}
+.sub{position:sticky;top:0;z-index:5;background:linear-gradient(#2b2e33,#1f2226);color:#fff}
+.sub .row1{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 12px;
+           padding:10px 16px 2px;font-size:.78rem;color:#c7cbd1}
+.sub .row1 b{color:#fff;font-size:1rem;font-weight:500}
+.tabs{display:flex;gap:2px;overflow-x:auto;padding:0 8px}
+.tabs a{color:#e8e8e8;padding:8px 10px 9px;font-size:.9rem;white-space:nowrap;
+        border-bottom:3px solid transparent;text-decoration:none}
+.tabs a.on{color:#9fe3ee;border-bottom-color:#9fe3ee}
+.tabs a span{font-size:.72rem;color:#aab0b8;margin-left:4px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px 10px}
+.lead{font-size:.88rem;color:var(--muted);margin:14px 0 4px}
+details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
+.guide{background:var(--soft);border-radius:6px;padding:4px 14px;margin:8px 0}
+.guide ul{font-size:.84rem;margin:4px 0 8px;padding-left:20px}
+.guide li{margin:3px 0}
+.newbox{border:1px solid #f3c5c8;background:#fff6f6;border-radius:6px;padding:10px 14px;margin:12px 0}
+.newbox b{color:var(--new)}
+.newbox ul{margin:6px 0 0;padding-left:20px;font-size:.88rem}
+.note{color:var(--muted);font-size:.85rem}
+/* 地域の見出し（公式の「薄いグレーの帯＋水色の左線」に寄せる） */
+.region{margin:24px 0 10px;background:var(--soft);border-left:6px solid var(--accent);padding:8px 12px;
+        font-size:1.1rem;font-weight:700;display:flex;justify-content:space-between;align-items:baseline;
+        scroll-margin-top:96px}
+.region small{font-size:.8rem;font-weight:400;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px;align-items:start}
+.fold{margin:10px 0 0}
+.fold>summary{font-size:.85rem}
+.fold .grid{margin-top:8px}
+.empty{color:var(--muted);font-size:.85rem;padding:4px 0}
+/* カード */
+.card{border:1px solid var(--line);border-radius:6px;padding:12px 14px;background:#fff;min-width:0}
+.card.ended{background:#fafafa}
+.card.ended .title{color:var(--muted)}
+.tags{display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+.srv{font-size:.72rem;font-weight:400;color:#fff;padding:0 5px;border-radius:4px;line-height:1.6;white-space:nowrap}
+.srv.all{background:var(--all)}.srv.eva{background:var(--eva)}.srv.crow{background:var(--crow)}
+.srv.aden{background:var(--aden)}.srv.unk{background:var(--unk)}
+.kind{font-size:.72rem;font-weight:700;padding:0 6px;border-radius:4px;border:1px solid;line-height:1.5;
+      background:#fff;white-space:nowrap}
+.kind.g{color:var(--gacha);border-color:var(--gacha)}.kind.c{color:var(--craft);border-color:var(--craft)}
+.kind.e{color:var(--event);border-color:#c5c8cd}
+.newmark{color:var(--new);font-size:.72rem;font-weight:700;margin-left:2px}
+.title{display:block;font-size:1.02rem;font-weight:500;color:var(--ink);line-height:1.5;word-break:break-word}
+.orig{font-size:.74rem;color:var(--muted);margin-top:1px;word-break:break-word}
+.meta{font-size:.78rem;color:var(--muted);margin-top:4px;display:flex;gap:4px 10px;flex-wrap:wrap}
+.period{color:var(--ink)}
+.left{font-weight:700;color:#b3261e}
+.left.soon{background:#b3261e;color:#fff;padding:0 5px;border-radius:3px}
+.left.done{color:var(--muted);font-weight:400}
+/* 期待値（公式の確率表に寄せる：黒い見出し行） */
+.ev{margin-top:10px;font-size:.8rem}
+.ev .ev-note{font-size:.72rem;color:var(--muted);margin-bottom:3px}
+.ev .ev-head{font-weight:700;margin-bottom:4px}
+.ev .ev-more{font-size:.76rem;margin-top:2px}
+.nocrow{font-size:.7rem;color:var(--muted);border:1px dashed #b9bec5;border-radius:3px;padding:0 5px;margin-left:4px}
+.trb{font-size:.68rem;font-weight:500;color:#0f6f7d;background:#e3f5f8;border-radius:3px;padding:0 5px;margin-left:6px;vertical-align:2px}
+.ev table{width:100%;border-collapse:collapse}
+.ev th{background:#111;color:#fff;font-weight:500;padding:4px 6px;text-align:left;font-size:.74rem;white-space:nowrap}
+.ev td{border:1px solid #d9d9d9;padding:4px 6px;vertical-align:top;word-break:break-word}
+.ev td.p{white-space:nowrap;font-weight:700;color:var(--gacha);font-variant-numeric:tabular-nums}
+.ev td.n{font-variant-numeric:tabular-nums}
+.ev td img.ico{width:26px;height:26px;vertical-align:middle;margin:0 6px 2px 0;border-radius:3px}
+/* 地域間の照合（詳しい人向け） */
+.match table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.85rem}
+.match th{background:#111;color:#fff;font-weight:500;padding:5px 8px;text-align:left}
+.match td{border-bottom:1px solid var(--line);padding:5px 8px}
+.match h3{font-size:.95rem;margin:14px 0 4px}
+.num{text-align:right;white-space:nowrap}
+.foot{background:#2b2b2b;color:#bbb;font-size:.78rem;padding:18px 16px;margin-top:30px;line-height:1.8}
+.foot b{color:#fff}
+.foot a{color:#9fe3ee}
+
+.rf-tabs{display:flex;gap:6px;margin:14px 0 10px;border-bottom:2px solid #111}
+.rf-tabs button{font-family:inherit;font-size:.95rem;border:1px solid var(--line);border-bottom:none;background:#fff;border-radius:6px 6px 0 0;padding:7px 18px;cursor:pointer}
+.rf-tabs button.on{background:#111;color:#fff;border-color:#111}
+.rf-layout{display:grid;grid-template-columns:minmax(0,15em) minmax(0,1fr);gap:14px;align-items:start}
+@media (max-width:800px){.rf-layout{grid-template-columns:1fr}}
+.rf-side{border:1px solid var(--line);border-radius:6px;background:#fff;max-height:78vh;overflow:auto}
+.rf-side h4{margin:0;padding:6px 10px;font-size:.78rem;background:#f3f4f6;color:var(--muted);font-weight:500;position:sticky;top:0}
+.rf-side button{display:block;width:100%;text-align:left;border:none;border-bottom:1px solid var(--line);background:#fff;padding:6px 10px;font-family:inherit;font-size:.86rem;cursor:pointer}
+.rf-side button:hover,.rf-side button.on{background:#eef8fa}
+.rf-side button.on{font-weight:700}
+.rf-main{border:1px solid var(--line);border-radius:6px;padding:14px 16px;background:#fff;min-height:200px}
+.rf-main h2{margin:0 0 4px;font-size:1.2rem}
+.rf-note{font-size:.8rem;color:var(--muted);margin:2px 0 10px}
+.rf-cols{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(20em,1fr));align-items:start}
+.rf-st h3{font-size:1rem;margin:0 0 6px;padding:4px 8px;border-left:4px solid #999;background:#f7f7f8}
+.rf-st.bl h3{border-left-color:#c9a227;background:#fff8e1}
+.rf-st h4{font-size:.86rem;margin:10px 0 4px}
+.rf-st h4 small{font-weight:400;color:var(--muted)}
+table.rf-t{border-collapse:collapse;width:100%;font-size:.84rem}
+table.rf-t th,table.rf-t td{border:1px solid var(--line);padding:3px 8px;text-align:left;vertical-align:top}
+table.rf-t th{background:#111;color:#fff;font-weight:500}
+table.rf-t td.p{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;width:5.5em}
+table.rf-t tr.e{cursor:pointer}
+table.rf-t tr.e:hover td{background:#eef8fa}
+table.rf-t tr.e td:first-child::before{content:'▸ ';color:var(--muted);font-size:.75em}
+table.rf-t tr.e.open td:first-child::before{content:'▾ '}
+table.rf-t tr.vl td{background:#fafafa;padding:4px 8px 6px 22px}
+table.rf-v{border-collapse:collapse;font-size:.8rem}
+table.rf-v td{border:none;border-bottom:1px dotted #ddd;padding:1px 10px 1px 0}
+table.rf-v td.p{text-align:right;font-variant-numeric:tabular-nums}
+.rf-none td{color:var(--muted)}
+.sw{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
+.sw button{border:1px solid var(--line);background:#fff;border-radius:4px;padding:3px 10px;cursor:pointer;font-family:inherit;font-size:.84rem}
+.sw button.on{background:#111;color:#fff;border-color:#111}
+.sw button.t{border-color:#c9a227}
+.sw button.t.on{background:#8a6d00;border-color:#8a6d00}
+.sw .lb{font-size:.8rem;color:var(--muted);align-self:center;margin-right:4px}
+.kr{display:inline-block;font-size:.72rem;border-radius:3px;padding:0 6px;background:#fdecea;color:#b3261e;margin-left:6px;vertical-align:middle}
+.ss-info{background:#f7f7f8;border-radius:6px;padding:8px 12px;font-size:.84rem;margin:8px 0}
+.ss-info div{margin:2px 0}
+.ss-wrap{overflow-x:auto}
+table.ss-t{border-collapse:collapse;font-size:.84rem;min-width:100%}
+table.ss-t th,table.ss-t td{border:1px solid var(--line);padding:3px 8px;vertical-align:top}
+table.ss-t th{background:#111;color:#fff;font-weight:500;white-space:nowrap}
+table.ss-t td.v{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:700}
+table.ss-t td.d{text-align:right;white-space:nowrap;color:#1e7d4f;font-variant-numeric:tabular-nums}
+table.ss-t td.z{color:#c0c4ca;text-align:center}
+table.ss-t td.o{font-weight:700;background:#f7f7f8;white-space:nowrap}
+table.ss-t td.up{background:#fff4d6}
+table.ss-all th{white-space:normal;font-size:.76rem;min-width:5em}
+table.ss-all td{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+table.ss-all td.lv{text-align:left;font-weight:700;background:#f7f7f8}
+table.ss-all tr.cur td{background:#fff4d6}
+table.ss-all tr.tr td.lv{color:#8a6d00}
+</style></head><body>
+<div class='top'><a class='name' href='./'>リネージュ2 情報収集レポート</a><span class='unofficial'>非公式</span><nav class='pnav'><a href='./'>TOP</a><a href='gacha.html'>ガチャ・イベント</a><a href='kr_updates.html'>韓国の先行アップデート</a><a href='kr_events.html'>韓国→日本の時間差</a><a href='items.html'>アイテム検索</a><a href='enchant.html'>強化・合成</a><a href='refine.html' class=on>精錬・ソウル ストーン</a><a href='boss_drops.html'>ボスのドロップ</a></nav></div>
+<div class='sub'><div class='row1'><b>精錬・ソウル ストーン（韓国公式のデータを日本語で）</b><span>精錬 44部位・韓国の公開 2026-09-23</span></div></div>
+<div class='wrap'>
+<p class='lead'><b>精錬</b>：部位ごとに、精錬石（通常・祝福）で付くオプションと確率。精錬し直すと今の精錬効果は上書きされます。
+<b>ソウル ストーン</b>：ステップ（段階）ごとに選べる効果と、その数値・合成の成功確率・装着の手数料。</p>
+<details class='guide'><summary>注意</summary><ul>
+<li><strong>韓国の数値（参考値）</strong>です。精錬は韓国公式の確率ページ「本サーバー（日本のアデン・エヴァ・クロウ相当）」、ソウル ストーンは韓国公式ガイドブック「집혼」（2026-07-15更新）の表です。
+祝福された武器用精錬石の範囲は、日本のゲーム画面と全部一致しました。ソウル ストーンの数値は日本では未確認です（2021年の日本のまとめとは値が違います）。</li>
+<li>ソウル ストーンの Lv1〜20 の表は韓国のガイドブックでは画像のため、目で読み取って書き起こしました。「超越」の欄は、ガイドブックに書かれている効果だけです（書かれていない効果は「—」）。</li>
+<li>選択肢の名前は日本のゲーム画面の表記、効果の名前は訳です。部位名の <b>*</b> は日本の名前が未確認のもの（日本に無いかもしれません）。</li>
+<li>NCSOFT・エヌ・シー・ジャパン各社とは関係のない非公式のページです。出典：<a href='https://probability.plaync.com/lineage2/index' target='_blank' rel='noopener'>韓国公式 確率ページ</a>・<a href='https://lineage2.plaync.com/guidebook/l2/view?title=%EC%A7%91%ED%98%BC' target='_blank' rel='noopener'>韓国公式ガイドブック「집혼」</a></li>
+</ul></details>
+<div class='rf-tabs'><button type='button' data-t='ref'>精錬</button><button type='button' data-t='soul'>ソウル ストーン</button></div>
+<div id='box'><p class='it-empty'>読み込み中…</p></div>
+</div>
+<script>
+(function(){
+  var D = null, box = document.getElementById('box');
+  var P = new URLSearchParams(location.search);
+  var st = {t: P.get('t') === 'soul' ? 'soul' : 'ref', p: P.get('p') || '1', s: P.get('s') || 'aden_w',
+            lv: +(P.get('lv') || 1), m: P.get('m') === 'all' ? 'all' : 'step', o: P.get('o') || '', alt: P.get('alt') === '1'};
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function save(){
+    var q = new URLSearchParams();
+    q.set('t', st.t);
+    if (st.t === 'ref') q.set('p', st.p);
+    else { q.set('s', st.s); q.set('lv', st.lv); if (st.m === 'all') q.set('m', 'all'); if (st.o) q.set('o', st.o); if (st.alt) q.set('alt', '1'); }
+    try { history.replaceState(null, '', '?' + q.toString()); } catch (e) {}
+  }
+  function num(v){ var n = Number(v); return (Math.round(n * 1000) / 1000).toLocaleString(); }
+  function pct(p){ return (Math.round(p * 10000) / 10000) + '%'; }
+
+  // ---------------------------------------------------------------- 精錬
+  function refine(){
+    var parts = D.parts, cur = parts.filter(function(p){ return String(p.id) === String(st.p); })[0] || parts[0];
+    st.p = String(cur.id);
+    var side = '', last = '';
+    parts.forEach(function(p){
+      if (p.c !== last) { side += '<h4>' + esc(p.c) + '</h4>'; last = p.c; }
+      side += "<button type='button' data-p='" + p.id + "'" + (p === cur ? " class='on'" : '') + '>' + esc(p.n) + '</button>';
+    });
+    var h = '<h2>' + esc(cur.n) + '</h2><p class=\'rf-note\'>韓国名：' + esc(cur.ko) + '（確率ページのグループ ' + cur.id + '）' +
+            (/\*$/.test(cur.n) ? '。日本の名前は未確認' : '') + '。効果の行を押すと、値ごとの確率が出ます。</p><div class=\'rf-cols\'>';
+    cur.stones.forEach(function(s, si){
+      h += "<div class='rf-st" + (s.bl ? ' bl' : '') + "'><h3>" + esc(s.n) + '</h3>';
+      s.slots.forEach(function(sl, li){
+        var rest = Math.round((100 - sl.sum) * 10000) / 10000;
+        h += '<h4>' + esc(sl.n) + ' <small>' + sl.e.length + '種類</small></h4>';
+        h += "<table class='rf-t'><tr><th>効果（付く範囲）</th><th>確率</th></tr>";
+        sl.e.forEach(function(e, ei){
+          var id = si + '-' + li + '-' + ei;
+          h += "<tr class='e' data-v='" + id + "'><td>" + esc(e.n) + "</td><td class='p'>" + pct(e.p) + '</td></tr>';
+          h += "<tr class='vl' id='v" + id + "' style='display:none'><td colspan='2'><table class='rf-v'>" +
+               e.v.map(function(v){ return '<tr><td>' + esc(v[0]) + "</td><td class='p'>" + esc(v[1]) + '</td></tr>'; }).join('') + '</table></td></tr>';
+        });
+        if (rest > 0.001) h += "<tr class='rf-none'><td>（何も付かない）</td><td class='p'>" + pct(rest) + '</td></tr>';
+        h += '</table>';
+      });
+      h += '</div>';
+    });
+    h += '</div>';
+    box.innerHTML = "<div class='rf-layout'><div class='rf-side'>" + side + "</div><div class='rf-main'>" + h + '</div></div>';
+    [].forEach.call(box.querySelectorAll('.rf-side button'), function(b){ b.onclick = function(){ st.p = b.getAttribute('data-p'); render(); }; });
+    [].forEach.call(box.querySelectorAll('tr.e'), function(tr){
+      tr.onclick = function(){
+        var v = document.getElementById('v' + tr.getAttribute('data-v')), open = v.style.display === 'none';
+        v.style.display = open ? '' : 'none'; tr.classList.toggle('open', open);
+      };
+    });
+  }
+
+  // ---------------------------------------------------------------- ソウル ストーン
+  var LVS = []; for (var i = 1; i <= 20; i++) LVS.push(i); for (i = 1; i <= 5; i++) LVS.push(20 + i);
+  function lvName(n){ return n <= 20 ? 'ステップ' + n : '超越' + (n - 20); }
+  function hasT(s){ return opts(s).some(function(o){ return o.rows.some(function(r){ return r.t; }); }); }
+  function opts(s){ return st.alt && s.alt ? s.alt.opts : s.opts; }
+  function val(r, n){                       // n：1〜25
+    if (n > 20) return r.t ? (r.t[n - 21] || '') : '';
+    var v = r.v[n - 1];
+    if (v == null) return '';
+    return (v < 0 ? '' : r.s) + num(v) + r.u;
+  }
+  function diff(r, n){
+    if (n <= 1 || n > 20) return '';
+    var a = r.v[n - 1], b = r.v[n - 2];
+    if (a == null) return '';
+    if (b == null) return '新しく付く';
+    var d = Math.round((a - b) * 1000) / 1000;
+    return d ? (d > 0 ? '+' : '') + num(d) + r.u : '';
+  }
+  function info(s, n){
+    var h = "<div class='ss-info'><div><b>付けられる場所：</b>" + esc(s.where) + '</div>';
+    if (s.cost) {
+      var c = n <= 20 ? s.cost.v[n - 1] : (s.cost.t || [])[n - 21];
+      if (c) h += '<div><b>' + esc(lvName(n)) + 'の手数料：</b>' + s.cost.cols.map(function(k, i){
+        var x = c[i]; return esc(k) + ' ' + (typeof x === 'number' ? x.toLocaleString() + s.cost.unit : esc(x));
+      }).join('／') + '</div>';
+    }
+    if (n < 20 && s.fuse && s.fuse[n - 1]) {
+      var f = s.fuse[n - 1];
+      h += '<div><b>次のステップへの合成：</b>成功 <b>' + esc(f.p) + '</b>（材料：' + esc(f.m) + '、アデナ ' + (s.fee ? s.fee[n - 1].toLocaleString() : '?') +
+           '）。失敗すると手元に残るもの：' + esc(f.ng || '—') + '</div>';
+    } else if (n === 20 && s.fuse && s.fuse[19]) {
+      h += '<div><b>超越への合成：</b>成功 <b>' + esc(s.fuse[19].p) + '</b>（材料：' + esc(s.fuse[19].m) + '）。' + esc(s.fuse[19].ng ? '失敗すると：' + s.fuse[19].ng : '失敗するとソウル ストーンも材料も消える') + '</div>';
+    } else if (n > 20 && n < 25 && hasT(s)) {
+      var tp = (s.tfuse && s.tfuse[n - 21] && s.tfuse[n - 21].p) || D.soul.tfuse.p[n - 21];
+      h += '<div><b>次の超越への合成：</b>成功 <b>' + esc(tp) + '</b>（材料：超越強化石、アデナ ' + D.soul.tfuse.fee.toLocaleString() + '）。' + esc(D.soul.tfuse.note.replace(/^.*?：/, '')) + '</div>';
+    }
+    return h + '</div>';
+  }
+  function soul(){
+    var S = D.soul.stones, s = S.filter(function(x){ return x.id === st.s; })[0] || S[0];
+    st.s = s.id;
+    if (!s.alt) st.alt = false;
+    var maxLv = hasT(s) ? 25 : 20;
+    if (st.lv < 1 || st.lv > maxLv) st.lv = 1;
+    var h = "<div class='sw'><span class='lb'>種類</span>" + S.map(function(x){
+      return "<button type='button' data-s='" + x.id + "'" + (x === s ? " class='on'" : '') + '>' + esc(x.n) + (x.kr_only ? '（韓国のみ）' : '') + '</button>';
+    }).join('') + '</div>';
+    if (s.alt) h += "<div class='sw'><span class='lb'>部位</span><button type='button' data-alt='0'" + (!st.alt ? " class='on'" : '') +
+                    ">兜・上半身・下半身・グローブ・ブーツ</button><button type='button' data-alt='1'" + (st.alt ? " class='on'" : '') + '>' + esc(s.alt.n) + '</button></div>';
+    h += "<div class='sw'><span class='lb'>見かた</span><button type='button' data-m='step'" + (st.m === 'step' ? " class='on'" : '') +
+         ">ステップを選ぶ</button><button type='button' data-m='all'" + (st.m === 'all' ? " class='on'" : '') + '>全ステップの表</button></div>';
+    var O = opts(s);
+    if (st.m === 'step') {
+      h += "<div class='sw'><span class='lb'>ステップ</span>" + LVS.filter(function(n){ return n <= maxLv; }).map(function(n){
+        return "<button type='button' data-lv='" + n + "' class='" + (n > 20 ? 't' : '') + (n === st.lv ? ' on' : '') + "'>" + (n <= 20 ? n : '超越' + (n - 20)) + '</button>';
+      }).join('') + '</div>';
+      h += '<h2 style="margin-top:10px">' + esc(s.n) + (s.kr_only ? "<span class='kr'>韓国のみ</span>" : '') + '：' + esc(lvName(st.lv)) + '</h2>';
+      h += info(s, st.lv);
+      h += '<p class=\'rf-note\'>' + (s.choose ? '選択肢から<b>1つ</b>を選んで付けます。' : 'この効果が<b>全部</b>付きます。') +
+           (st.lv > 1 && st.lv <= 20 ? '右の列は1つ前のステップからの増え方。' : '') + '</p>';
+      h += "<div class='ss-wrap'><table class='ss-t'><tr>" + (s.choose ? '<th>選択肢</th>' : '') + '<th>効果</th><th>' + esc(lvName(st.lv)) + '</th>' +
+           (st.lv > 1 && st.lv <= 20 ? '<th>前からの差</th>' : '') + '</tr>';
+      O.forEach(function(o){
+        var rows = o.rows.filter(function(r){ return st.lv > 20 ? r.t : r.v.some(function(v){ return v != null; }); });
+        if (!rows.length) {
+          if (s.choose) h += "<tr><td class='o'>" + esc(o.n) + "</td><td colspan='3' class='z'>" + (st.lv > 20 ? '超越には無い選択肢' : '超越だけの選択肢') + '</td></tr>';
+          return;
+        }
+        rows.forEach(function(r, i){
+          var v = val(r, st.lv), d = diff(r, st.lv);
+          h += '<tr>' + (s.choose && i === 0 ? "<td class='o' rowspan='" + rows.length + "'>" + esc(o.n) + '</td>' : '') + '<td>' + esc(r.e) + '</td>' +
+               (v ? "<td class='v'>" + esc(v) + '</td>' : "<td class='z'>—</td>") +
+               (st.lv > 1 && st.lv <= 20 ? "<td class='d'>" + esc(d) + '</td>' : '') + '</tr>';
+        });
+      });
+      h += '</table></div>';
+    } else {
+      // 全ステップの表：行＝ステップ、列＝効果。選択肢の多いもの（アデンの武器）は、選択肢を選ぶか「すべて（主な効果）」
+      var cols = [];
+      if (s.choose && O.length > 2) {
+        h += "<div class='sw'><span class='lb'>選択肢</span><button type='button' data-o=''" + (!st.o ? " class='on'" : '') + '>すべて（主な効果）</button>' +
+             O.map(function(o){ return "<button type='button' data-o='" + esc(o.n) + "'" + (st.o === o.n ? " class='on'" : '') + '>' + esc(o.n) + '</button>'; }).join('') + '</div>';
+        var one = O.filter(function(o){ return o.n === st.o; })[0];
+        if (one) one.rows.forEach(function(r){ cols.push([r.e, r]); });
+        else O.forEach(function(o){ cols.push([o.n, o.rows[0]]); });
+      } else {
+        O.forEach(function(o){ o.rows.forEach(function(r){ cols.push([(s.choose ? o.n + '：' : '') + r.e, r]); }); });
+      }
+      h += "<div class='ss-wrap'><table class='ss-t ss-all'><tr><th>ステップ</th>" + cols.map(function(c){ return '<th>' + esc(c[0]) + '</th>'; }).join('') +
+           '<th>次への合成</th>' + (s.cost ? '<th>' + esc(s.cost.cols[0]) + '</th>' : '') + '</tr>';
+      LVS.filter(function(n){ return n <= maxLv; }).forEach(function(n){
+        var f = n < 20 ? (s.fuse && s.fuse[n - 1] && s.fuse[n - 1].p) : n === 20 ? (s.fuse && s.fuse[19] && s.fuse[19].p) :
+                n < 25 ? ((s.tfuse && s.tfuse[n - 21] && s.tfuse[n - 21].p) || D.soul.tfuse.p[n - 21]) : '';
+        var c = s.cost ? (n <= 20 ? s.cost.v[n - 1] : (s.cost.t || [])[n - 21]) : null;
+        h += '<tr class="' + (n > 20 ? 'tr' : '') + '"><td class="lv">' + esc(n <= 20 ? 'Lv' + n : '超越' + (n - 20)) + '</td>' +
+             cols.map(function(cl){ var v = val(cl[1], n); return v ? '<td>' + esc(v) + '</td>' : "<td class='z'>—</td>"; }).join('') +
+             '<td>' + esc(f || '') + '</td>' + (s.cost ? '<td>' + (c ? (typeof c[0] === 'number' ? c[0].toLocaleString() : esc(c[0])) : '') + '</td>' : '') + '</tr>';
+      });
+      h += '</table></div><p class=\'rf-note\'>「次への合成」は、そのステップから次へ上げる合成の成功確率。手数料の単位は' + esc(s.cost ? (s.cost.unit || '表のとおり') : '') + '。</p>';
+    }
+    box.innerHTML = h;
+    [].forEach.call(box.querySelectorAll('[data-s]'), function(b){ b.onclick = function(){ st.s = b.getAttribute('data-s'); st.o = ''; render(); }; });
+    [].forEach.call(box.querySelectorAll('[data-alt]'), function(b){ b.onclick = function(){ st.alt = b.getAttribute('data-alt') === '1'; render(); }; });
+    [].forEach.call(box.querySelectorAll('[data-m]'), function(b){ b.onclick = function(){ st.m = b.getAttribute('data-m'); render(); }; });
+    [].forEach.call(box.querySelectorAll('[data-lv]'), function(b){ b.onclick = function(){ st.lv = +b.getAttribute('data-lv'); render(); }; });
+    [].forEach.call(box.querySelectorAll('[data-o]'), function(b){ b.onclick = function(){ st.o = b.getAttribute('data-o'); render(); }; });
+  }
+
+  function render(){
+    [].forEach.call(document.querySelectorAll('.rf-tabs button'), function(b){ b.className = b.getAttribute('data-t') === st.t ? 'on' : ''; });
+    if (st.t === 'soul') soul(); else refine();
+    save();
+  }
+  [].forEach.call(document.querySelectorAll('.rf-tabs button'), function(b){ b.onclick = function(){ st.t = b.getAttribute('data-t'); render(); }; });
+  fetch('refine/data.json').then(function(r){ return r.json(); }).then(function(d){ D = d; render(); })
+    .catch(function(){ box.innerHTML = "<p class='it-empty'>データを読み込めませんでした。再読み込みしてください。</p>"; });
+})();
+</script>
+</body></html>
