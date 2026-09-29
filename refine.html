@@ -285,6 +285,7 @@ table.ss-all tr.tr td.lv{color:#8a6d00}
     h += "<div class='ss-wrap'><table class='ss-t'><tr><th>区間</th><th>一気に成功</th><th>ステップ1の個数（平均）</th><th>中央値</th><th>運が悪いと（90%）</th>" +
          "<th>アデナ（平均）</th><th>アデナ（中央値）</th><th>アデナ（90%）</th><th>ステップ1から合計（平均）</th></tr>";
     L.segs.forEach(function(g){
+      if (g.stones == null) { h += '<tr><td>' + g.from + '→' + g.to + "</td><td colspan='8' class='z'>計算できない区間（成功率0%の段がある等）</td></tr>"; return; }
       cum.stones += g.stones; cum.fee += g.fee; if (g.adena != null) cum.adena += g.adena;
       h += '<tr><td>' + g.from + '→' + g.to + "</td><td class='v'>" + (Math.round(g.p_straight * 10000) / 100) + '%</td>' +
            "<td class='v'>" + Math.round(g.stones).toLocaleString() + "個</td><td class='v'>" + Math.round(g.q50).toLocaleString() + "個</td><td class='v'>" + Math.round(g.q90).toLocaleString() + '個</td>' +
@@ -309,6 +310,7 @@ table.ss-all tr.tr td.lv{color:#8a6d00}
          ">ステップを選ぶ</button><button type='button' data-m='all'" + (st.m === 'all' ? " class='on'" : '') + '>全ステップの表</button>' +
          (s.ladder ? "<button type='button' data-m='cost'" + (st.m === 'cost' ? " class='on'" : '') + '>合成の費用</button>' : '') + '</div>';
     var O = opts(s);
+    if (st.m === 'cost' && !s.ladder) st.m = 'step';
     if (st.m === 'cost' && s.ladder) {
       h += ladderHtml(s);
     } else if (st.m === 'step') {

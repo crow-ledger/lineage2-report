@@ -3,3 +3,4 @@
 !robots.txt
 last_run.log
 _samples/
+*.tmp

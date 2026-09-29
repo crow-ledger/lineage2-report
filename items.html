@@ -76,6 +76,7 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 .title{display:block;font-size:1.02rem;font-weight:500;color:var(--ink);line-height:1.5;word-break:break-word}
 .orig{font-size:.74rem;color:var(--muted);margin-top:1px;word-break:break-word}
 .meta{font-size:.78rem;color:var(--muted);margin-top:4px;display:flex;gap:4px 10px;flex-wrap:wrap}
+.meta a.anl{font-weight:700;border:1px solid var(--accent);border-radius:4px;padding:0 8px}
 .period{color:var(--ink)}
 .left{font-weight:700;color:#b3261e}
 .left.soon{background:#b3261e;color:#fff;padding:0 5px;border-radius:3px}
@@ -409,7 +410,7 @@ Lineage II は NC Corporation の登録商標です。</footer>
     if (hit) return hit[0];
     if (hasT(d, WEAPON_T)) return 1;
     for (var i = 0; i < (d.types || []).length; i++) if (ARMOR_P[d.types[i]]) return ARMOR_P[d.types[i]];
-    if (hasT(d, ['ヘアアクセサリー', 'ヘアアクセサリー'])) return 2;
+    if (hasT(d, ['ヘアーアクセサリー', 'ヘアアクセサリー'])) return 2;
     return null;
   }
   function soulLink(d){
