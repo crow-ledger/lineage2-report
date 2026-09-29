@@ -409,7 +409,7 @@ Lineage II は NC Corporation の登録商標です。</footer>
     if (hit) return hit[0];
     if (hasT(d, WEAPON_T)) return 1;
     for (var i = 0; i < (d.types || []).length; i++) if (ARMOR_P[d.types[i]]) return ARMOR_P[d.types[i]];
-    if (hasT(d, ['ヘアーアクセサリー', 'ヘアアクセサリー'])) return 2;
+    if (hasT(d, ['ヘアアクセサリー', 'ヘアアクセサリー'])) return 2;
     return null;
   }
   function soulLink(d){
