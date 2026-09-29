@@ -159,6 +159,14 @@ table.it-cmp td.z{color:#c0c4ca}
 .jpmark.ok{background:#e8f5ee;color:#1e7d4f}
 .jpmark.no{background:#fdecea;color:#b3261e}
 .jpmark.eu{background:#eef3fd;color:#1a4fa0}
+/* 入手方法（2026-09-29） */
+.src-k{font-size:.8rem;font-weight:700;margin:8px 0 2px}
+.src-l{list-style:none;margin:0;padding:0;font-size:.86rem;line-height:1.6}
+.src-l li{padding-left:1em;text-indent:-1em}
+.src-l .d{color:var(--muted);margin-left:.5em}
+.src-l .untr{color:#8a5a00}
+.src-more summary{font-size:.8rem;color:var(--muted);cursor:pointer}
+.src-note{font-size:.76rem;color:var(--muted);margin:6px 0 0}
 </style></head><body>
 <div class='top'><a class='name' href='./'>リネージュ2 情報収集レポート</a><span class='unofficial'>非公式</span><nav class='pnav'><a href='./'>TOP</a><a href='gacha.html'>ガチャ・イベント</a><a href='kr_updates.html'>韓国の先行アップデート</a><a href='kr_events.html'>韓国→日本の時間差</a><a href='items.html' class=on>アイテム検索</a><a href='enchant.html'>強化・合成</a><a href='refine.html'>精錬・ソウル ストーン</a><a href='boss_drops.html'>ボスのドロップ</a></nav></div>
 <div class='sub'><div class='row1'><b>アイテム検索（韓国公式のアイテム辞典を日本語で）</b><span>4,255件</span></div></div>
@@ -367,6 +375,7 @@ Lineage II は NC Corporation の登録商標です。</footer>
       if (d.rates) meta.push("<a href='enchant.html?q=" + encodeURIComponent(d.rate_q || d.ko) + "'>強化・合成の確率</a>");
       h += "<div class='meta'>" + meta.join('・') + "</div>";
       if (d.options.length) h += "<h3>基本能力</h3><table class='it-opt'>" + d.options.map(function(o){ return "<tr><td>" + esc(o[0]) + "</td><td>" + esc(o[1]) + "</td></tr>"; }).join('') + "</table>";
+      h += "<div id='it-src'></div>";
       var lvs = Object.keys(d.enchant || {}).sort(function(a, b){ return a - b; });
       if (lvs.length) {
         var saved = null; try { saved = localStorage.getItem('l2-item-lv'); } catch (e) {}
@@ -384,8 +393,40 @@ Lineage II は NC Corporation の登録商標です。</footer>
       } else {
         detail.innerHTML = h + goLinks(d) + more(d);
       }
+      loadSrc(d.id);
       if (window.innerWidth <= 800) detail.scrollIntoView({behavior: 'smooth'});
     }).catch(function(){ detail.innerHTML = "<p class='it-empty'>読み込めませんでした。</p>"; });
+  }
+  // 入手方法（item_sources.py が作る items/src/<ID % 32>.json。2026-09-29）
+  var SRC = {};
+  var SRC_NOTE = "このサイトのデータ（日本のガチャ・特殊製作、NPCの店、ボスのドロップ、EUの特殊製作、韓国の合成・変換・確率箱）から、" +
+                 "アイテムIDか名前が一致したものです。ここに無い入手方法もあります。韓国・EUのものは参考（日本と違うことがあります）。";
+  function loadSrc(id){
+    var n = (+id) % 32;
+    var show = function(m){
+      var box = document.getElementById('it-src');
+      if (!box || !cur || String(cur.id) !== String(id)) return;
+      box.innerHTML = srcHtml(m[String(id)] || []);
+    };
+    if (SRC[n]) { show(SRC[n]); return; }
+    fetch('items/src/' + n + '.json').then(function(r){ return r.json(); }).then(function(m){ SRC[n] = m; show(m); }).catch(function(){});
+  }
+  function srcHtml(list){
+    if (!list.length) return "<h3>入手方法</h3><p class='src-note'>このサイトのデータには見当たりませんでした（ほかの入手方法はあり得ます）。</p>";
+    var kinds = [], by = {};
+    list.forEach(function(e){ if (!by[e[0]]) { by[e[0]] = []; kinds.push(e[0]); } by[e[0]].push(e); });
+    var li = function(e){
+      var w = /[가-힣]/.test(e[1]) ? "<span class='untr'>" + esc(e[1]) + "</span>" : esc(e[1]);
+      if (e[3]) w = "<a href='" + esc(e[3]) + "'" + (/^https?:/.test(e[3]) ? " target='_blank' rel='noopener'" : "") + ">" + w + "</a>";
+      return "<li>" + w + (e[2] ? "<span class='d'>" + esc(e[2]) + "</span>" : '') + "</li>";
+    };
+    var h = "<h3>入手方法</h3>";
+    kinds.forEach(function(k){
+      var es = by[k];
+      h += "<div class='src-k'>" + esc(k) + (es.length > 1 ? "（" + es.length + "件）" : '') + "</div><ul class='src-l'>" + es.slice(0, 5).map(li).join('') + "</ul>";
+      if (es.length > 5) h += "<details class='src-more'><summary>ほか" + (es.length - 5) + "件を見る</summary><ul class='src-l'>" + es.slice(5).map(li).join('') + "</ul></details>";
+    });
+    return h + "<p class='src-note'>" + SRC_NOTE + "</p>";
   }
   // ほかのページへ（強化・合成の確率、落とすボス）
   // 精錬・ソウル ストーンのページへのリンク（2026-09-29）。精錬の部位は種類（武器・防具）か名前（アクセサリー等）で決める
