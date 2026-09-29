@@ -76,6 +76,7 @@ details>summary{cursor:pointer;color:var(--link);font-size:.88rem;margin:6px 0}
 .title{display:block;font-size:1.02rem;font-weight:500;color:var(--ink);line-height:1.5;word-break:break-word}
 .orig{font-size:.74rem;color:var(--muted);margin-top:1px;word-break:break-word}
 .meta{font-size:.78rem;color:var(--muted);margin-top:4px;display:flex;gap:4px 10px;flex-wrap:wrap}
+.meta a.anl{font-weight:700;border:1px solid var(--accent);border-radius:4px;padding:0 8px}
 .period{color:var(--ink)}
 .left{font-weight:700;color:#b3261e}
 .left.soon{background:#b3261e;color:#fff;padding:0 5px;border-radius:3px}
@@ -178,13 +179,13 @@ table.ss-all tr.tr td.lv{color:#8a6d00}
   var D = null, box = document.getElementById('box');
   var P = new URLSearchParams(location.search);
   var st = {t: P.get('t') === 'soul' ? 'soul' : 'ref', p: P.get('p') || '1', s: P.get('s') || 'aden_w',
-            lv: +(P.get('lv') || 1), m: P.get('m') === 'all' ? 'all' : 'step', o: P.get('o') || '', alt: P.get('alt') === '1'};
+            lv: +(P.get('lv') || 1), m: ['all', 'cost'].indexOf(P.get('m')) >= 0 ? P.get('m') : 'step', o: P.get('o') || '', alt: P.get('alt') === '1'};
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function save(){
     var q = new URLSearchParams();
     q.set('t', st.t);
     if (st.t === 'ref') q.set('p', st.p);
-    else { q.set('s', st.s); q.set('lv', st.lv); if (st.m === 'all') q.set('m', 'all'); if (st.o) q.set('o', st.o); if (st.alt) q.set('alt', '1'); }
+    else { q.set('s', st.s); q.set('lv', st.lv); if (st.m !== 'step') q.set('m', st.m); if (st.o) q.set('o', st.o); if (st.alt) q.set('alt', '1'); }
     try { history.replaceState(null, '', '?' + q.toString()); } catch (e) {}
   }
   function num(v){ var n = Number(v); return (Math.round(n * 1000) / 1000).toLocaleString(); }
@@ -268,6 +269,31 @@ table.ss-all tr.tr td.lv{color:#8a6d00}
     }
     return h + '</div>';
   }
+  function oku(n){
+    if (n == null) return '—';
+    if (n >= 1e8) return '約' + (Math.round(n / 1e7) / 10).toLocaleString() + '億';
+    if (n >= 1e4) return '約' + Math.round(n / 1e4).toLocaleString() + '万';
+    return Math.round(n).toLocaleString();
+  }
+  // ステップ1から合成で上げる費用（失敗すると戻る段階で区間に分ける）
+  function ladderHtml(s){
+    var L = s.ladder, cum = {stones: 1, fee: 0, adena: L.price || 0};
+    var h = "<h2 style='margin-top:10px'>" + esc(s.n) + "：合成で上げる費用</h2>" +
+            "<p class='rf-note'>合成1回でステップ1を1個使います。失敗すると区間の始まり（" + L.segs.map(function(x){ return x.from; }).filter(function(x){ return x > 1; }).join('・') +
+            "）に戻ります。「一気に成功」は区間の始まりから一度も失敗せずに上まで行く確率。ステップ1は店で <b>" + oku(L.price) + "アデナ</b>" +
+            "（アデナ＝ステップ1の代金＋合成の手数料）。「運が悪いと」は90%の人がこれ以下で済む数。</p>";
+    h += "<div class='ss-wrap'><table class='ss-t'><tr><th>区間</th><th>一気に成功</th><th>ステップ1の個数（平均）</th><th>中央値</th><th>運が悪いと（90%）</th>" +
+         "<th>アデナ（平均）</th><th>アデナ（中央値）</th><th>アデナ（90%）</th><th>ステップ1から合計（平均）</th></tr>";
+    L.segs.forEach(function(g){
+      cum.stones += g.stones; cum.fee += g.fee; if (g.adena != null) cum.adena += g.adena;
+      h += '<tr><td>' + g.from + '→' + g.to + "</td><td class='v'>" + (Math.round(g.p_straight * 10000) / 100) + '%</td>' +
+           "<td class='v'>" + Math.round(g.stones).toLocaleString() + "個</td><td class='v'>" + Math.round(g.q50).toLocaleString() + "個</td><td class='v'>" + Math.round(g.q90).toLocaleString() + '個</td>' +
+           "<td class='v'>" + oku(g.adena) + "</td><td class='v'>" + oku(g.adena_q50) + "</td><td class='v'>" + oku(g.adena_q90) + '</td>' +
+           "<td class='v'>" + Math.round(cum.stones).toLocaleString() + '個・' + oku(cum.adena) + '</td></tr>';
+    });
+    return h + "</table></div><p class='rf-note'>手数料は韓国公式ガイドブックの値（1回1万〜4万アデナ）。超越への合成（超越強化石）は含みません。" +
+               "成功確率は韓国公式の確率ページ（強化・合成のページ）の値です。</p>";
+  }
   function soul(){
     var S = D.soul.stones, s = S.filter(function(x){ return x.id === st.s; })[0] || S[0];
     st.s = s.id;
@@ -280,9 +306,12 @@ table.ss-all tr.tr td.lv{color:#8a6d00}
     if (s.alt) h += "<div class='sw'><span class='lb'>部位</span><button type='button' data-alt='0'" + (!st.alt ? " class='on'" : '') +
                     ">兜・上半身・下半身・グローブ・ブーツ</button><button type='button' data-alt='1'" + (st.alt ? " class='on'" : '') + '>' + esc(s.alt.n) + '</button></div>';
     h += "<div class='sw'><span class='lb'>見かた</span><button type='button' data-m='step'" + (st.m === 'step' ? " class='on'" : '') +
-         ">ステップを選ぶ</button><button type='button' data-m='all'" + (st.m === 'all' ? " class='on'" : '') + '>全ステップの表</button></div>';
+         ">ステップを選ぶ</button><button type='button' data-m='all'" + (st.m === 'all' ? " class='on'" : '') + '>全ステップの表</button>' +
+         (s.ladder ? "<button type='button' data-m='cost'" + (st.m === 'cost' ? " class='on'" : '') + '>合成の費用</button>' : '') + '</div>';
     var O = opts(s);
-    if (st.m === 'step') {
+    if (st.m === 'cost' && s.ladder) {
+      h += ladderHtml(s);
+    } else if (st.m === 'step') {
       h += "<div class='sw'><span class='lb'>ステップ</span>" + LVS.filter(function(n){ return n <= maxLv; }).map(function(n){
         return "<button type='button' data-lv='" + n + "' class='" + (n > 20 ? 't' : '') + (n === st.lv ? ' on' : '') + "'>" + (n <= 20 ? n : '超越' + (n - 20)) + '</button>';
       }).join('') + '</div>';
