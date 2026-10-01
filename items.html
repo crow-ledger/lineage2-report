@@ -375,7 +375,7 @@ Lineage II は NC Corporation の登録商標です。</footer>
       if (d.rates) meta.push("<a href='enchant.html?q=" + encodeURIComponent(d.rate_q || d.ko) + "'>強化・合成の確率</a>");
       h += "<div class='meta'>" + meta.join('・') + "</div>";
       if (d.options.length) h += "<h3>基本能力</h3><table class='it-opt'>" + d.options.map(function(o){ return "<tr><td>" + esc(o[0]) + "</td><td>" + esc(o[1]) + "</td></tr>"; }).join('') + "</table>";
-      h += "<div id='it-src'></div>";
+      h += "<div id='it-npc'></div><div id='it-src'></div>";
       var lvs = Object.keys(d.enchant || {}).sort(function(a, b){ return a - b; });
       if (lvs.length) {
         var saved = null; try { saved = localStorage.getItem('l2-item-lv'); } catch (e) {}
@@ -394,8 +394,30 @@ Lineage II は NC Corporation の登録商標です。</footer>
         detail.innerHTML = h + goLinks(d) + more(d);
       }
       loadSrc(d.id);
+      loadNpc(d.id);
       if (window.innerWidth <= 800) detail.scrollIntoView({behavior: 'smooth'});
     }).catch(function(){ detail.innerHTML = "<p class='it-empty'>読み込めませんでした。</p>"; });
+  }
+  // NPCで買って強化した平均の費用（item_sources.write_npc_enchant が作る items/npc_enchant.json。2026-10-02）
+  var NPCE = null;
+  function loadNpc(id){
+    var show = function(){
+      var box = document.getElementById('it-npc');
+      if (!box || !cur || String(cur.id) !== String(id)) return;
+      var e = NPCE && NPCE[String(id)];
+      if (!e) { box.innerHTML = ''; return; }
+      var man = function(n){ return n >= 1e8 ? '約' + (n / 1e8).toFixed(1) + '億' : (n >= 1e4 ? '約' + Math.round(n / 1e4).toLocaleString() + '万' : Math.round(n).toLocaleString()); };
+      var h = "<h3>NPCで買って強化した平均の費用</h3><p class='src-note'>" + esc(e.via) + "で+0を" + man(e.base) + "アデナで買い、失敗して消えたら買い直して強化したときの平均。" +
+              "段階ごとにいちばん安く済む使うものを選んでいます（高級強化石・超越強化石は使わない前提）。</p>" +
+              "<table class='it-opt'><tr><td><b>段階</b></td><td><b>平均の費用</b></td><td><b>成功</b></td><td><b>使うもの</b></td></tr>";
+      e.path.forEach(function(r){ h += "<tr><td>+" + r[0] + "</td><td style='text-align:right'>" + man(r[1]) + "</td><td style='text-align:right'>" + Math.round(r[3] * 100) + "%</td><td>" + esc(r[2]) + "</td></tr>"; });
+      h += "</table>";
+      var notes = Object.keys(e.tools || {}).map(function(k){ return esc(k) + "：" + (e.tools[k][0] ? man(e.tools[k][0]) + "アデナ" : "0アデナ") + "（" + esc(e.tools[k][1]) + "）"; });
+      h += "<p class='src-note'>使うものの価格：" + notes.join("／") + "。<b>強化スクロールの価格は目安</b>で、変われば+7以上の費用が大きく変わります。成功確率は韓国公式の確率ページの値。</p>";
+      box.innerHTML = h;
+    };
+    if (NPCE) { show(); return; }
+    fetch('items/npc_enchant.json').then(function(r){ return r.json(); }).then(function(m){ NPCE = m; show(); }).catch(function(){ NPCE = {}; });
   }
   // 入手方法（item_sources.py が作る items/src/<ID % 32>.json。2026-09-29）
   var SRC = {};
@@ -451,7 +473,7 @@ Lineage II は NC Corporation の登録商標です。</footer>
     if (hit) return hit[0];
     if (hasT(d, WEAPON_T)) return 1;
     for (var i = 0; i < (d.types || []).length; i++) if (ARMOR_P[d.types[i]]) return ARMOR_P[d.types[i]];
-    if (hasT(d, ['ヘアアクセサリー', 'ヘアアクセサリー'])) return 2;
+    if (hasT(d, ['ヘアーアクセサリー', 'ヘアアクセサリー'])) return 2;
     return null;
   }
   function soulLink(d){
