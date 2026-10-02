@@ -375,7 +375,6 @@ Lineage II は NC Corporation の登録商標です。</footer>
       if (d.rates) meta.push("<a href='enchant.html?q=" + encodeURIComponent(d.rate_q || d.ko) + "'>強化・合成の確率</a>");
       h += "<div class='meta'>" + meta.join('・') + "</div>";
       if (d.options.length) h += "<h3>基本能力</h3><table class='it-opt'>" + d.options.map(function(o){ return "<tr><td>" + esc(o[0]) + "</td><td>" + esc(o[1]) + "</td></tr>"; }).join('') + "</table>";
-      h += "<div id='it-npc'></div><div id='it-src'></div>";
       var lvs = Object.keys(d.enchant || {}).sort(function(a, b){ return a - b; });
       if (lvs.length) {
         var saved = null; try { saved = localStorage.getItem('l2-item-lv'); } catch (e) {}
@@ -385,13 +384,14 @@ Lineage II は NC Corporation の登録商標です。</footer>
              "<div class='it-sw'><button type='button' data-v='lv'>段階ごと</button><button type='button' data-v='tbl'>表で比べる</button></div>" +
              "<div id='v-lv'><div class='it-lv'>" + lvs.map(function(l){ return "<button type='button' data-lv='" + l + "'>+" + l + "</button>"; }).join('') + "</div><div id='lvbox'></div></div>" +
              "<div id='v-tbl'>" + cmpTable(d) + "</div>";
-        detail.innerHTML = h + more(d);
+        // 強化段階ごとの効果 → 入手方法 → NPCで買って強化した費用 の順（2026-10-02 利用者の希望で入れ替え）
+        detail.innerHTML = h + "<div id='it-src'></div><div id='it-npc'></div>" + more(d);
         [].forEach.call(detail.querySelectorAll('.it-lv button'), function(b){ b.onclick = function(){ showLevel(d, b.getAttribute('data-lv')); }; });
         [].forEach.call(detail.querySelectorAll('.it-sw button'), function(b){ b.onclick = function(){ setView(b.getAttribute('data-v')); }; });
         showLevel(d, first);
         setView(mode);
       } else {
-        detail.innerHTML = h + goLinks(d) + more(d);
+        detail.innerHTML = h + goLinks(d) + "<div id='it-src'></div><div id='it-npc'></div>" + more(d);
       }
       loadSrc(d.id);
       loadNpc(d.id);
@@ -473,7 +473,7 @@ Lineage II は NC Corporation の登録商標です。</footer>
     if (hit) return hit[0];
     if (hasT(d, WEAPON_T)) return 1;
     for (var i = 0; i < (d.types || []).length; i++) if (ARMOR_P[d.types[i]]) return ARMOR_P[d.types[i]];
-    if (hasT(d, ['ヘアアクセサリー', 'ヘアアクセサリー'])) return 2;
+    if (hasT(d, ['ヘアーアクセサリー', 'ヘアアクセサリー'])) return 2;
     return null;
   }
   function soulLink(d){
