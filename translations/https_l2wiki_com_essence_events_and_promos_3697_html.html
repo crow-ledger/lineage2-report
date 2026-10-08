@@ -1,0 +1,370 @@
+<!DOCTYPE html><html lang='ja'><head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<meta name='robots' content='noindex,nofollow,noarchive'>
+<title>ファントムを追え — 翻訳</title>
+<meta property='og:type' content='article'><meta property='og:title' content='ファントムを追え（日本語訳・非公式）'><meta property='og:image' content='https://crow-ledger.github.io/lineage2-report/og.png'>
+<link rel='icon' type='image/png' href='../favicon.png'><link rel='apple-touch-icon' href='../apple-touch-icon.png'><link rel='preconnect' href='https://fonts.googleapis.com'><link href='https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap' rel='stylesheet'>
+<style>
+:root{--ink:rgba(0,0,0,.87);--muted:#6b6f76;--line:#d9d9d9;--soft:#f3f4f6;--accent:#25b4c8;--link:#1a56b5}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);line-height:1.8;font-size:15px;
+ font-family:"Noto Sans JP",system-ui,-apple-system,"Segoe UI","Hiragino Sans",sans-serif}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+.trans-top{background:#141414;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px}
+.trans-top a{color:#fff;font-weight:500;letter-spacing:.06em}
+.trans-top .unofficial{font-size:.68rem;border:1px solid #777;color:#ccc;padding:0 6px;border-radius:3px}
+.trans-sub{background:linear-gradient(#2b2e33,#1f2226);padding:9px 16px;font-size:.88rem}
+.trans-sub a{color:#9fe3ee}
+.wrap{max-width:860px;margin:0 auto;padding:18px 16px 10px}
+h1{font-size:1.5rem;font-weight:500;margin:4px 0 10px;line-height:1.5}
+h2{font-size:1.1rem;margin:28px 0 10px;background:var(--soft);border-left:6px solid var(--accent);padding:6px 12px}
+h3,h4,h5{font-size:1rem;margin:20px 0 6px;color:var(--link)}
+p{margin:8px 0}
+p.li{margin:4px 0 4px 1.1em;text-indent:-1.1em}
+p.li:before{content:"・"}
+.bar{background:var(--soft);border-radius:6px;padding:10px 14px;margin:0 0 18px;font-size:.85rem;
+ overflow-wrap:anywhere}
+.muted{color:var(--muted)}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.9rem}
+th,td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#111;color:#fff;font-weight:500}
+hr{border:0;border-top:1px solid var(--line);margin:20px 0}
+td img.ico{width:28px;height:28px;vertical-align:middle;margin:0 6px 2px 0;border-radius:3px}
+td[rowspan]{vertical-align:middle;background:#fafafa}
+td.kp{white-space:nowrap;font-weight:700;color:#d6333e;font-variant-numeric:tabular-nums}
+.kp-note{font-size:.8rem;color:var(--muted)}
+footer{background:#2b2b2b;color:#bbb;font-size:.8rem;padding:16px;margin:36px -16px -10px;line-height:1.8}
+footer strong{color:#fff}
+/* スマホ（幅640px以下）だけ：表を横にスクロールでき、列が細くなりすぎないようにする。PCの表示は変えない（10-41-5） */
+/*m640*/@media (max-width:640px){table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;font-size:.8rem}th,td{padding:4px 6px;min-width:5.5em}td.kp{min-width:0}td img.ico{width:22px;height:22px;margin-right:4px}}
+</style></head><body><div class='trans-top' style='display:flex;align-items:center;gap:10px;flex-wrap:wrap'><a href='../'>リネージュ2 情報収集レポート</a><span class='unofficial'>非公式</span><nav style='margin-left:auto;display:flex;gap:4px;flex-wrap:wrap;font-size:.8rem'><a href='../' style='color:#c7cbd1;padding:0 8px'>TOP</a><a href='../gacha.html' style='color:#c7cbd1;padding:0 8px'>ガチャ・イベント</a><a href='../kr_updates.html' style='color:#c7cbd1;padding:0 8px'>韓国の先行アップデート</a><a href='../kr_events.html' style='color:#c7cbd1;padding:0 8px'>韓国→日本の時間差</a><a href='../items.html' style='color:#c7cbd1;padding:0 8px'>アイテム検索</a><a href='../enchant.html' style='color:#c7cbd1;padding:0 8px'>強化・合成</a><a href='../refine.html' style='color:#c7cbd1;padding:0 8px'>精錬・ソウル ストーン</a><a href='../boss_drops.html' style='color:#c7cbd1;padding:0 8px'>ボスのドロップ</a></nav></div><div class='trans-sub'><a href='../gacha.html'>← ガチャ・イベントに戻る</a></div><div class='wrap'>
+<div class='bar'>
+<div><strong>EU</strong>　October 7, 2026, at 10:00</div>
+<div class='muted'>原文: <a href='https://l2wiki.com/essence/events_and_promos/3697.html' target='_blank' rel='noopener'>https://l2wiki.com/essence/events_and_promos/3697.html</a></div>
+<div class='muted'>機械翻訳／ 2026-10-08 12:06 時点</div>
+</div>
+<h1>ファントムを追え</h1>
+<p>開催期間：2026年10月7日（10:00 UTC+03）～2026年10月14日（10:00 UTC+03）</p>
+<p>追跡開始！特別チケットで事前強化済みの+10ファントムマスクへの近道が開け、さらに新しい製作オプションでより貴重なアイテムも手の届く範囲に。</p>
+<h3>Lコインストア</h3>
+<p class='li'>Lコインストアに新商品が登場：</p>
+<table>
+<tr><th>商品名<br>販売期間</th><th>購入制限</th><th>レベル</th><th>価格</th></tr>
+<tr><td><img class='ico' src='../icons/eu/bm_2018_jewelbox_random.png' alt='' loading='lazy'>フェスタパック：ファントムラッシュ（期間限定）刻印<br>2026年10月7日～2026年10月14日（10:00 AM）</td><td></td><td>—</td><td>2,000 L-コイン</td></tr>
+</table>
+<h3>パック内容</h3>
+<p class='li'>パックにはレアアイテムが含まれています。</p>
+<p class='li'>下のタブを切り替えて内容をご確認ください。</p>
+<p><strong>フェスタパック：ファントムラッシュ（期間限定）刻印</strong></p>
+<p>メール送信不可</p>
+<p>アカウント内移動不可</p>
+<p>ワールドトレードでの販売不可</p>
+<h5>ランダムアイテム</h5>
+<p>ボックスを開封すると、一定の確率で以下のいずれかのアイテムを獲得できます：</p>
+<table>
+<tr><th>名前</th><th>数量</th><th>種類</th></tr>
+<tr><td><img class='ico' src='../icons/eu/level_reward_immortal_ring_i01.png' alt='' loading='lazy'>パッケージ：不滅のリング 刻印<br>メール送信不可<br>アカウント内移動不可<br>ワールドトレードでの販売不可<br>このアイテム獲得時は全サーバーに告知されます。</td><td>1</td><td>バンドルアイテム</td></tr>
+<tr><td><img class='ico' src='../icons/eu/ev_sb_5_trade_ticket.png' alt='' loading='lazy'>伝説の魔法書交換券刻印<br>メール送信不可<br>アカウント内移動不可<br>ワールドトレードでの販売不可<br>このアイテム獲得時は全サーバーに告知されます。</td><td>1</td><td>その他アイテム</td></tr>
+<tr><td><img class='ico' src='../icons/eu/nobless_cloak_i00.png' alt='' loading='lazy'>パッケージ：天上マント刻印<br>メール送信不可<br>アカウント内移動可<br>ワールドトレードでの販売不可<br>このアイテム獲得時は全サーバーに告知されます。</td><td>1</td><td>バンドルアイテム</td></tr>
+<tr><td><img class='ico' src='../icons/eu/bm_pendant_of_grankain_i00.png' alt='' loading='lazy'>パッケージ：グランカインのペンダント刻印<br>メール送信不可<br>アカウント内移動可<br>ワールドトレードでの販売不可<br>このアイテム獲得時は全サーバーに告知されます。</td><td>1</td><td>バンドルアイテム</td></tr>
+<tr><td><img class='ico' src='../icons/eu/agathion_valakas_i01.png' alt='' loading='lazy'>パッケージ：アガシオン ヴァラカス刻印<br>メール送信不可<br>アカウント内移動可<br>ワールドトレードでの販売不可<br>このアイテム獲得時は全サーバーに告知されます。</td><td>1</td><td>バンドルアイテム</td></tr>
+<tr><td><img class='ico' src='../icons/eu/ev_sb_4_trade_ticket.png' alt='' loading='lazy'>英雄の魔法書交換券刻印<br>メール送信不可<br>アカウント内移動不可<br>ワールドトレードでの販売不可<br>このアイテム獲得時は全サーバーに告知されます。</td><td>1</td><td>その他アイテム</td></tr>
+<tr><td><img class='ico' src='../icons/eu/doll_summon_1_ticket_lv6.png' alt='' loading='lazy'>人形召喚券（伝説）- 1回刻印<br>メール送信不可<br>アカウント内移動不可<br>ワールドトレードでの販売不可<br>このアイテム獲得時は全サーバーに告知されます。</td><td>1</td><td>その他アイテム</td></tr>
+<tr><td><img class='ico' src='../icons/eu/bm_sayha_silver_present.png' alt='' loading='lazy'>+2レアアクセサリーパック（期間限定）刻印<br>メール送信不可<br>アカウント内移動不可<br>ワールドトレードでの販売不可<br>このアイテム獲得時は全サーバーに告知されます。</td><td>1</td><td>バンドルアイテム</td></tr>
+<tr><td><img class='ico' src='../icons/eu/mask_of_phantom_i00.png' alt='' loading='lazy'>パッケージ：+7ファントムマスク（期間限定）<br>メール送信可<br>アカウント内移動不可<br>ワールドトレードでの販売不可<br>このアイテム獲得時は全サーバーに告知されます。</td><td>1</td><td>バンドルアイテム</td></tr>
+<tr><td><img class='ico' src='../icons/eu/l_scrl_of_ench_wp.png' alt='' loading='lazy'>強化スクロール（期間限定）刻印<br>メール送信不可<br>アカウント内移動不可<br>ワールドトレードでの販売不可</td><td>1</td><td>スクロール</td></tr>
+<tr><td><img class='ico' src='../icons/eu/episode_scrl_of_ench_hair.png' alt='' loading='lazy'>選択交換券：ファントムマスク／ギランシギル（期間限定）刻印<br>メール送信不可<br>アカウント内移動不可<br>ワールドトレードでの販売不可</td><td>1</td><td>その他アイテム</td></tr>
+</table>
+<h5>確定アイテム</h5>
+<p>ボックスを開封すると、以下のアイテムを100%の確率で獲得できます：</p>
+<table>
+<tr><th>名前</th><th>数量</th><th>種類</th></tr>
+<tr><td><img class='ico' src='../icons/eu/red_save_ticket.png' alt='' loading='lazy'>ラッシュチケット：+10ファントムマスク（期間限定）刻印<br>メール送信不可<br>アカウント内移動不可<br>ワールドトレードでの販売不可</td><td>1</td><td>その他アイテム</td></tr>
+</table>
+<p class='li'>ラッシュチケット：+10ファントムマスク（期間限定）刻印は、鍛造炉で役立ちます。</p>
+<p class='li'>オファーボックスの確率については、専用記事「オファーボックス確率」をご確認ください。</p>
+<h3>選択交換券：ファントムマスク／ギランシギル</h3>
+<p class='li'>パックから入手した交換券は、インベントリ内でマスクキットとギランシギルに交換できます。</p>
+<table>
+<tr><th>アイテム</th><th>必要数</th></tr>
+<tr><td><img class='ico' src='../icons/eu/etc_readybox_black.png' alt='' loading='lazy'>強化キット：ファントムマスク刻印<br>x500</td><td>選択交換券：ファントムマスク／ギランシギル（期間限定）刻印 x1</td></tr>
+<tr><td><img class='ico' src='../icons/eu/etc_royal_seal_of_lord_i04.png' alt='' loading='lazy'>ギランシギル<br>x100</td><td>選択交換券：ファントムマスク／ギランシギル（期間限定）刻印 x1</td></tr>
+</table>
+<h3>特殊製作</h3>
+<p class='li'>再び鍛冶の音が響く――鍛冶師たちがお待ちしています！</p>
+<p class='li'>下のタブを切り替えて利用可能な製作オプションをご確認ください。</p>
+<h5>ギランシギル用</h5>
+<p class='li'>パッケージ：ドラゴン武器パック交換券（期間限定）</p>
+<p class='li'>パッケージ：+5バイウム タリスマン（刻印）</p>
+<p class='li'>安全な武器強化スクロール</p>
+<p class='li'>安全な防具強化スクロール</p>
+<p>イベント限定製作</p>
+<h5>パッケージ：ドラゴン武器パック交換券（期間限定）</h5>
+<p>サーバー制限：1（合計）</p>
+<p>2026年10月7日（08:00 PM）から</p>
+<p>2026年10月14日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/dragon_wp_fafurion_ancientsword_i00.png' alt='' loading='lazy'>パッケージ：ドラゴン武器パック交換券（期間限定）刻印</td><td>0.0001%</td><td>x1</td></tr>
+<tr><td><img class='ico' src='../icons/eu/etc_scroll_of_tiger_a.png' alt='' loading='lazy'>ガーディアン交換券／供給命令書（期間限定）刻印</td><td>99.9999%</td><td>x1</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>ギランシギル x1</p>
+<p>イベント限定製作</p>
+<h5>パッケージ：+5バイウム タリスマン（刻印）</h5>
+<p>サーバー制限：10</p>
+<p>2026年10月7日（08:00 PM）から</p>
+<p>2026年10月14日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/baium_talisman_new.png' alt='' loading='lazy'>アイテムID 100554</td><td>15%</td><td>x1</td></tr>
+<tr><td><img class='ico' src='../icons/eu/etc_royal_seal_of_lord_i04.png' alt='' loading='lazy'>ギランシギル</td><td>85%</td><td>x15</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>ギランシギル x294</p>
+<p>イベント限定製作</p>
+<h5>安全な武器強化スクロール</h5>
+<p>サーバー制限：20</p>
+<p>2026年10月7日（08:00 PM）から</p>
+<p>2026年10月14日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/giant_scrl_of_ench_wp_a.png' alt='' loading='lazy'>アイテムID 101541</td><td>15%</td><td>x10</td></tr>
+<tr><td><img class='ico' src='../icons/eu/etc_royal_seal_of_lord_i04.png' alt='' loading='lazy'>ギランシギル</td><td>85%</td><td>x10</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>ギランシギル x290</p>
+<p>イベント限定製作</p>
+<h5>安全な防具強化スクロール</h5>
+<p>サーバー制限：20</p>
+<p>2026年10月7日（08:00 PM）から</p>
+<p>2026年10月14日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/giant_scrl_of_ench_am_a.png' alt='' loading='lazy'>アイテムID 101542</td><td>15%</td><td>x10</td></tr>
+<tr><td><img class='ico' src='../icons/eu/etc_royal_seal_of_lord_i04.png' alt='' loading='lazy'>ギランシギル</td><td>85%</td><td>x10</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>ギランシギル x243</p>
+<h5>ラッシュチケット＆ギランシギル用</h5>
+<p class='li'>+10ファントムマスク（0.1%）</p>
+<p class='li'>+10ファントムマスク（0.5%）</p>
+<p class='li'>+10ファントムマスク（3%）</p>
+<p class='li'>+10ファントムマスク（20%）</p>
+<p class='li'>+10ファントムマスク（50%）</p>
+<p class='li'>特殊装備用精錬石</p>
+<p>イベントフェスティバル：ファントムラッシュ</p>
+<h5>+10ファントムマスク（0.1%）</h5>
+<p>無制限</p>
+<p>2026年10月7日（10:00 AM）から</p>
+<p>2026年10月21日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/mask_of_phantom_i00.png' alt='' loading='lazy'>アイテムID 103254</td><td>0.1%</td><td>x1</td></tr>
+<tr><td><img class='ico' src='../icons/eu/etc_royal_seal_of_lord_i04.png' alt='' loading='lazy'>ギランシギル</td><td>99.9%</td><td>x10</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>ラッシュチケット：+10ファントムマスク（期間限定）刻印 x1</p>
+<p>イベントフェスティバル：ファントムラッシュ</p>
+<h5>+10ファントムマスク（0.5%）</h5>
+<p>無制限</p>
+<p>2026年10月7日（10:00 AM）から</p>
+<p>2026年10月21日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/mask_of_phantom_i00.png' alt='' loading='lazy'>アイテムID 103254</td><td>0.5%</td><td>x1</td></tr>
+<tr><td><img class='ico' src='../icons/eu/etc_royal_seal_of_lord_i04.png' alt='' loading='lazy'>ギランシギル</td><td>99.5%</td><td>x20</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>ラッシュチケット：+10ファントムマスク（期間限定）刻印 x3</p>
+<p>イベントフェスティバル：ファントムラッシュ</p>
+<h5>+10ファントムマスク（3%）</h5>
+<p>無制限</p>
+<p>2026年10月7日（10:00 AM）から</p>
+<p>2026年10月21日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/mask_of_phantom_i00.png' alt='' loading='lazy'>アイテムID 103254</td><td>3%</td><td>x1</td></tr>
+<tr><td><img class='ico' src='../icons/eu/etc_royal_seal_of_lord_i04.png' alt='' loading='lazy'>ギランシギル</td><td>97%</td><td>x50</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>ラッシュチケット：+10ファントムマスク（期間限定）刻印 x10</p>
+<p>イベントフェスティバル：ファントムラッシュ</p>
+<h5>+10ファントムマスク（20%）</h5>
+<p>無制限</p>
+<p>2026年10月7日（10:00 AM）から</p>
+<p>2026年10月21日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/mask_of_phantom_i00.png' alt='' loading='lazy'>アイテムID 103254</td><td>20%</td><td>x1</td></tr>
+<tr><td><img class='ico' src='../icons/eu/etc_royal_seal_of_lord_i04.png' alt='' loading='lazy'>ギランシギル</td><td>80%</td><td>x100</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>ラッシュチケット：+10ファントムマスク（期間限定）刻印 x50</p>
+<p>イベントフェスティバル：ファントムラッシュ</p>
+<h5>+10ファントムマスク（50%）</h5>
+<p>無制限</p>
+<p>2026年10月7日（10:00 AM）から</p>
+<p>2026年10月21日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/mask_of_phantom_i00.png' alt='' loading='lazy'>アイテムID 103254</td><td>50%</td><td>x1</td></tr>
+<tr><td><img class='ico' src='../icons/eu/etc_royal_seal_of_lord_i04.png' alt='' loading='lazy'>ギランシギル</td><td>50%</td><td>x200</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>ラッシュチケット：+10ファントムマスク（期間限定）刻印 x100</p>
+<p>イベントフェスティバル：ファントムラッシュ</p>
+<h5>特殊装備用精錬石</h5>
+<p>無制限</p>
+<p>2026年10月7日（10:00 AM）から</p>
+<p>2026年10月21日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/variation_mineral_bm.png' alt='' loading='lazy'>アイテムID 97788</td><td>100%</td><td>x1</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>ギランシギル x1</p>
+<h5>マスク＆ギランシギル用</h5>
+<p class='li'>パッケージ：+10ピアシングマスク</p>
+<p class='li'>パッケージ：+10祝福ピアシングマスク</p>
+<p class='li'>パッケージ：+9ピアシングマスク</p>
+<p class='li'>パッケージ：+9祝福ピアシングマスク</p>
+<p class='li'>パッケージ：+10ファントムマスク</p>
+<p class='li'>パッケージ：+10祝福ファントムマスク</p>
+<p class='li'>パッケージ：+9ファントムマスク</p>
+<p class='li'>パッケージ：+9祝福ファントムマスク</p>
+<p>イベントマスク種類変更</p>
+<h5>パッケージ：+10ピアシングマスク</h5>
+<p>無制限</p>
+<p>2026年10月7日（10:00 AM）から</p>
+<p>2026年10月14日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/accessory_black_half_face_i00.png' alt='' loading='lazy'>アイテムID 104736</td><td>100%</td><td>x1</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>+10ファントムマスク刻印 x1</p>
+<p>ギランシギル x3,000</p>
+<p>イベントマスク種類変更</p>
+<h5>パッケージ：+10祝福ピアシングマスク</h5>
+<p>無制限</p>
+<p>2026年10月7日（10:00 AM）から</p>
+<p>2026年10月14日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/bless_accessory_black_half_face_i00.png' alt='' loading='lazy'>アイテムID 102680</td><td>100%</td><td>x1</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>+10祝福ファントムマスク刻印 x1</p>
+<p>ギランシギル x6,000</p>
+<p>イベントマスク種類変更</p>
+<h5>パッケージ：+9ピアシングマスク</h5>
+<p>無制限</p>
+<p>2026年10月7日（10:00 AM）から</p>
+<p>2026年10月14日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/accessory_black_half_face_i00.png' alt='' loading='lazy'>アイテムID 101286</td><td>100%</td><td>x1</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>+9ファントムマスク刻印 x1</p>
+<p>ギランシギル x600</p>
+<p>イベントマスク種類変更</p>
+<h5>パッケージ：+9祝福ピアシングマスク</h5>
+<p>無制限</p>
+<p>2026年10月7日（10:00 AM）から</p>
+<p>2026年10月14日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/bless_accessory_black_half_face_i00.png' alt='' loading='lazy'>アイテムID 102679</td><td>100%</td><td>x1</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>+9祝福ファントムマスク刻印 x1</p>
+<p>ギランシギル x1,200</p>
+<p>イベントマスク種類変更</p>
+<h5>パッケージ：+10ファントムマスク</h5>
+<p>無制限</p>
+<p>2026年10月7日（10:00 AM）から</p>
+<p>2026年10月14日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/mask_of_phantom_i00.png' alt='' loading='lazy'>アイテムID 103254</td><td>100%</td><td>x1</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>+10ピアシングマスク刻印 x1</p>
+<p>ギランシギル x3,000</p>
+<p>イベントマスク種類変更</p>
+<h5>パッケージ：+10祝福ファントムマスク</h5>
+<p>無制限</p>
+<p>2026年10月7日（10:00 AM）から</p>
+<p>2026年10月14日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/bless_mask_of_phantom_i01.png' alt='' loading='lazy'>アイテムID 102687</td><td>100%</td><td>x1</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>+10祝福ピアシングマスク刻印 x1</p>
+<p>ギランシギル x6,000</p>
+<p>イベントマスク種類変更</p>
+<h5>パッケージ：+9ファントムマスク</h5>
+<p>無制限</p>
+<p>2026年10月7日（10:00 AM）から</p>
+<p>2026年10月14日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/mask_of_phantom_i00.png' alt='' loading='lazy'>アイテムID 102650</td><td>100%</td><td>x1</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>+9ピアシングマスク刻印 x1</p>
+<p>ギランシギル x600</p>
+<p>イベントマスク種類変更</p>
+<h5>パッケージ：+9祝福ファントムマスク</h5>
+<p>無制限</p>
+<p>2026年10月7日（10:00 AM）から</p>
+<p>2026年10月14日（10:00 AM）まで</p>
+<table>
+<tr><th>アイテム</th><th>確率</th><th>数量</th></tr>
+<tr><td><img class='ico' src='../icons/eu/bless_mask_of_phantom_i01.png' alt='' loading='lazy'>アイテムID 102686</td><td>100%</td><td>x1</td></tr>
+</table>
+<h5>製作費用</h5>
+<p>+9祝福ピアシングマスク刻印 x1</p>
+<p>ギランシギル x1,200</p>
+<h3>ガーディアン交換券／供給命令書</h3>
+<p class='li'>製作失敗時に入手した交換券は、ガーディアンやそのアクセサリー、便利な物資と交換できます。</p>
+<table>
+<tr><th>アイテム</th><th>必要数</th></tr>
+<tr><td><img class='ico' src='../icons/eu/etc_recall_exp_scroll.png' alt='' loading='lazy'>経験値成長スクロール（期間限定）刻印<br>x2</td><td>ガーディアン交換券／供給命令書（期間限定）刻印 x1</td></tr>
+<tr><td><img class='ico' src='../icons/eu/bereserker_scroll_i00.png' alt='' loading='lazy'>バーサーカースクロール（期間限定）刻印<br>x1</td><td>ガーディアン交換券／供給命令書（期間限定）刻印 x1</td></tr>
+<tr><td><img class='ico' src='../icons/eu/exp_bottle_scroll.png' alt='' loading='lazy'>アインハザードの祝福スクロール（期間限定）刻印<br>x1</td><td>ガーディアン交換券／供給命令書（期間限定）刻印 x1</td></tr>
+<tr><td><img class='ico' src='../icons/eu/etc_powder_orange_i00.png' alt='' loading='lazy'>ヒドゥンパワーブースター刻印<br>x1</td><td>ガーディアン交換券／供給命令書（期間限定）刻印 x2</td></tr>
+<tr><td><img class='ico' src='../icons/eu/bm_hero_book_mineral.png' alt='' loading='lazy'>アデン探査レポート（期間限定）刻印<br>x1</td><td>ガーディアン交換券／供給命令書（期間限定）刻印 x2</td></tr>
+<tr><td><img class='ico' src='../icons/eu/etc_scroll_of_tiger_a.png' alt='' loading='lazy'>ガーディアンリング刻印<br>x1</td><td>ガーディアン交換券／供給命令書（期間限定）刻印 x200</td></tr>
+<tr><td><img class='ico' src='../icons/eu/etc_scroll_of_tiger_a.png' alt='' loading='lazy'>ガーディアンイアリング刻印<br>x1</td><td>ガーディアン交換券／供給命令書（期間限定）刻印 x200</td></tr>
+<tr><td><img class='ico' src='../icons/eu/etc_scroll_of_tiger_a.png' alt='' loading='lazy'>ガーディアン アミュレット刻印<br>x1</td><td>ガーディアン交換券／供給命令書（期間限定）刻印 x500</td></tr>
+<tr><td><img class='ico' src='../icons/eu/raven_contract.png' alt='' loading='lazy'>契約書刻印：レイヴン<br>x1</td><td>ガーディアン交換券／供給命令書（期間限定）刻印 x500</td></tr>
+<tr><td><img class='ico' src='../icons/eu/vulkan_contract.png' alt='' loading='lazy'>契約書刻印：ヴァルカン<br>x1</td><td>ガーディアン交換券／供給命令書（期間限定）刻印 x2,500</td></tr>
+<tr><td><img class='ico' src='../icons/eu/glassica_contract.png' alt='' loading='lazy'>契約書刻印：グラシア<br>x1</td><td>ガーディアン交換券／供給命令書（期間限定）刻印 x3,500</td></tr>
+</table>
+<h3>提供終了</h3>
+<p class='li'>以下のアイテムは記載の日に削除されます。</p>
+<h5>アイテム</h5>
+<table>
+<tr><th>名前</th><th>失効日</th></tr>
+<tr><td><img class='ico' src='../icons/eu/bm_hero_book_mineral.png' alt='' loading='lazy'>アデン探査レポート（期間限定）刻印</td><td>2026年10月21日</td></tr>
+<tr><td><img class='ico' src='../icons/eu/newserver_token_01.png' alt='' loading='lazy'>精霊の支配者の感謝（期間限定）刻印</td><td>2026年10月21日</td></tr>
+<tr><td><img class='ico' src='../icons/eu/dragon_wp_fafurion_ancientsword_i00.png' alt='' loading='lazy'>パッケージ：ドラゴン武器パック交換券（期間限定）刻印</td><td>2026年10月21日</td></tr>
+<tr><td><img class='ico' src='../icons/eu/bm_sayha_silver_present.png' alt='' loading='lazy'>+2レアアクセサリーパック（期間限定）刻印</td><td>2026年10月21日</td></tr>
+<tr><td><img class='ico' src='../icons/eu/mask_of_phantom_i00.png' alt='' loading='lazy'>パッケージ：+7ファントムマスク（期間限定）</td><td>2026年10月21日</td></tr>
+<tr><td><img class='ico' src='../icons/eu/red_save_ticket.png' alt='' loading='lazy'>ラッシュチケット：+10ファントムマスク（期間限定）刻印</td><td>2026年10月21日</td></tr>
+<tr><td><img class='ico' src='../icons/eu/bm_2018_jewelbox_random.png' alt='' loading='lazy'>フェスタパック：ファントムラッシュ（期間限定）刻印</td><td>2026年10月21日</td></tr>
+<tr><td><img class='ico' src='../icons/eu/episode_scrl_of_ench_hair.png' alt='' loading='lazy'>選択交換券：ファントムマスク／ギランシギル（期間限定）刻印</td><td>2026年10月21日</td></tr>
+<tr><td><img class='ico' src='../icons/eu/etc_scroll_of_tiger_a.png' alt='' loading='lazy'>ガーディアン交換券／供給命令書（期間限定）刻印</td><td>2026年10月21日</td></tr>
+</table>
+<footer>
+<p>このページは個人が各地域の公式お知らせを機械翻訳したものです。
+<strong>公式の翻訳ではありません。</strong>訳の誤りが含まれる可能性があります。
+正確な内容は必ず上記の原文（公式サイト）をご確認ください。</p>
+<p>NCSOFT・エヌ・シー・ジャパン・Innova 各社とは関係のない非公式のページです。
+Lineage II は NC Corporation の登録商標です。</p>
+</footer></div></body></html>
